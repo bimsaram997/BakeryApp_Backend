@@ -16,6 +16,8 @@ namespace BakeryApp.Controllers
   
            _foodItemRepository = foodItemRepository;
         }
+
+        //Add food item
         [HttpPost("addFood")]
         public IActionResult AddFoodItem([FromBody] AddFoodItemRequest foodItemRequest)
         {
