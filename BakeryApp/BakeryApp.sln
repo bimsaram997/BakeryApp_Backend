@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BakeryApp", "BakeryApp.csproj", "{B788FA06-63DA-4480-9B57-D420820AC762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{6856893F-DB53-4D1B-9630-E59839593F43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "..\Repositories\Repositories.csproj", "{BEB58036-11CC-4209-853F-999E62249080}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B788FA06-63DA-4480-9B57-D420820AC762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B788FA06-63DA-4480-9B57-D420820AC762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B788FA06-63DA-4480-9B57-D420820AC762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B788FA06-63DA-4480-9B57-D420820AC762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6856893F-DB53-4D1B-9630-E59839593F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6856893F-DB53-4D1B-9630-E59839593F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6856893F-DB53-4D1B-9630-E59839593F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6856893F-DB53-4D1B-9630-E59839593F43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEB58036-11CC-4209-853F-999E62249080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEB58036-11CC-4209-853F-999E62249080}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEB58036-11CC-4209-853F-999E62249080}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEB58036-11CC-4209-853F-999E62249080}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09CE6711-7B87-4F1F-9671-624EFF7FEE6A}
+	EndGlobalSection
+EndGlobal
