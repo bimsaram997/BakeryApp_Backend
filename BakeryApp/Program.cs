@@ -1,7 +1,15 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Models.Data;
+using Models.ViewModels;
+using Models.ViewModels.FoodItem;
+using Models.ViewModels.FoodType;
+using Models.ViewModels.RawMaterial;
 using Repositories;
+using Repositories.FoodItemRepository;
+using Repositories.FoodTypeRepository;
+using Repositories.RawMarerialRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +18,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
 builder.Configuration.GetConnectionString("DefaultConnectionString")
 ));
+builder.Services.AddTransient<IFoodItemRepository, FoodItemRepository>();
+builder.Services.AddTransient<IFoodTypeRepository, FoodTypeRepository>();
 builder.Services.AddTransient<IRepositoryBase<FoodItemVM>, FoodItemRepository>();
-
+builder.Services.AddTransient<IRepositoryBase<FoodTypeVM>, FoodTypeRepository>();
+builder.Services.AddTransient<IRepositoryAllBase<AllFoodItemVM>, AllFoodItemRepository>();
+builder.Services.AddTransient<IRepositoryBase<RawMaterialVM>, RawMaterialRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

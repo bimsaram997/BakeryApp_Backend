@@ -1,30 +1,56 @@
 ﻿
 using Models.Data;
+using Models.Data.FoodItemData;
+using Models.ViewModels;
+using Models.ViewModels.FoodItem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories
+namespace Repositories.FoodItemRepository
 {
-    public class FoodItemRepository : IRepositoryBase<FoodItemVM>
+    public interface IFoodItemRepository 
+    {
+        int UpdateByFoodCode(string foodCode);
+    }
+    public class FoodItemRepository : IRepositoryBase<FoodItemVM>, IFoodItemRepository
     {
         private AppDbContext _context;
         public FoodItemRepository(AppDbContext context)
         {
             _context = context;
         }
+
+        public int UpdateByFoodCode(string foodCode)
+        {
+            return 1;
+        }
         public int Add(FoodItemVM foodItem)
         {
+            var lastFoodType = _context.FoodItems.OrderByDescending(fi => fi.FoodCode).FirstOrDefault();
+            int newFoodTypeNumber = 1; // Default if no existing records
+
+            if (lastFoodType != null)
+            {
+                // Extract the number part of the FoodCode and increment it
+                if (int.TryParse(lastFoodType.FoodCode.Substring(1), out int lastCodeNumber))
+                {
+                    newFoodTypeNumber = lastCodeNumber + 1;
+                }
+            }
+
+            string newFoodCode = $"F{newFoodTypeNumber:D4}";
             var _foodItem = new FoodItem()
             {
-                FoodCode = foodItem.FoodCode,
-                FoodName = foodItem.FoodName,
+                FoodCode = newFoodCode,
+      
                 FoodDescription = foodItem.FoodDescription,
                 FoodPrice = foodItem.FoodPrice,
                 AddedDate = DateTime.Now,
                 ImageURL = foodItem.ImageURL,
+                FoodTypeId = foodItem.FoodTypeId,
             };
 
             _context.FoodItems.Add(_foodItem);
@@ -42,23 +68,7 @@ namespace Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<FoodItemVM> GetAll()
-        {
-            var allFoodItems = _context.FoodItems.ToList();
-            var foodItemVMs = allFoodItems.Select(foodItem => new FoodItemVM
-            {
-                // Map properties from FoodItem to FoodItemVM here
-                Id = foodItem.Id,
-                FoodName = foodItem.FoodName,
-                FoodCode= foodItem.FoodCode,
-                FoodDescription= foodItem.FoodDescription,
-                FoodPrice= foodItem.FoodPrice,
-                AddedDate = foodItem.AddedDate,
-                ImageURL = foodItem.ImageURL,
-            });
-
-            return foodItemVMs;
-        }
+        
 
         public FoodItemVM GetById(int id)
         {

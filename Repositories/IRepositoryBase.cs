@@ -8,10 +8,16 @@ namespace Repositories
 {
     public interface IRepositoryBase<TEntity>
     {
-        IEnumerable<TEntity> GetAll();
+     
         TEntity GetById(int id);
         int Add(TEntity entity);
         int DeleteById(int id);
         int UpdateById(TEntity entity);
+        
+    }
+
+    public interface IFoodTypeRepository
+    {
+        int UpdateFoodTypeCountByFoodTypeId(int Id);
     }
 }
