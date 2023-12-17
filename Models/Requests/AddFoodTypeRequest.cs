@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Data.RawMaterialData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace Models.Requests
         public int FoodTypeCount { get; set; }
         public string ImageURL { get; set; }
         public List<int> RawMaterialIds { get; set; }
+      
     }
 }

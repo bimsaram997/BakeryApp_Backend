@@ -20,4 +20,9 @@ namespace Repositories
     {
         int UpdateFoodTypeCountByFoodTypeId(int Id);
     }
+
+    public interface IFoodTypeRawMaterialRepository<TEntity>
+    {
+        IEnumerable<TEntity> GetByFoodTypeId(int id);
+    }
 }

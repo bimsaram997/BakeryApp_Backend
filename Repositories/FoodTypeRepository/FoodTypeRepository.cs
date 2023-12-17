@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.FoodTypeRepository
 {
-    public class FoodTypeRepository : IRepositoryBase<FoodTypeVM>, IFoodTypeRepository
+    public class FoodTypeRepository : IRepositoryBase<FoodTypeVM>, IFoodTypeRepository, IFoodTypeRawMaterialRepository<FoodTypeRawMaterialVM>
     {
         private AppDbContext _context;
         public FoodTypeRepository(AppDbContext context)
@@ -100,6 +100,18 @@ namespace Repositories.FoodTypeRepository
             throw new NotImplementedException();
         }
 
-       
+        public IEnumerable<FoodTypeRawMaterialVM> GetByFoodTypeId(int Id)
+        {
+            var allFoodTypeRawMaterials = _context.RawMaterial_FoodTypes.Where(n => n.FoodTypeId == Id);
+            var foodTypeRawMaterialVM = allFoodTypeRawMaterials.Select(rawMaterialFoodType => new FoodTypeRawMaterialVM
+            {
+                Id = rawMaterialFoodType.Id,
+                RawMaterialId = rawMaterialFoodType.RawMaterialId,
+                FoodTypeId = rawMaterialFoodType.FoodTypeId
+            });
+
+            return foodTypeRawMaterialVM;
+            
+        }
     }
 }

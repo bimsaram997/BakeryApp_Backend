@@ -30,6 +30,7 @@ namespace BakeryApp.Controllers
                 Quantity = rawMaterialRequest.Quantity,
                 ImageURL = rawMaterialRequest.ImageURL,
                 AddedDate = DateTime.Now,
+                RawMaterialQuantityType = rawMaterialRequest.RawMaterialQuantityType
 
 
             };

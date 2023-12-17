@@ -2,6 +2,7 @@
 using Models.Data.FoodItemData;
 using Models.Data.RawMaterialData;
 using Models.ViewModels.FoodItem;
+using Models.ViewModels.FoodType;
 using Models.ViewModels.RawMaterial;
 using System;
 using System.Collections.Generic;
@@ -58,9 +59,19 @@ namespace Repositories.RawMarerialRepository
             throw new NotImplementedException();
         }
 
-        public RawMaterialVM GetById(int id)
+        public RawMaterialVM GetById(int Id)
         {
-            throw new NotImplementedException();
+            var rawMaterial = _context.RawMaterials.Where(n => n.Id == Id).Select(rawMaterial => new RawMaterialVM()
+            {
+                Id = rawMaterial.Id,
+                RawMaterialCode = rawMaterial.RawMaterialCode,
+                Name = rawMaterial.Name,
+                ImageURL = rawMaterial.ImageURL,
+                Quantity = rawMaterial.Quantity,
+                AddedDate = rawMaterial.AddedDate,
+                RawMaterialQuantityType = rawMaterial.RawMaterialQuantityType
+            }).FirstOrDefault();
+            return rawMaterial;
         }
 
         public int UpdateById(RawMaterialVM entity)

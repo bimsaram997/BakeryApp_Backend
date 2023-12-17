@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models.Data.RawMaterialData;
 using Models.Requests;
 using Models.ViewModels;
 using Models.ViewModels.FoodItem;
 using Models.ViewModels.FoodType;
+using Models.ViewModels.RawMaterial;
 using Repositories;
 using Repositories.FoodItemRepository;
 
@@ -17,18 +19,24 @@ namespace BakeryApp.Controllers
         public IRepositoryBase<FoodTypeVM> _foodTypeRepository;
         public IFoodTypeRepository _iFoodTypeRepository;
         public IRepositoryAllBase<AllFoodItemVM> _foodItemAllBase;
-      
+        public IFoodTypeRawMaterialRepository<FoodTypeRawMaterialVM> _iFoodTypeRawMaterialRepository;
+        public IRepositoryBase<RawMaterialVM> _rawMaterialRepository;
+
         public FoodItemController( 
             IRepositoryBase<FoodItemVM> foodRepository,
             IRepositoryAllBase<AllFoodItemVM> foodItemAllBase,
             IFoodTypeRepository ifoodTypeRepository,
-            IRepositoryBase<FoodTypeVM> foodTypeRepository)
+            IRepositoryBase<FoodTypeVM> foodTypeRepository,
+            IFoodTypeRawMaterialRepository<FoodTypeRawMaterialVM> foodTypeRawMaterialRepository,
+            IRepositoryBase<RawMaterialVM> rawMaterialRepository)
         {
   
            _foodRepository = foodRepository;
            _foodItemAllBase= foodItemAllBase;
            _iFoodTypeRepository = ifoodTypeRepository;
            _foodTypeRepository= foodTypeRepository;
+           _iFoodTypeRawMaterialRepository = foodTypeRawMaterialRepository;
+           _rawMaterialRepository= rawMaterialRepository;
 
         }
 
@@ -51,6 +59,17 @@ namespace BakeryApp.Controllers
             FoodTypeVM foodTypeVM =  _foodTypeRepository.GetById(foodItemRequest.FoodTypeId);
             if (foodTypeVM != null ) {
                 _iFoodTypeRepository.UpdateFoodTypeCountByFoodTypeId(foodTypeVM.Id);
+                var rawMaterials = _iFoodTypeRawMaterialRepository.GetByFoodTypeId(foodItemRequest.FoodTypeId).ToList();
+                foreach ( var rawMaterial in rawMaterials)
+                {
+                    var rawMaterialVM = _rawMaterialRepository.GetById(rawMaterial.RawMaterialId);
+                    switch (rawMaterialVM.RawMaterialQuantityType)
+                    {
+                        case RawMaterialQuantityType.Kg:
+                            // do nothing add required quatity to FoodType+Rawmaterial table
+                            break;
+                    }
+                }
 
             }
 
