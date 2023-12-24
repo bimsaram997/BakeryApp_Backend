@@ -12,7 +12,7 @@ namespace Repositories
         TEntity GetById(int id);
         int Add(TEntity entity);
         int DeleteById(int id);
-        int UpdateById(TEntity entity);
+        int UpdateById(int id, TEntity entity);
         
     }
 
@@ -21,8 +21,5 @@ namespace Repositories
         int UpdateFoodTypeCountByFoodTypeId(int Id);
     }
 
-    public interface IFoodTypeRawMaterialRepository<TEntity>
-    {
-        IEnumerable<TEntity> GetByFoodTypeId(int id);
-    }
+   
 }

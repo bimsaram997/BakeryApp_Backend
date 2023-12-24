@@ -15,6 +15,5 @@ namespace Models.Data.FoodItemData
         public DateTime? AddedDate { get; set; }
         public int FoodTypeCount { get; set; }
         public string ImageURL { get; set; }
-        public List<RawMaterial> RequiredRawMaterials { get; set; }
     }
 }

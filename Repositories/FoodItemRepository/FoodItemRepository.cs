@@ -75,7 +75,7 @@ namespace Repositories.FoodItemRepository
             throw new NotImplementedException();
         }
 
-        public int UpdateById(FoodItemVM entity)
+        public int UpdateById(int id, FoodItemVM entity)
         {
             throw new NotImplementedException();
         }

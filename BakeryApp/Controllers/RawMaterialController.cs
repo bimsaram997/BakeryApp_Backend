@@ -26,11 +26,11 @@ namespace BakeryApp.Controllers
 
             var rawMaterial = new RawMaterialVM
             {
-                Name = rawMaterialRequest.Name,
-                Quantity = rawMaterialRequest.Quantity,
-                ImageURL = rawMaterialRequest.ImageURL,
-                AddedDate = DateTime.Now,
-                RawMaterialQuantityType = rawMaterialRequest.RawMaterialQuantityType
+                name = rawMaterialRequest.Name,
+                quantity = rawMaterialRequest.Quantity,
+                imageURL = rawMaterialRequest.ImageURL,
+                addedDate = DateTime.Now,
+                rawMaterialQuantityType = rawMaterialRequest.RawMaterialQuantityType
 
 
             };

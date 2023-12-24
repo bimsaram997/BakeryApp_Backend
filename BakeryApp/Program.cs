@@ -6,10 +6,12 @@ using Models.ViewModels;
 using Models.ViewModels.FoodItem;
 using Models.ViewModels.FoodType;
 using Models.ViewModels.RawMaterial;
+using Models.ViewModels.Recipe;
 using Repositories;
 using Repositories.FoodItemRepository;
 using Repositories.FoodTypeRepository;
 using Repositories.RawMarerialRepository;
+using Repositories.RecipeRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +26,8 @@ builder.Services.AddTransient<IRepositoryBase<FoodItemVM>, FoodItemRepository>()
 builder.Services.AddTransient<IRepositoryBase<FoodTypeVM>, FoodTypeRepository>();
 builder.Services.AddTransient<IRepositoryAllBase<AllFoodItemVM>, AllFoodItemRepository>();
 builder.Services.AddTransient<IRepositoryBase<RawMaterialVM>, RawMaterialRepository>();
-builder.Services.AddTransient<IFoodTypeRawMaterialRepository<FoodTypeRawMaterialVM>, FoodTypeRepository>();
+builder.Services.AddTransient<IRepositoryBase<RecipeVM>, RecipeRepository>();
+builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

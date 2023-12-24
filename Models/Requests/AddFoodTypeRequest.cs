@@ -13,7 +13,6 @@ namespace Models.Requests
         public DateTime? AddedDate { get; set; }
         public int FoodTypeCount { get; set; }
         public string ImageURL { get; set; }
-        public List<int> RawMaterialIds { get; set; }
       
     }
 }

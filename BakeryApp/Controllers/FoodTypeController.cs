@@ -16,15 +16,14 @@ namespace BakeryApp.Controllers
         public IRepositoryBase<FoodTypeVM> _foodTypeRepository;
         public IFoodItemRepository _ifoodItemRepository;
         public IRepositoryAllBase<AllFoodItemVM> _foodItemAllBase;
-        public IFoodTypeRawMaterialRepository<FoodTypeRawMaterialVM> _iFoodTypeRawMaterialRepository;
         public FoodTypeController(IRepositoryBase<FoodTypeVM> foodTypeRepository,
-            IRepositoryAllBase<AllFoodItemVM> foodItemAllBase, IFoodItemRepository ifoodTypeRepository, IFoodTypeRawMaterialRepository<FoodTypeRawMaterialVM> foodTypeRawMaterialRepository)
+            IRepositoryAllBase<AllFoodItemVM> foodItemAllBase, IFoodItemRepository ifoodTypeRepository)
         {
 
             _foodTypeRepository = foodTypeRepository;
             _foodItemAllBase = foodItemAllBase;
             _ifoodItemRepository = ifoodTypeRepository;
-            _iFoodTypeRawMaterialRepository = foodTypeRawMaterialRepository;
+           
             
         }
 
@@ -39,7 +38,6 @@ namespace BakeryApp.Controllers
                 FoodTypeName = foodTypeRequest.FoodTypeName,
                 ImageURL = foodTypeRequest.ImageURL,
                 AddedDate = DateTime.Now,
-                RawMaterialIds = foodTypeRequest.RawMaterialIds
 
             };
 
@@ -59,8 +57,8 @@ namespace BakeryApp.Controllers
          [HttpGet("findByFoodTypeId/{id}")]
          public IActionResult GetFoodItemById(int id)
          {
-             var _foodTypeRawMaterials = _iFoodTypeRawMaterialRepository.GetByFoodTypeId(id);
-             return Ok(_foodTypeRawMaterials);
+             //var _foodTypeRawMaterials = _iFoodTypeRawMaterialRepository.GetByFoodTypeId(id);
+             return Ok(1);
          }
     }
 }

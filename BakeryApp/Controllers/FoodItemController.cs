@@ -19,7 +19,6 @@ namespace BakeryApp.Controllers
         public IRepositoryBase<FoodTypeVM> _foodTypeRepository;
         public IFoodTypeRepository _iFoodTypeRepository;
         public IRepositoryAllBase<AllFoodItemVM> _foodItemAllBase;
-        public IFoodTypeRawMaterialRepository<FoodTypeRawMaterialVM> _iFoodTypeRawMaterialRepository;
         public IRepositoryBase<RawMaterialVM> _rawMaterialRepository;
 
         public FoodItemController( 
@@ -27,7 +26,6 @@ namespace BakeryApp.Controllers
             IRepositoryAllBase<AllFoodItemVM> foodItemAllBase,
             IFoodTypeRepository ifoodTypeRepository,
             IRepositoryBase<FoodTypeVM> foodTypeRepository,
-            IFoodTypeRawMaterialRepository<FoodTypeRawMaterialVM> foodTypeRawMaterialRepository,
             IRepositoryBase<RawMaterialVM> rawMaterialRepository)
         {
   
@@ -35,43 +33,55 @@ namespace BakeryApp.Controllers
            _foodItemAllBase= foodItemAllBase;
            _iFoodTypeRepository = ifoodTypeRepository;
            _foodTypeRepository= foodTypeRepository;
-           _iFoodTypeRawMaterialRepository = foodTypeRawMaterialRepository;
            _rawMaterialRepository= rawMaterialRepository;
 
         }
 
         //Add food item
         [HttpPost("addFood")]
-        public IActionResult AddFoodItem([FromBody] AddFoodItemRequest foodItemRequest)
+        public IActionResult AddFoodItem([FromBody] AddFoodItemRequest foodItemRequest, int foodItemCount)
         {
-            
-            var foodItem = new FoodItemVM
+            if(foodItemCount > 0)
             {
-                FoodDescription = foodItemRequest.FoodDescription,
-                FoodPrice = foodItemRequest.FoodPrice,
-                ImageURL = foodItemRequest.ImageURL,
-                AddedDate = DateTime.Now,
-                FoodTypeId=foodItemRequest.FoodTypeId,
-
-            };
-
-            int foodId = _foodRepository.Add(foodItem);
-            FoodTypeVM foodTypeVM =  _foodTypeRepository.GetById(foodItemRequest.FoodTypeId);
-            if (foodTypeVM != null ) {
-                _iFoodTypeRepository.UpdateFoodTypeCountByFoodTypeId(foodTypeVM.Id);
-                var rawMaterials = _iFoodTypeRawMaterialRepository.GetByFoodTypeId(foodItemRequest.FoodTypeId).ToList();
-                foreach ( var rawMaterial in rawMaterials)
+                for (int i = 0; i < foodItemCount; i++)
                 {
-                    var rawMaterialVM = _rawMaterialRepository.GetById(rawMaterial.RawMaterialId);
-                    switch (rawMaterialVM.RawMaterialQuantityType)
+                    var foodItem = new FoodItemVM
                     {
-                        case RawMaterialQuantityType.Kg:
-                            // do nothing add required quatity to FoodType+Rawmaterial table
-                            break;
+                        FoodDescription = foodItemRequest.FoodDescription,
+                        FoodPrice = foodItemRequest.FoodPrice,
+                        ImageURL = foodItemRequest.ImageURL,
+                        AddedDate = DateTime.Now,
+                        FoodTypeId = foodItemRequest.FoodTypeId,
+                    };
+
+                    int foodId = _foodRepository.Add(foodItem);
+
+                    FoodTypeVM foodTypeVM = _foodTypeRepository.GetById(foodItemRequest.FoodTypeId);
+
+                    if (foodTypeVM != null)
+                    {
+                        _iFoodTypeRepository.UpdateFoodTypeCountByFoodTypeId(foodTypeVM.Id);
+
+                        /*var rawMaterials = _iFoodTypeRawMaterialRepository.GetByFoodTypeId(foodItemRequest.FoodTypeId).ToList();
+
+                        foreach (var rawMaterial in rawMaterials)
+                        {
+                            var rawMaterialVM = _rawMaterialRepository.GetById(rawMaterial.RawMaterialId);
+
+                            switch (rawMaterialVM.RawMaterialQuantityType)
+                            {
+                                case RawMaterialQuantityType.Kg:
+                                    // do nothing, add the required quantity to FoodType+Rawmaterial table
+                                    break;
+                            }
+                        }*/
                     }
                 }
-
             }
+            
+            
+
+            
 
             return Ok();
         }

@@ -100,9 +100,6 @@ namespace Models.Migrations
                     b.Property<DateTime?>("AddedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FoodTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImageURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -123,12 +120,10 @@ namespace Models.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FoodTypeId");
-
                     b.ToTable("RawMaterials");
                 });
 
-            modelBuilder.Entity("Models.Data.RawMaterialData.RawMaterial_FoodType", b =>
+            modelBuilder.Entity("Models.Data.RawMaterialData.RawMaterialRecipe", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,19 +131,48 @@ namespace Models.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FoodTypeId")
+                    b.Property<int>("RawMaterialId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RawMaterialId")
+                    b.Property<double>("RawMaterialQuantity")
+                        .HasColumnType("float");
+
+                    b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FoodTypeId");
-
                     b.HasIndex("RawMaterialId");
 
-                    b.ToTable("RawMaterial_FoodTypes");
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RawMaterialRecipe");
+                });
+
+            modelBuilder.Entity("Models.Data.RecipeData.Recipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FoodTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RecipeCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("Models.Data.FoodItemData.FoodItem", b =>
@@ -162,35 +186,23 @@ namespace Models.Migrations
                     b.Navigation("foodType");
                 });
 
-            modelBuilder.Entity("Models.Data.RawMaterialData.RawMaterial", b =>
+            modelBuilder.Entity("Models.Data.RawMaterialData.RawMaterialRecipe", b =>
                 {
-                    b.HasOne("Models.Data.FoodItemData.FoodType", null)
-                        .WithMany("RequiredRawMaterials")
-                        .HasForeignKey("FoodTypeId");
-                });
-
-            modelBuilder.Entity("Models.Data.RawMaterialData.RawMaterial_FoodType", b =>
-                {
-                    b.HasOne("Models.Data.FoodItemData.FoodType", "FoodType")
-                        .WithMany()
-                        .HasForeignKey("FoodTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Models.Data.RawMaterialData.RawMaterial", "RawMaterial")
                         .WithMany()
                         .HasForeignKey("RawMaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FoodType");
+                    b.HasOne("Models.Data.RecipeData.Recipe", "recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("RawMaterial");
-                });
 
-            modelBuilder.Entity("Models.Data.FoodItemData.FoodType", b =>
-                {
-                    b.Navigation("RequiredRawMaterials");
+                    b.Navigation("recipe");
                 });
 #pragma warning restore 612, 618
         }
