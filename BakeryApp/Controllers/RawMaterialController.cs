@@ -12,14 +12,18 @@ namespace BakeryApp.Controllers
     [ApiController]
     public class RawMaterialController : ControllerBase
     {
-        public IRepositoryBase<RawMaterialVM> _rawMaterialRepository;
-        public IRecipeRepository _iRecipeRepository;
+        private IRepositoryBase<RawMaterialVM> rawMaterialRepository;
+        private IRecipeRepository iRecipeRepository;
+
+        public IRepositoryBase<RawMaterialVM> RawMaterialRepository { get => rawMaterialRepository; set => rawMaterialRepository = value; }
+        public IRecipeRepository IRecipeRepository { get => iRecipeRepository; set => iRecipeRepository = value; }
+
         public RawMaterialController(IRepositoryBase<RawMaterialVM> rawMaterialRepository,
             IRecipeRepository iRecipeRepository)
         {
 
-            _rawMaterialRepository = rawMaterialRepository;
-            _iRecipeRepository = iRecipeRepository;
+            RawMaterialRepository = rawMaterialRepository;
+            IRecipeRepository = iRecipeRepository;
         }
 
         [HttpPost("addRawMaterial")]
@@ -36,7 +40,7 @@ namespace BakeryApp.Controllers
                     rawMaterialQuantityType = rawMaterialRequest.RawMaterialQuantityType
                 };
 
-                int rawMaterialId = _rawMaterialRepository.Add(rawMaterial);
+                int rawMaterialId = RawMaterialRepository.Add(rawMaterial);
                 return Created(nameof(AddRawMaterial), rawMaterialId);
             } catch (Exception ex)
             {
@@ -50,7 +54,7 @@ namespace BakeryApp.Controllers
         {
             try
             {
-                RawMaterialVM rawMaterial = _rawMaterialRepository.GetById(rawMaterialId);
+                RawMaterialVM rawMaterial = RawMaterialRepository.GetById(rawMaterialId);
                 if(rawMaterial != null)
                 {
                     return Created(nameof(GetRawMaterialById), rawMaterial);
@@ -77,7 +81,7 @@ namespace BakeryApp.Controllers
                     quantity = updateRawMaterial.quantity,
                     rawMaterialQuantityType = updateRawMaterial.rawMaterialQuantityType
                  };
-                int updatedRawMaterialId = _rawMaterialRepository.UpdateById(rawMaterialId, rawMaterialVM);
+                int updatedRawMaterialId = RawMaterialRepository.UpdateById(rawMaterialId, rawMaterialVM);
                 if (updatedRawMaterialId != -1)
                 {
                     // Return a successful response
@@ -102,13 +106,13 @@ namespace BakeryApp.Controllers
         {
             try
             {
-                bool hasRecords = _iRecipeRepository.CheckRawMaterialsAssociatedWithRecipe(rawMaterialId);
+                bool hasRecords = IRecipeRepository.CheckRawMaterialsAssociatedWithRecipe(rawMaterialId);
                 if (hasRecords)
                 {
                     throw new Exception("Error in Deleting.Raw mterial has beend added to the recipe!");
                 }
 
-                int deletedRawMaterialId = _rawMaterialRepository.DeleteById(rawMaterialId);
+                int deletedRawMaterialId = RawMaterialRepository.DeleteById(rawMaterialId);
                 if (deletedRawMaterialId != -1)
                 {
                     // Return a successful response
