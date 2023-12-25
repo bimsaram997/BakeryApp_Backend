@@ -12,8 +12,9 @@ namespace Models.ViewModels.Recipe
         public int id { get; set; }
         public string recipeCode { get; set; }
         public int foodTypeId { get; set; }
-        public DateTime? addedDate { get; set; }
+        public DateTime addedDate { get; set; }
         public DateTime? modifiedDate { get; set; }
+        public bool isDeleted { get; set; }
         public List<RecipeRawMaterial> rawMaterials { get; set; }
     }
 
@@ -25,6 +26,7 @@ namespace Models.ViewModels.Recipe
         public string recipeCode { get; set; }
         public int foodTypeId { get; set; }
         public DateTime? addedDate { get; set; }
+        public bool isDeleted { get; set; }
         public List<RecipeRawMaterial> rawMaterials { get; set; }
         public List<RawMaterialVM> rawMaterialDetails { get; set; }
     }

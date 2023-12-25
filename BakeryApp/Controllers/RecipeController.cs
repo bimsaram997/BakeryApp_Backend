@@ -62,13 +62,13 @@ namespace BakeryApp.Controllers
 
         }
 
-        [HttpGet("getRecipe/{recipeId}")]
+        [HttpGet("getRecipeById/{recipeId}")]
         public IActionResult GetRecipeById(int recipeId)
         {
             try
             {
                 // Call the repository to get the recipe by ID
-                var recipe = _recipeRepository.GetById(recipeId);
+                 RecipeVM recipe = _recipeRepository.GetById(recipeId);
 
                 if (recipe != null)
                 {
@@ -92,26 +92,60 @@ namespace BakeryApp.Controllers
 
             try
             {
-                RecipeVM recipeVM = _recipeRepository.GetById(recipeId);
-                if (recipeVM == null)
-                {
-                    throw new Exception("No recipe!");
-                }
+               
                 if (IsmissingRawMaterials(updatedRecipe.rawMaterials))
                 {
                     throw new Exception("One or more raw materials are not available in the database.");
                 }
-                var recipe = new RecipeVM
+                RecipeVM recipe = new RecipeVM
                 {
                     rawMaterials = updatedRecipe.rawMaterials,
                 };
                 int updatedRecipeId = _recipeRepository.UpdateById(recipeId, recipe);
-                return Created(nameof(UpdateRecipe), updatedRecipeId);
+                if (updatedRecipeId != -1)
+                {
+                    // Return a successful response
+                    return Created(nameof(UpdateRecipe), updatedRecipeId);
+                }
+                else
+                {
+                    // Handle the case where the recipe is not found
+                    return NotFound($"Recipe with ID {recipeId} not found.");
+                }
+              
             } catch(Exception ex)
             {
-                return BadRequest($"Error adding recipe: {ex.Message}");
+                return BadRequest($"Error updating recipe: {ex.Message}");
             }  
             
+        }
+
+        [HttpDelete("deleteRecipe/{recipeId}")]
+        public IActionResult DeleteRecipe(int recipeId)
+        {
+            try
+            {
+                // Call the repository to delete the recipe by ID
+                int deletedRecipeId = _recipeRepository.DeleteById(recipeId);
+
+                if (deletedRecipeId != -1)
+                {
+                    // Return a successful response
+                    return 
+                        
+                        Created(nameof(DeleteRecipe), deletedRecipeId);
+                }
+                else
+                {
+                    // Handle the case where the recipe is not found
+                    return NotFound($"Recipe with ID {recipeId} not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions if needed
+                return BadRequest($"Error deleting recipe: {ex.Message}");
+            }
         }
 
         public bool IsmissingRawMaterials(List<RecipeRawMaterial> rawMaterials)

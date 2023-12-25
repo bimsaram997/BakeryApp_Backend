@@ -11,12 +11,17 @@ namespace Models.Data.RawMaterialData
         public DateTime? AddedDate { get; set; }
         public string ImageURL { get; set; }
         public RawMaterialQuantityType RawMaterialQuantityType { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public RawMaterial() {
+            IsDeleted = false;
+        }
     }
 
     public enum RawMaterialQuantityType
     {
         Kg=0,
-        L=0,
+        L=1,
 
     }
 }

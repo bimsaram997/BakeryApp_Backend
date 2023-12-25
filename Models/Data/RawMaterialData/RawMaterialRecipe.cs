@@ -16,6 +16,7 @@ namespace Models.Data.RawMaterialData
             public RawMaterial RawMaterial { get; set; }
             public int RecipeId { get; set; }
             public Recipe recipe { get; set; }
-        
+            
+
     }
 }

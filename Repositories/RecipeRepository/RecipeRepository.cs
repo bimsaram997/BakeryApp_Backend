@@ -17,8 +17,9 @@ namespace Repositories.RecipeRepository
     public interface IRecipeRepository
     {
         public AllRecipeVM GetByFoodTypeId(int foodTypeId);
+        public bool CheckRawMaterialsAssociatedWithRecipe(int rawMateialId);
     }
-    public class RecipeRepository: IRepositoryBase<RecipeVM>, IRecipeRepository
+    public class RecipeRepository : IRepositoryBase<RecipeVM>, IRecipeRepository
     {
         private AppDbContext _context;
         public RecipeRepository(AppDbContext context)
@@ -29,7 +30,7 @@ namespace Repositories.RecipeRepository
         public int Add(RecipeVM recipe)
         {
             //Add Food Recipe to the database
-            var lastRecipe = _context.Recipes.OrderByDescending(fi => fi.RecipeCode).FirstOrDefault();
+            Recipe? lastRecipe = _context.Recipes.OrderByDescending(fi => fi.RecipeCode).FirstOrDefault();
             int newRecipeNumber = 1; // Default if no existing records
 
             if (lastRecipe != null)
@@ -42,11 +43,12 @@ namespace Repositories.RecipeRepository
             }
 
             string newRecipeCode = $"R{newRecipeNumber:D4}";
-            var _recipe = new Recipe()
+            Recipe _recipe = new Recipe()
             {
                 RecipeCode = newRecipeCode,
                 AddedDate = DateTime.Now,
-                FoodTypeId = recipe.foodTypeId
+                FoodTypeId = recipe.foodTypeId,
+                IsDeleted = recipe.isDeleted,
             };
             _context.Recipes.Add(_recipe);
             object value = _context.SaveChanges();
@@ -74,16 +76,102 @@ namespace Repositories.RecipeRepository
 
         public int DeleteById(int id)
         {
-            throw new NotImplementedException();
+            Recipe recipe = _context.Recipes.FirstOrDefault(r => r.Id == id && !r.IsDeleted);
+
+            if (recipe == null)
+            {
+                // Handle the case where the recipe with the given ID is not found
+                return -1; // You might want to return an error code or throw an exception
+            }
+
+            // Set IsDeleted to true for the Recipe
+            recipe.IsDeleted = true;
+            recipe.ModifiedDate = DateTime.Now;
+            // Set IsDeleted to true for associated RawMaterialRecipe records
+            var rawMaterialRecipes = _context.RawMaterialRecipe
+                .Where(rm => rm.RecipeId == recipe.Id)
+                .ToList();
+
+            _context.RawMaterialRecipe.RemoveRange(rawMaterialRecipes);
+
+            // Save changes to the database
+            _context.SaveChanges();
+
+            return recipe.Id;
         }
 
-         public AllRecipeVM GetByFoodTypeId(int foodTypeId)
+
+        public RecipeVM GetById(int id)
         {
-            var recipe = _context.Recipes.Where(n => n.FoodTypeId == foodTypeId).Select(recipe => new AllRecipeVM()
+
+            RecipeVM? recipe = _context.Recipes.Where(recipe => recipe.Id == id && !recipe.IsDeleted).Select(recipe => new RecipeVM()
+            {
+                id = recipe.Id,
+                addedDate = recipe.AddedDate,
+                recipeCode = recipe.RecipeCode,
+                foodTypeId = recipe.FoodTypeId,
+                modifiedDate = recipe.ModifiedDate,
+                rawMaterials = _context.RawMaterialRecipe
+                   .Where(rm => rm.RecipeId == recipe.Id)
+                   .Select(rm => new RecipeRawMaterial
+                   {
+                       rawMaterialId = rm.RawMaterialId,
+                       rawMaterialQuantity = rm.RawMaterialQuantity
+                   }).ToList()
+
+            }).FirstOrDefault();
+            return recipe;
+
+        }
+
+        public int UpdateById(int id, RecipeVM recipe)
+        {
+
+            Recipe? previousRecipe = _context.Recipes.FirstOrDefault(r => r.Id == id && !r.IsDeleted);
+            if (previousRecipe == null)
+            {
+                // Handle the case where the recipe with the given ID is not found
+                return -1; // You might want to return an error code or throw an exception
+            }
+
+            // Update the properties of the existing recipe
+            Recipe existingRecipe = previousRecipe;
+            existingRecipe.ModifiedDate = DateTime.Now;
+
+            // Update RawMaterialRecipe details
+            var existingRawMaterialRecipes = _context.RawMaterialRecipe
+                .Where(rm => rm.RecipeId == existingRecipe.Id)
+                .ToList();
+
+            // Delete existing RawMaterialRecipe records
+
+            _context.RawMaterialRecipe.RemoveRange(existingRawMaterialRecipes);
+
+            // Add new RawMaterialRecipe records
+            foreach (var recipeRawMaterial in recipe.rawMaterials)
+            {
+                var newRawMaterialRecipe = new RawMaterialRecipe()
+                {
+                    RawMaterialId = recipeRawMaterial.rawMaterialId,
+                    RawMaterialQuantity = recipeRawMaterial.rawMaterialQuantity,
+                    RecipeId = existingRecipe.Id
+                };
+                _context.RawMaterialRecipe.Add(newRawMaterialRecipe);
+            }
+
+            // Save changes to the database
+            _context.SaveChanges();
+            return recipe.id;
+        }
+
+        public AllRecipeVM GetByFoodTypeId(int foodTypeId)
+        {
+            AllRecipeVM? recipe = _context.Recipes.Where(n => n.FoodTypeId == foodTypeId && !n.IsDeleted).Select(recipe => new AllRecipeVM()
             {
                 id = recipe.Id,
                 addedDate = recipe.AddedDate,
                 foodTypeId = recipe.FoodTypeId,
+                isDeleted = recipe.IsDeleted,
                 rawMaterials = _context.RawMaterialRecipe
                    .Where(rm => rm.RecipeId == recipe.Id)
                    .Select(rm => new RecipeRawMaterial
@@ -108,65 +196,11 @@ namespace Repositories.RecipeRepository
             return recipe;
         }
 
-        public RecipeVM GetById(int id)
+
+        public bool CheckRawMaterialsAssociatedWithRecipe(int rawMaterialId)
         {
-            var recipe = _context.Recipes.Where(recipe => recipe.Id == id).Select(recipe => new RecipeVM()
-            {
-                id= recipe.Id,
-                addedDate= recipe.AddedDate,
-                recipeCode= recipe.RecipeCode,
-                foodTypeId = recipe.FoodTypeId,
-                rawMaterials = _context.RawMaterialRecipe
-                   .Where(rm => rm.RecipeId == recipe.Id)
-                   .Select(rm => new RecipeRawMaterial
-                   {
-                       rawMaterialId = rm.RawMaterialId,
-                       rawMaterialQuantity = rm.RawMaterialQuantity
-                   }).ToList()
-
-            }).FirstOrDefault();
-            return recipe;
-            
-        }
-
-        public int UpdateById(int id,RecipeVM recipe)
-        {
-
-            var previousRecipe = _context.Recipes.Find(id);
-            if (previousRecipe == null)
-            {
-                // Handle the case where the recipe with the given ID is not found
-                return -1; // You might want to return an error code or throw an exception
-            }
-
-            // Update the properties of the existing recipe
-            Recipe existingRecipe = previousRecipe;
-            existingRecipe.ModifiedDate = DateTime.Now;
-     
-            // Update RawMaterialRecipe details
-            var existingRawMaterialRecipes = _context.RawMaterialRecipe
-                .Where(rm => rm.RecipeId == existingRecipe.Id)
-                .ToList();
-
-            // Delete existing RawMaterialRecipe records
-            
-            _context.RawMaterialRecipe.RemoveRange(existingRawMaterialRecipes);
-
-            // Add new RawMaterialRecipe records
-            foreach (var recipeRawMaterial in recipe.rawMaterials)
-            {
-                var newRawMaterialRecipe = new RawMaterialRecipe()
-                {
-                    RawMaterialId = recipeRawMaterial.rawMaterialId,
-                    RawMaterialQuantity = recipeRawMaterial.rawMaterialQuantity,
-                    RecipeId = existingRecipe.Id
-                };
-                _context.RawMaterialRecipe.Add(newRawMaterialRecipe);
-            }
-
-            // Save changes to the database
-            _context.SaveChanges();
-            return recipe.id;
+            bool hasRecords = _context.RawMaterialRecipe.Any(rm => rm.RawMaterialId == rawMaterialId);
+            return hasRecords;
         }
     }
 }

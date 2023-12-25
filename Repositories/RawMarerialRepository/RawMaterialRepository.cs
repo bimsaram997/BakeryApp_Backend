@@ -4,11 +4,7 @@ using Models.Data.RawMaterialData;
 using Models.ViewModels.FoodItem;
 using Models.ViewModels.FoodType;
 using Models.ViewModels.RawMaterial;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Repositories.RawMarerialRepository
 {
@@ -23,7 +19,7 @@ namespace Repositories.RawMarerialRepository
         public int Add(RawMaterialVM rawMaterial)
         {
 
-            var lastRawMaterial = _context.RawMaterials.OrderByDescending(fi => fi.RawMaterialCode).FirstOrDefault();
+            RawMaterial? lastRawMaterial = _context.RawMaterials.OrderByDescending(fi => fi.RawMaterialCode).FirstOrDefault();
             int newRowMaterialNumber = 1; // Default if no existing records
 
             if (lastRawMaterial != null)
@@ -35,7 +31,7 @@ namespace Repositories.RawMarerialRepository
                 }
             }
             string newRawMaterialCode = $"RM{newRowMaterialNumber:D4}";
-            var _rawMaterial = new RawMaterial()
+            RawMaterial _rawMaterial = new RawMaterial()
             {
                 RawMaterialCode = newRawMaterialCode,
                 Name = rawMaterial.name,
@@ -53,12 +49,22 @@ namespace Repositories.RawMarerialRepository
 
         public int DeleteById(int id)
         {
-            throw new NotImplementedException();
+            RawMaterial rawMaterial = _context.RawMaterials.FirstOrDefault(r => r.Id == id && !r.IsDeleted);
+            if (rawMaterial == null)
+            {
+                // Handle the case where the raw material with the given ID is not found
+                return -1; // You might want to return an error code or throw an exception
+            }
+            rawMaterial.IsDeleted = true;
+            rawMaterial.ModifiedDate = DateTime.Now;
+            // Save changes to the database
+            _context.SaveChanges();
+            return rawMaterial.Id;
         }
 
         public RawMaterialVM GetById(int Id)
         {
-            var rawMaterial = _context.RawMaterials.Where(n => n.Id == Id).Select(rawMaterial => new RawMaterialVM()
+            RawMaterialVM? rawMaterial = _context.RawMaterials.Where(n => n.Id == Id && !n.IsDeleted).Select(rawMaterial => new RawMaterialVM()
             {
                 id = rawMaterial.Id,
                 rawMaterialCode = rawMaterial.RawMaterialCode,
@@ -66,14 +72,30 @@ namespace Repositories.RawMarerialRepository
                 imageURL = rawMaterial.ImageURL,
                 quantity = rawMaterial.Quantity,
                 addedDate = rawMaterial.AddedDate,
-                rawMaterialQuantityType = rawMaterial.RawMaterialQuantityType
+                rawMaterialQuantityType = rawMaterial.RawMaterialQuantityType,
+                isDeleted =  rawMaterial.IsDeleted,
+                modifiedDate = rawMaterial.ModifiedDate
+                
             }).FirstOrDefault();
             return rawMaterial;
         }
 
-        public int UpdateById(int id, RawMaterialVM entity)
+        public int UpdateById(int id, RawMaterialVM rawMaterial)
         {
-            throw new NotImplementedException();
+            RawMaterial? previousRawMaterial = _context.RawMaterials.FirstOrDefault(r => r.Id == id);
+            if (previousRawMaterial == null)
+            {
+                // Handle the case where the  raw Material with the given ID is not found
+                return -1; // You might want to return an error code or throw an exception
+            }
+            previousRawMaterial.Name = rawMaterial.name;
+            previousRawMaterial.ImageURL = rawMaterial.imageURL;
+            previousRawMaterial.Quantity = rawMaterial.quantity;
+            previousRawMaterial.RawMaterialQuantityType = rawMaterial.rawMaterialQuantityType;
+            previousRawMaterial.ModifiedDate = DateTime.Now;
+            
+            _context.SaveChanges();
+            return previousRawMaterial.Id;
         }
     }
 }

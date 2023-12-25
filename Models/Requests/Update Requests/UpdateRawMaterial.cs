@@ -5,19 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.ViewModels.RawMaterial
+namespace Models.Requests.Update_Requests
 {
-    public class RawMaterialVM
+    public class UpdateRawMaterial
     {
-        public int id { get; set; }
-        public string rawMaterialCode { get; set; }
         public string name { get; set; }
         public int quantity { get; set; }
-        public DateTime? addedDate { get; set; }
         public string imageURL { get; set; }
         public RawMaterialQuantityType rawMaterialQuantityType { get; set; }
-        public bool isDeleted { get; set; }
-        public DateTime? modifiedDate { get; set; }
-
     }
 }
