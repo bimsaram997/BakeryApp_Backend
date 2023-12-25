@@ -36,12 +36,7 @@ namespace BakeryApp.Controllers
                     throw new Exception("Recipe has been added to correspondig food type");
                 }
 
-                //check recipes has raw materials
-                var missingRawMaterials = recipeRequest.rawMaterials
-                    .Where(rawMaterial => _rawMaterialRepository.GetById(rawMaterial.rawMaterialId) == null)
-                    .ToList();
-
-                if (missingRawMaterials.Any())
+                if (IsmissingRawMaterials(recipeRequest.rawMaterials))
                 {
                     // Throw an exception if any raw material is not found
                     throw new Exception("One or more raw materials are not available in the database.");
@@ -87,7 +82,6 @@ namespace BakeryApp.Controllers
             }
             catch (Exception ex)
             {
-                // Handle other exceptions if needed
                 return BadRequest($"Error retrieving recipe: {ex.Message}");
             }
         }
@@ -103,19 +97,37 @@ namespace BakeryApp.Controllers
                 {
                     throw new Exception("No recipe!");
                 }
+                if (IsmissingRawMaterials(updatedRecipe.rawMaterials))
+                {
+                    throw new Exception("One or more raw materials are not available in the database.");
+                }
                 var recipe = new RecipeVM
                 {
                     rawMaterials = updatedRecipe.rawMaterials,
                 };
                 int updatedRecipeId = _recipeRepository.UpdateById(recipeId, recipe);
-                return Created(nameof(UpdateRecipe), 1);
+                return Created(nameof(UpdateRecipe), updatedRecipeId);
             } catch(Exception ex)
             {
                 return BadRequest($"Error adding recipe: {ex.Message}");
-            }
+            }  
+            
+        }
 
-            
-            
+        public bool IsmissingRawMaterials(List<RecipeRawMaterial> rawMaterials)
+        {
+            //check recipes has raw materials
+            var missingRawMaterials = rawMaterials
+                .Where(rawMaterial => _rawMaterialRepository.GetById(rawMaterial.rawMaterialId) == null)
+                .ToList();
+
+            if (missingRawMaterials.Any())
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         }
     }
 }
