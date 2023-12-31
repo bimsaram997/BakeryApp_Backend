@@ -2,8 +2,11 @@
 using Models.Data;
 using Models.Data.FoodItemData;
 using Models.Data.RawMaterialData;
+using Models.Data.RecipeData;
 using Models.ViewModels.FoodItem;
 using Models.ViewModels.FoodType;
+using Models.ViewModels.RawMaterial;
+using Models.ViewModels.Recipe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.FoodTypeRepository
 {
+    
     public class FoodTypeRepository : IRepositoryBase<FoodTypeVM>, IFoodTypeRepository
     {
         private AppDbContext _context;
@@ -38,10 +42,9 @@ namespace Repositories.FoodTypeRepository
             var _foodType = new FoodType()
             {
                 FoodTypeCode = newFoodCode,
-                FoodTypeName = foodType.FoodTypeName,
-                FoodTypeCount = foodType.FoodTypeCount,
+                FoodTypeName = foodType.foodTypeName,
                 AddedDate = DateTime.Now,
-                ImageURL = foodType.ImageURL,
+                ImageURL = foodType.imageURL,
             };
 
             _context.FoodTypes.Add(_foodType);
@@ -57,38 +60,58 @@ namespace Repositories.FoodTypeRepository
         public int UpdateFoodTypeCountByFoodTypeId(int Id)
         {
 
-            var foodType = _context.FoodTypes.FirstOrDefault(ft => ft.Id == Id);
-            if (foodType != null)
-            {
-                foodType.FoodTypeCount =  foodType.FoodTypeCount+ 1;
-                _context.FoodTypes.Update(foodType);
-                object value = _context.SaveChanges();
-            }
-            
-            return foodType.Id;
+           
+            return 1;
         }
         public int DeleteById(int id)
         {
-            throw new NotImplementedException();
+             FoodType? foodtype = _context.FoodTypes.FirstOrDefault(r => r.Id == id && !r.IsDeleted);
+
+            if (foodtype == null)
+            {
+                // Handle the case where the recipe with the given ID is not found
+                return -1; // You might want to return an error code or throw an exception
+            }
+
+            // Set IsDeleted to true for the FoodType
+            foodtype.IsDeleted = true;
+            foodtype.ModifiedDate = DateTime.Now;
+            
+            // Save changes to the database
+            _context.SaveChanges();
+
+            return foodtype.Id;
         }
 
         public FoodTypeVM GetById(int Id)
         {
             var foodType = _context.FoodTypes.Where(n => n.Id == Id).Select(foodType => new FoodTypeVM()
             {
-                Id = foodType.Id,
-                FoodTypeCode = foodType.FoodTypeCode,
-                FoodTypeCount = foodType.FoodTypeCount,
-                ImageURL = foodType.ImageURL,
-                FoodTypeName = foodType.FoodTypeName,
-                AddedDate = foodType.AddedDate,
+                id = foodType.Id,
+                foodTypeCode = foodType.FoodTypeCode,
+                imageURL = foodType.ImageURL,
+                foodTypeName = foodType.FoodTypeName,
+                addedDate = foodType.AddedDate,
+                isDeleted = foodType.IsDeleted,
+                modifiedDate = foodType.ModifiedDate
             }).FirstOrDefault();
             return foodType;
         }
 
-        public int UpdateById(int id, FoodTypeVM entity)
+        public int UpdateById(int id, FoodTypeVM foodType)
         {
-            throw new NotImplementedException();
+            FoodType? previousFoodType = _context.FoodTypes.FirstOrDefault(r => r.Id == id && !r.IsDeleted);
+            if (previousFoodType == null)
+            {
+                // Handle the case where the  raw Material with the given ID is not found
+                return -1; // You might want to return an error code or throw an exception
+            }
+            previousFoodType.ImageURL = foodType.imageURL;
+            previousFoodType.FoodTypeName = foodType.foodTypeName;
+            previousFoodType.ModifiedDate = DateTime.Now;
+
+            _context.SaveChanges();
+            return previousFoodType.Id;
         }
 
         

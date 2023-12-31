@@ -1,12 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models.Data.FoodItemData;
 using Models.Data.RawMaterialData;
 using Models.Requests;
+using Models.Requests.Update_Requests;
 using Models.ViewModels;
 using Models.ViewModels.FoodItem;
 using Models.ViewModels.FoodType;
 using Models.ViewModels.RawMaterial;
+using Models.ViewModels.Recipe;
 using Repositories;
 using Repositories.FoodItemRepository;
+using Repositories.RawMarerialRepository;
+using Repositories.RecipeRepository;
+using System.Collections;
 
 namespace BakeryApp.Controllers
 {
@@ -20,13 +26,19 @@ namespace BakeryApp.Controllers
         public IFoodTypeRepository _iFoodTypeRepository;
         public IRepositoryAllBase<AllFoodItemVM> _foodItemAllBase;
         public IRepositoryBase<RawMaterialVM> _rawMaterialRepository;
+        public IRecipeRepository _iRecipeRepository;
+        public IRawMaterialRepository _iRawMaterialRepository;
+        public IFoodItemRepository _iFoodItemRepository;
 
         public FoodItemController( 
             IRepositoryBase<FoodItemVM> foodRepository,
             IRepositoryAllBase<AllFoodItemVM> foodItemAllBase,
             IFoodTypeRepository ifoodTypeRepository,
             IRepositoryBase<FoodTypeVM> foodTypeRepository,
-            IRepositoryBase<RawMaterialVM> rawMaterialRepository)
+            IRepositoryBase<RawMaterialVM> rawMaterialRepository,
+            IRecipeRepository iRecipeRepository,
+            IRawMaterialRepository iRawMaterialRepository,
+            IFoodItemRepository iFoodItemRepository)
         {
   
            _foodRepository = foodRepository;
@@ -34,17 +46,22 @@ namespace BakeryApp.Controllers
            _iFoodTypeRepository = ifoodTypeRepository;
            _foodTypeRepository= foodTypeRepository;
            _rawMaterialRepository= rawMaterialRepository;
-
+           _iRecipeRepository = iRecipeRepository;
+           _iRawMaterialRepository= iRawMaterialRepository;
+            _iFoodItemRepository = iFoodItemRepository;
         }
 
         //Add food item
         [HttpPost("addFood")]
         public IActionResult AddFoodItem([FromBody] AddFoodItemRequest foodItemRequest, int foodItemCount)
         {
-            if(foodItemCount > 0)
+            try
             {
-                for (int i = 0; i < foodItemCount; i++)
-                {
+                FoodTypeVM foodType = _foodTypeRepository.GetById(foodItemRequest.FoodTypeId);
+                RecipeVM recipeVM= _iRecipeRepository.GetByFoodTypeId(foodItemRequest.FoodTypeId);
+                
+                if (foodType != null && foodItemCount > 0 && recipeVM != null) {
+
                     var foodItem = new FoodItemVM
                     {
                         FoodDescription = foodItemRequest.FoodDescription,
@@ -54,36 +71,64 @@ namespace BakeryApp.Controllers
                         FoodTypeId = foodItemRequest.FoodTypeId,
                     };
 
-                    int foodId = _foodRepository.Add(foodItem);
-
-                    FoodTypeVM foodTypeVM = _foodTypeRepository.GetById(foodItemRequest.FoodTypeId);
-
-                    if (foodTypeVM != null)
+                    int[] rawMaterialIds = recipeVM.rawMaterials.Select(rrm => rrm.rawMaterialId).ToArray();
+                    
+                    // Generate a batchId for the current batch
+                    long batchId = GenerateBatchId();
+                    
+                    // Initialize a dictionary to store the total quantity used for each raw material
+                    Dictionary<int, double> rawMaterialQuantitiesUsed = new Dictionary<int, double>();
+                    
+                    List<int> foodIds = new List<int>();
+                   
+                    for (int i = 0; i < foodItemCount; ++i)
                     {
-                        _iFoodTypeRepository.UpdateFoodTypeCountByFoodTypeId(foodTypeVM.Id);
 
-                        /*var rawMaterials = _iFoodTypeRawMaterialRepository.GetByFoodTypeId(foodItemRequest.FoodTypeId).ToList();
-
-                        foreach (var rawMaterial in rawMaterials)
+                        // calcualte raw merial count and update the reamaing qunatity
+                        foreach (int id in rawMaterialIds)
                         {
-                            var rawMaterialVM = _rawMaterialRepository.GetById(rawMaterial.RawMaterialId);
+                            RawMaterialVM rawMaterialVM = _rawMaterialRepository.GetById(id);
+                            RawMatRecipeVM rawMatRecipeVM = _iRawMaterialRepository.GetRawMaterialRecipeByRawMatIdAndRecipeId(rawMaterialVM.id, recipeVM.id);
+                            double quantityUsed = 0;
 
-                            switch (rawMaterialVM.RawMaterialQuantityType)
+                            switch (rawMaterialVM.rawMaterialQuantityType)
                             {
+                                // Reduce raw material count from current stock
                                 case RawMaterialQuantityType.Kg:
-                                    // do nothing, add the required quantity to FoodType+Rawmaterial table
+                                    quantityUsed = rawMatRecipeVM.rawMaterialQuantity;
+                                    UpdateQuantity(rawMaterialVM.id, rawMaterialVM.quantity, rawMatRecipeVM.rawMaterialQuantity);
+                                    break;
+                                case RawMaterialQuantityType.L:
+                                    quantityUsed = rawMatRecipeVM.rawMaterialQuantity;
+                                    UpdateQuantity(rawMaterialVM.id, rawMaterialVM.quantity, rawMatRecipeVM.rawMaterialQuantity);
                                     break;
                             }
-                        }*/
+
+                            // Add the quantity used to the dictionary
+                            rawMaterialQuantitiesUsed[id] = quantityUsed;
+                        }
+
+                       
+                        // add food item
+                        int foodId = _foodRepository.Add(foodItem);
+                        foodIds.Add(foodId);
+
+                        // Associate the current foodId with the generated batchId
+                        AssociateFoodWithBatch(foodId, batchId);
+                        StoreRawMaterialQuantitiesUsed(foodId, rawMaterialQuantitiesUsed);
+                        
+
                     }
+                    return Created(nameof(AddFoodItem), foodIds);
+                } else
+                {
+                    throw new Exception("Food type or Recipe is not available");
                 }
             }
-            
-            
-
-            
-
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest($"Error adding Food item: {ex.Message}");
+            }
         }
 
 
@@ -93,6 +138,76 @@ namespace BakeryApp.Controllers
             var _foodItems = _foodItemAllBase.GetAll();
             return Ok(_foodItems);
         }
+
+        private long GenerateBatchId()
+        {
+            var timestamp = DateTime.UtcNow;
+            var random = new Random();
+            var randomPart = random.Next(1000, 9999);
+
+            // Combine timestamp and random number to create a unique batch ID
+            var batchIdString = $"{timestamp:yyyyMMddHHmmss}{randomPart}";
+
+            // Convert the string to a long
+            if (long.TryParse(batchIdString, out var batchId))
+            {
+                return batchId;
+            }
+
+            throw new InvalidOperationException("Failed to generate a valid batch ID.");
+        }
+
+
+        private void AssociateFoodWithBatch(int foodId, long batchId)
+        {
+            if (foodId > 0 && batchId > 0)
+            {
+                _iFoodItemRepository.AddBatchDetails(foodId, batchId);
+            }
+        }
+
+        private void UpdateQuantity(int rawMatId, double currentQuantity, double quantityRecipe)
+        {
+            try
+            {
+                if (currentQuantity <= quantityRecipe)
+                {
+                    throw new Exception("Error updating raw material quantity: Insufficient quantity.");
+                }
+                double newQuantity = currentQuantity - quantityRecipe;
+                int updatedRawMatId = _iRawMaterialRepository.UpdateRawMaterialCountbyRawMatId(rawMatId, newQuantity);
+                if (updatedRawMatId == -1)
+                {
+                    throw new Exception($"Raw material with ID {rawMatId} not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception here if needed
+                Console.WriteLine($"Error updating: {ex.Message}");
+                // Rethrow the exception
+                throw;
+            }
+        }
+
+        private void StoreRawMaterialQuantitiesUsed(int foodId, Dictionary<int, double> rawMaterialQuantitiesUsed)
+        {
+           try
+            {
+                if (foodId > 0 && rawMaterialQuantitiesUsed.Count > 0)
+                {
+                    _iRawMaterialRepository.StoreRawMaterialQuantitiesUsed(foodId, rawMaterialQuantitiesUsed);
+                }
+            } catch(Exception ex)
+            {
+
+            }
+        }
+
+
+
+
+
 
         /* [HttpGet("findById/{id}")]
          public IActionResult GetFoodItemById(int foodItemId)

@@ -12,7 +12,7 @@ namespace Models.ViewModels.RawMaterial
         public int id { get; set; }
         public string rawMaterialCode { get; set; }
         public string name { get; set; }
-        public int quantity { get; set; }
+        public double quantity { get; set; }
         public DateTime? addedDate { get; set; }
         public string imageURL { get; set; }
         public RawMaterialQuantityType rawMaterialQuantityType { get; set; }

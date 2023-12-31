@@ -8,7 +8,14 @@ using Models.ViewModels.RawMaterial;
 
 namespace Repositories.RawMarerialRepository
 {
-    public class RawMaterialRepository : IRepositoryBase<RawMaterialVM>
+    public interface IRawMaterialRepository
+    {
+         RawMatRecipeVM GetRawMaterialRecipeByRawMatIdAndRecipeId(int recipeId, int rawMaterialId);
+         int UpdateRawMaterialCountbyRawMatId(int rawMatId, double newStockQuantity);
+        void StoreRawMaterialQuantitiesUsed(int foodId, Dictionary<int, double> rawMaterialQuantitiesUsed);
+
+    }
+    public class RawMaterialRepository : IRepositoryBase<RawMaterialVM>, IRawMaterialRepository
     {
         private AppDbContext _context;
         public RawMaterialRepository(AppDbContext context)
@@ -82,7 +89,7 @@ namespace Repositories.RawMarerialRepository
 
         public int UpdateById(int id, RawMaterialVM rawMaterial)
         {
-            RawMaterial? previousRawMaterial = _context.RawMaterials.FirstOrDefault(r => r.Id == id);
+            RawMaterial? previousRawMaterial = _context.RawMaterials.FirstOrDefault(r => r.Id == id && !r.IsDeleted);
             if (previousRawMaterial == null)
             {
                 // Handle the case where the  raw Material with the given ID is not found
@@ -96,6 +103,54 @@ namespace Repositories.RawMarerialRepository
             
             _context.SaveChanges();
             return previousRawMaterial.Id;
+        }
+
+       
+
+        public RawMatRecipeVM GetRawMaterialRecipeByRawMatIdAndRecipeId(int rawMaterialId, int recipeId)
+        {
+            RawMatRecipeVM? rawMaterialRecipe = _context.RawMaterialRecipe.Where(n => n.RecipeId == recipeId && n.RawMaterialId == rawMaterialId).Select(rawMaterialRecipe => new RawMatRecipeVM()
+            {
+                id = rawMaterialRecipe.Id,
+                rawMaterialId = rawMaterialRecipe.RawMaterialId,
+                recipeId = rawMaterialRecipe.RecipeId,
+                rawMaterialQuantity = rawMaterialRecipe.RawMaterialQuantity
+
+
+            }).FirstOrDefault();
+            return rawMaterialRecipe;
+        }
+
+        public int UpdateRawMaterialCountbyRawMatId(int rawMatId, double newStockQuantity)
+        {
+            RawMaterial? previousRawMaterial = _context.RawMaterials.FirstOrDefault(r => r.Id == rawMatId && !r.IsDeleted);
+            if (previousRawMaterial == null)
+            {
+                // Handle the case where the  raw Material with the given ID is not found
+                return -1; // You might want to return an error code or throw an exception
+            }
+             previousRawMaterial.Quantity = newStockQuantity;
+             previousRawMaterial.ModifiedDate = DateTime.Now;
+            
+            _context.SaveChanges();
+            return previousRawMaterial.Id;
+        }
+
+        public void StoreRawMaterialQuantitiesUsed(int foodId, Dictionary<int, double> rawMaterialQuantitiesUsed)
+        {
+            foreach (var entry in rawMaterialQuantitiesUsed)
+            {
+                var rawMaterialUsage = new RawMaterialUsage
+                {
+                    FoodItemId = foodId,
+                    RawMaterialId = entry.Key,
+                    QuantityUsed = entry.Value
+                };
+
+                _context.rawMaterialUsage.Add(rawMaterialUsage);
+            }
+
+            _context.SaveChanges();
         }
     }
 }

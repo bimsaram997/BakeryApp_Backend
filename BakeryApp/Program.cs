@@ -28,7 +28,7 @@ builder.Services.AddTransient<IRepositoryAllBase<AllFoodItemVM>, AllFoodItemRepo
 builder.Services.AddTransient<IRepositoryBase<RawMaterialVM>, RawMaterialRepository>();
 builder.Services.AddTransient<IRepositoryBase<RecipeVM>, RecipeRepository>();
 builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
-
+builder.Services.AddTransient<IRawMaterialRepository, RawMaterialRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

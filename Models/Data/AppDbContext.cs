@@ -18,13 +18,15 @@ namespace Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+           
         }
         public DbSet<FoodItem> FoodItems { get; set; }
         public DbSet<FoodType> FoodTypes { get; set; }
         public DbSet<RawMaterial> RawMaterials { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RawMaterialRecipe> RawMaterialRecipe { get; set; }
+        public DbSet<BatchFoodItem> BatchFoodItem { get; set; }
+        public DbSet<RawMaterialUsage> rawMaterialUsage { get; set; }
 
     }
 }

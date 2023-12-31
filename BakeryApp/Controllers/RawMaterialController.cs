@@ -14,15 +14,14 @@ namespace BakeryApp.Controllers
     {
         private IRepositoryBase<RawMaterialVM> rawMaterialRepository;
         private IRecipeRepository iRecipeRepository;
-
-        public IRepositoryBase<RawMaterialVM> RawMaterialRepository { get => rawMaterialRepository; set => rawMaterialRepository = value; }
+        public IRepositoryBase<RawMaterialVM> _rawMaterialRepository { get => rawMaterialRepository; set => rawMaterialRepository = value; }
         public IRecipeRepository IRecipeRepository { get => iRecipeRepository; set => iRecipeRepository = value; }
 
         public RawMaterialController(IRepositoryBase<RawMaterialVM> rawMaterialRepository,
             IRecipeRepository iRecipeRepository)
         {
 
-            RawMaterialRepository = rawMaterialRepository;
+            _rawMaterialRepository = rawMaterialRepository;
             IRecipeRepository = iRecipeRepository;
         }
 
@@ -40,7 +39,7 @@ namespace BakeryApp.Controllers
                     rawMaterialQuantityType = rawMaterialRequest.RawMaterialQuantityType
                 };
 
-                int rawMaterialId = RawMaterialRepository.Add(rawMaterial);
+                int rawMaterialId = _rawMaterialRepository.Add(rawMaterial);
                 return Created(nameof(AddRawMaterial), rawMaterialId);
             } catch (Exception ex)
             {
@@ -54,7 +53,7 @@ namespace BakeryApp.Controllers
         {
             try
             {
-                RawMaterialVM rawMaterial = RawMaterialRepository.GetById(rawMaterialId);
+                RawMaterialVM rawMaterial = _rawMaterialRepository.GetById(rawMaterialId);
                 if(rawMaterial != null)
                 {
                     return Created(nameof(GetRawMaterialById), rawMaterial);
@@ -81,7 +80,7 @@ namespace BakeryApp.Controllers
                     quantity = updateRawMaterial.quantity,
                     rawMaterialQuantityType = updateRawMaterial.rawMaterialQuantityType
                  };
-                int updatedRawMaterialId = RawMaterialRepository.UpdateById(rawMaterialId, rawMaterialVM);
+                int updatedRawMaterialId = _rawMaterialRepository.UpdateById(rawMaterialId, rawMaterialVM);
                 if (updatedRawMaterialId != -1)
                 {
                     // Return a successful response
@@ -112,7 +111,7 @@ namespace BakeryApp.Controllers
                     throw new Exception("Error in Deleting.Raw mterial has beend added to the recipe!");
                 }
 
-                int deletedRawMaterialId = RawMaterialRepository.DeleteById(rawMaterialId);
+                int deletedRawMaterialId = _rawMaterialRepository.DeleteById(rawMaterialId);
                 if (deletedRawMaterialId != -1)
                 {
                     // Return a successful response

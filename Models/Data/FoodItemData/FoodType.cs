@@ -13,7 +13,12 @@ namespace Models.Data.FoodItemData
         public string FoodTypeCode { get; set; }
         public string FoodTypeName { get; set; }
         public DateTime? AddedDate { get; set; }
-        public int FoodTypeCount { get; set; }
         public string ImageURL { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public FoodType()
+        {
+            IsDeleted = false;
+        }
     }
 }

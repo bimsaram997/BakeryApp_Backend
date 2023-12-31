@@ -7,7 +7,7 @@ namespace Models.Data.RawMaterialData
         public int Id { get; set; }
         public string RawMaterialCode { get; set; }
         public string Name { get; set; }
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
         public DateTime? AddedDate { get; set; }
         public string ImageURL { get; set; }
         public RawMaterialQuantityType RawMaterialQuantityType { get; set; }

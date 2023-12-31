@@ -30,7 +30,7 @@ namespace BakeryApp.Controllers
             try
             {
                 //check food type has a corresponding recipe
-                AllRecipeVM recipeVM = _iRecipeRepository.GetByFoodTypeId(recipeRequest.foodTypeId);
+                RecipeVM recipeVM = _iRecipeRepository.GetByFoodTypeId(recipeRequest.foodTypeId);
                 if (recipeVM != null)
                 {
                     throw new Exception("Recipe has been added to correspondig food type");

@@ -4,13 +4,13 @@
     {
        
 
-         public int Id { get; set; }
-        public string FoodTypeCode { get; set; }
-        public string FoodTypeName { get; set; }
-        public DateTime? AddedDate { get; set; }
-        public int FoodTypeCount { get; set; }
-        public string ImageURL { get; set; }
-        public List<int> RawMaterialIds { get; set; }
+         public int id { get; set; }
+        public string foodTypeCode { get; set; }
+        public string foodTypeName { get; set; }
+        public DateTime? addedDate { get; set; }
+        public string imageURL { get; set; }
+        public DateTime? modifiedDate { get; set; }
+        public bool isDeleted { get; set; }
 
 
     }

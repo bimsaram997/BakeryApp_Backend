@@ -16,8 +16,10 @@ namespace Repositories.RecipeRepository
 {
     public interface IRecipeRepository
     {
-        public AllRecipeVM GetByFoodTypeId(int foodTypeId);
+        public AllRecipeVM AllGetByFoodTypeId(int foodTypeId);
         public bool CheckRawMaterialsAssociatedWithRecipe(int rawMateialId);
+        bool IsFoodTypeLinked(int foodTypeId);
+        public RecipeVM GetByFoodTypeId(int foodTypeId);
     }
     public class RecipeRepository : IRepositoryBase<RecipeVM>, IRecipeRepository
     {
@@ -164,7 +166,7 @@ namespace Repositories.RecipeRepository
             return recipe.id;
         }
 
-        public AllRecipeVM GetByFoodTypeId(int foodTypeId)
+        public AllRecipeVM AllGetByFoodTypeId(int foodTypeId)
         {
             AllRecipeVM? recipe = _context.Recipes.Where(n => n.FoodTypeId == foodTypeId && !n.IsDeleted).Select(recipe => new AllRecipeVM()
             {
@@ -197,10 +199,37 @@ namespace Repositories.RecipeRepository
         }
 
 
+        public RecipeVM GetByFoodTypeId(int foodTypeId)
+        {
+            RecipeVM? recipe = _context.Recipes.Where(n => n.FoodTypeId == foodTypeId && !n.IsDeleted).Select(recipe => new RecipeVM()
+            {
+                id = recipe.Id,
+                addedDate = recipe.AddedDate,
+                foodTypeId = recipe.FoodTypeId,
+                isDeleted = recipe.IsDeleted,
+                modifiedDate = recipe.ModifiedDate,
+                rawMaterials = _context.RawMaterialRecipe
+                   .Where(rm => rm.RecipeId == recipe.Id)
+                   .Select(rm => new RecipeRawMaterial
+                   {
+                       rawMaterialId = rm.RawMaterialId,
+                       rawMaterialQuantity = rm.RawMaterialQuantity
+                   }).ToList()
+            }).FirstOrDefault();
+            return recipe;
+        }
+
         public bool CheckRawMaterialsAssociatedWithRecipe(int rawMaterialId)
         {
             bool hasRecords = _context.RawMaterialRecipe.Any(rm => rm.RawMaterialId == rawMaterialId);
             return hasRecords;
+        }
+
+        public bool IsFoodTypeLinked(int foodTypeId)
+        {
+            bool isLinked = _context.Recipes.Any(fi => fi.FoodTypeId == foodTypeId);
+            return isLinked;
+
         }
     }
 }

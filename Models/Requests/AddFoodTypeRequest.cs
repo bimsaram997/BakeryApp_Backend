@@ -11,7 +11,6 @@ namespace Models.Requests
     {
         public string FoodTypeName { get; set; }
         public DateTime? AddedDate { get; set; }
-        public int FoodTypeCount { get; set; }
         public string ImageURL { get; set; }
       
     }
