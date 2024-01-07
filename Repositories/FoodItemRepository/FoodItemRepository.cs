@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Models.Data;
 using Models.Data.FoodItemData;
+using Models.Filters;
+using Models.Helpers;
+using Models.Pagination;
 using Models.ViewModels;
 using Models.ViewModels.FoodItem;
 using System;
@@ -17,6 +20,7 @@ namespace Repositories.FoodItemRepository
         int UpdateByFoodCode(string foodCode);
         bool IsFoodTypeLinked(int foodTypeId);
         void AddBatchDetails(int foodId, long batchId );
+        PaginatedList<AllFoodItemVM> GetAll(string sortBy, bool isAscending, ProductListAdvanceFilter filter, int pageIndex, int pageSize);
     }
     public class FoodItemRepository : IRepositoryBase<FoodItemVM>, IFoodItemRepository
     {
@@ -83,6 +87,53 @@ namespace Repositories.FoodItemRepository
             throw new NotImplementedException();
         }
 
+        public PaginatedList<AllFoodItemVM> GetAll(string sortBy, bool isAscending, ProductListAdvanceFilter filter, int pageIndex, int pageSize)
+        {
+            IQueryable<FoodItem> query = _context.FoodItems
+                .Where(fi => !fi.IsDeleted);
+
+            query = SortHelper.ApplySorting(query.AsQueryable(), sortBy, isAscending);
+
+            if (filter != null)
+            {
+                if (filter.FoodTypeId.HasValue)
+                {
+                    query = query.Where(fi => fi.FoodTypeId == filter.FoodTypeId);
+                }
+
+                if (filter.FoodPrice.HasValue)
+                {
+                    query = query.Where(fi => fi.FoodPrice == filter.FoodPrice);
+                }
+
+                // Add more conditions for other properties in the filter class
+            }
+
+            int totalCount = query.Count();
+
+            query = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+            var paginatedResult = query
+                .Select(fi => new AllFoodItemVM
+                {
+                    Id = fi.Id,
+                    FoodCode = fi.FoodCode,
+                    AddedDate = fi.AddedDate,
+                    FoodDescription = fi.FoodDescription,
+                    FoodPrice = fi.FoodPrice,
+                    ImageURL = fi.ImageURL,
+                    FoodTypeId = fi.FoodTypeId,
+                    FoodTypeName = fi.foodType.FoodTypeName,
+                    BatchId = _context.BatchFoodItem.FirstOrDefault(bfi => bfi.FoodItemId == fi.Id).BatchId
+                })
+                .ToList();
+
+            return new PaginatedList<AllFoodItemVM>(paginatedResult, totalCount, pageIndex, pageSize);
+        }
+
+
+
+
         public void AddBatchDetails(int foodId, long batchId)
         {
             BatchFoodItem batchFoodItem = new BatchFoodItem()
@@ -104,5 +155,7 @@ namespace Repositories.FoodItemRepository
             return isLinked;
 
         }
+
+       
     }
 }

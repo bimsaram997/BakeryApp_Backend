@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.Data.FoodItemData;
 using Models.Data.RawMaterialData;
+using Models.Filters;
 using Models.Requests;
 using Models.Requests.Update_Requests;
 using Models.ViewModels;
@@ -132,10 +133,10 @@ namespace BakeryApp.Controllers
         }
 
 
-        [HttpGet("listAdvance")]
-        public IActionResult GetAllFoodItems()
+        [HttpPost("listAdvance")]
+        public IActionResult GetAllFoodItems( string sortBy, bool isAscending, [FromBody] ProductListAdvanceFilter productListAdvanceFilter, int pageIndex, int pageSize)
         {
-            var _foodItems = _foodItemAllBase.GetAll();
+            var _foodItems = _iFoodItemRepository.GetAll( sortBy, isAscending, productListAdvanceFilter, pageIndex, pageSize);
             return Ok(_foodItems);
         }
 

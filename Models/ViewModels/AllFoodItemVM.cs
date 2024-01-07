@@ -16,5 +16,6 @@ namespace Models.ViewModels
         public string ImageURL { get; set; }
         public int FoodTypeId { get; set; }
         public string FoodTypeName { get; set; }
+        public long BatchId { get; set;}
     }
 }
