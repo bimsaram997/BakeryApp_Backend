@@ -32,7 +32,7 @@ namespace Repositories.FoodTypeRepository
             if (lastFoodType != null)
             {
                 // Extract the number part of the FoodCode and increment it
-                if (int.TryParse(lastFoodType.FoodTypeCode.Substring(1), out int lastCodeNumber))
+                if (int.TryParse(lastFoodType.FoodTypeCode.Substring(2), out int lastCodeNumber))
                 {
                     newFoodTypeNumber = lastCodeNumber + 1;
                 }
@@ -42,9 +42,9 @@ namespace Repositories.FoodTypeRepository
             var _foodType = new FoodType()
             {
                 FoodTypeCode = newFoodCode,
-                FoodTypeName = foodType.foodTypeName,
+                FoodTypeName = foodType.FoodTypeName,
                 AddedDate = DateTime.Now,
-                ImageURL = foodType.imageURL,
+                ImageURL = foodType.ImageURL,
             };
 
             _context.FoodTypes.Add(_foodType);
@@ -87,13 +87,13 @@ namespace Repositories.FoodTypeRepository
         {
             var foodType = _context.FoodTypes.Where(n => n.Id == Id).Select(foodType => new FoodTypeVM()
             {
-                id = foodType.Id,
-                foodTypeCode = foodType.FoodTypeCode,
-                imageURL = foodType.ImageURL,
-                foodTypeName = foodType.FoodTypeName,
-                addedDate = foodType.AddedDate,
-                isDeleted = foodType.IsDeleted,
-                modifiedDate = foodType.ModifiedDate
+                Id = foodType.Id,
+                FoodTypeCode = foodType.FoodTypeCode,
+                ImageURL = foodType.ImageURL,
+                FoodTypeName = foodType.FoodTypeName,
+                AddedDate = foodType.AddedDate,
+                IsDeleted = foodType.IsDeleted,
+                ModifiedDate = foodType.ModifiedDate
             }).FirstOrDefault();
             return foodType;
         }
@@ -106,14 +106,32 @@ namespace Repositories.FoodTypeRepository
                 // Handle the case where the  raw Material with the given ID is not found
                 return -1; // You might want to return an error code or throw an exception
             }
-            previousFoodType.ImageURL = foodType.imageURL;
-            previousFoodType.FoodTypeName = foodType.foodTypeName;
+            previousFoodType.ImageURL = foodType.ImageURL;
+            previousFoodType.FoodTypeName = foodType.FoodTypeName;
             previousFoodType.ModifiedDate = DateTime.Now;
 
             _context.SaveChanges();
             return previousFoodType.Id;
         }
 
-        
+      
+        public FoodTypeVM[] ListSimpeleFoodTypes()
+        {
+            var simpleFoodTypes = _context.FoodTypes
+                 .Where(ft => !ft.IsDeleted)
+                 .Select(foodType => new FoodTypeVM()
+                 {
+                     Id = foodType.Id,
+                     FoodTypeCode = foodType.FoodTypeCode,
+                     ImageURL = foodType.ImageURL,
+                     FoodTypeName = foodType.FoodTypeName,
+                     AddedDate = foodType.AddedDate,
+                     IsDeleted = foodType.IsDeleted,
+                     ModifiedDate = foodType.ModifiedDate
+                 })
+                 .ToArray();
+
+            return simpleFoodTypes;
+        }
     }
 }

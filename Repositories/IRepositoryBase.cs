@@ -1,4 +1,5 @@
 ﻿using Models.Data;
+using Models.ViewModels.FoodType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace Repositories
     public interface IFoodTypeRepository
     {
         int UpdateFoodTypeCountByFoodTypeId(int Id);
+        FoodTypeVM[] ListSimpeleFoodTypes();
     }
 
    

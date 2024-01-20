@@ -16,6 +16,17 @@ namespace Models.ViewModels
         public string ImageURL { get; set; }
         public int FoodTypeId { get; set; }
         public string FoodTypeName { get; set; }
+
         public long BatchId { get; set;}
+        public bool IsSold { get; set; }
+    }
+
+
+    public class PaginatedFoodItems
+    {
+        public List<AllFoodItemVM> Items { get; set; }
+        public int TotalCount { get; set; }
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
     }
 }

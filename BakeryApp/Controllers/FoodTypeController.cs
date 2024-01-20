@@ -22,18 +22,22 @@ namespace BakeryApp.Controllers
         public IFoodItemRepository _ifoodItemRepository;
         public IRepositoryAllBase<AllFoodItemVM> _foodItemAllBase;
         public IRecipeRepository _iRecipeRepository;
+        public IFoodTypeRepository _iFoodTypeRepository;
         public FoodTypeController(IRepositoryBase<FoodTypeVM> foodTypeRepository,
             IRepositoryAllBase<AllFoodItemVM> foodItemAllBase,
             IFoodItemRepository ifoodTypeRepository,
-            IRecipeRepository iRecipeRepository)
+            IRecipeRepository iRecipeRepository,
+            IFoodTypeRepository iFoodTypeRepository)
         {
 
             _foodTypeRepository = foodTypeRepository;
             _foodItemAllBase = foodItemAllBase;
             _ifoodItemRepository = ifoodTypeRepository;
             _iRecipeRepository = iRecipeRepository;
-           
-            
+            _iFoodTypeRepository = iFoodTypeRepository;
+
+
+
         }
 
         //Add food item
@@ -43,9 +47,9 @@ namespace BakeryApp.Controllers
 
             var foodItem = new FoodTypeVM
             {
-                foodTypeName = foodTypeRequest.FoodTypeName,
-                imageURL = foodTypeRequest.ImageURL,
-                addedDate = DateTime.Now,
+                FoodTypeName = foodTypeRequest.FoodTypeName,
+                ImageURL = foodTypeRequest.ImageURL,
+                AddedDate = DateTime.Now,
 
             };
 
@@ -123,8 +127,8 @@ namespace BakeryApp.Controllers
             {
                 FoodTypeVM foodTypeVM = new FoodTypeVM
                 {
-                   foodTypeName = updateFoodType.foodTypeName,
-                   imageURL =  updateFoodType.imageURL
+                   FoodTypeName = updateFoodType.foodTypeName,
+                   ImageURL =  updateFoodType.imageURL
                 };
                 int updatedFoodTypeId = _foodTypeRepository.UpdateById(foodTypeId, foodTypeVM); 
                 if (updatedFoodTypeId != -1)
@@ -151,5 +155,23 @@ namespace BakeryApp.Controllers
             var _foodItems = _foodItemAllBase.GetAll();
             return Ok(_foodItems);
         }
+
+        [HttpGet("listSimpleFoodTypes")]
+        public IActionResult ListSimpleFoodTypes()
+        {
+            try
+            {
+                // Call the repository to get the list of simple FoodTypes
+                FoodTypeVM[] foodTypes = _iFoodTypeRepository.ListSimpeleFoodTypes();
+
+                return Ok(foodTypes);
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions if needed
+                return BadRequest($"Error getting list of simple FoodTypes: {ex.Message}");
+            }
+        }
+
     }
 }

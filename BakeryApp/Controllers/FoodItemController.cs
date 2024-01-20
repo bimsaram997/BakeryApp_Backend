@@ -134,20 +134,28 @@ namespace BakeryApp.Controllers
 
 
         [HttpPost("listAdvance")]
-        public IActionResult GetAllFoodItems( string sortBy, bool isAscending, [FromBody] ProductListAdvanceFilter productListAdvanceFilter, int pageIndex, int pageSize)
+        public IActionResult GetAllFoodItems( [FromBody] ProductListAdvanceFilter productListAdvanceFilter)
         {
-            var _foodItems = _iFoodItemRepository.GetAll( sortBy, isAscending, productListAdvanceFilter, pageIndex, pageSize);
-            return Ok(_foodItems);
+            try
+            {
+                var _foodItems = _iFoodItemRepository.GetAll(productListAdvanceFilter);
+                return Created(nameof(GetAllFoodItems), _foodItems);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error adding Food item: {ex.Message}");
+            }
+
         }
 
         private long GenerateBatchId()
         {
             var timestamp = DateTime.UtcNow;
             var random = new Random();
-            var randomPart = random.Next(1000, 9999);
+            var randomPart = random.Next(1, 100);
 
             // Combine timestamp and random number to create a unique batch ID
-            var batchIdString = $"{timestamp:yyyyMMddHHmmss}{randomPart}";
+            var batchIdString = $"{timestamp:yyyyMMdd}{randomPart}";
 
             // Convert the string to a long
             if (long.TryParse(batchIdString, out var batchId))

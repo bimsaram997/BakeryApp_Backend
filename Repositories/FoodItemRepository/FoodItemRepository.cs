@@ -20,7 +20,7 @@ namespace Repositories.FoodItemRepository
         int UpdateByFoodCode(string foodCode);
         bool IsFoodTypeLinked(int foodTypeId);
         void AddBatchDetails(int foodId, long batchId );
-        PaginatedList<AllFoodItemVM> GetAll(string sortBy, bool isAscending, ProductListAdvanceFilter filter, int pageIndex, int pageSize);
+        PaginatedFoodItems GetAll(ProductListAdvanceFilter filter);
     }
     public class FoodItemRepository : IRepositoryBase<FoodItemVM>, IFoodItemRepository
     {
@@ -87,12 +87,14 @@ namespace Repositories.FoodItemRepository
             throw new NotImplementedException();
         }
 
-        public PaginatedList<AllFoodItemVM> GetAll(string sortBy, bool isAscending, ProductListAdvanceFilter filter, int pageIndex, int pageSize)
+        
+
+        public PaginatedFoodItems GetAll(ProductListAdvanceFilter filter)
         {
             IQueryable<FoodItem> query = _context.FoodItems
                 .Where(fi => !fi.IsDeleted);
 
-            query = SortHelper.ApplySorting(query.AsQueryable(), sortBy, isAscending);
+            query = SortHelper.ApplySorting(query.AsQueryable(), filter.SortBy, filter.IsAscending);
 
             if (filter != null)
             {
@@ -106,12 +108,44 @@ namespace Repositories.FoodItemRepository
                     query = query.Where(fi => fi.FoodPrice == filter.FoodPrice);
                 }
 
-                // Add more conditions for other properties in the filter class
+                if (!string.IsNullOrEmpty(filter.SearchString))
+                {
+                    query = query.Where(fi =>
+                        fi.FoodCode.Contains(filter.SearchString) ||
+                        fi.FoodDescription.Contains(filter.SearchString) 
+                    );
+                }
+
+                if (filter.BatchId.HasValue)
+                {
+                    query = query.Where(fi => _context.BatchFoodItem.Any(bfi => bfi.FoodItemId == fi.Id && bfi.BatchId == filter.BatchId));
+                }
+
+
+                if (!string.IsNullOrEmpty(filter.AddedDate))
+                {
+                    if (DateTime.TryParse(filter.AddedDate, out DateTime filterDate))
+                    {
+                        query = query.Where(fi => fi.AddedDate >= filterDate && fi.AddedDate < filterDate.AddDays(1));
+                    }
+                   
+                }
+
+                if (filter.Available != null)
+                {
+                    // Only Available filter is specified
+                  
+                        query = query.Where(fi => fi.IsSold == filter.Available);
+                     
+                   
+                }
+               
+
             }
 
             int totalCount = query.Count();
 
-            query = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+            query = query.Skip((filter.Pagination.PageIndex - 1) * filter.Pagination.PageSize).Take(filter.Pagination.PageSize);
 
             var paginatedResult = query
                 .Select(fi => new AllFoodItemVM
@@ -124,11 +158,20 @@ namespace Repositories.FoodItemRepository
                     ImageURL = fi.ImageURL,
                     FoodTypeId = fi.FoodTypeId,
                     FoodTypeName = fi.foodType.FoodTypeName,
-                    BatchId = _context.BatchFoodItem.FirstOrDefault(bfi => bfi.FoodItemId == fi.Id).BatchId
+                    BatchId = _context.BatchFoodItem.FirstOrDefault(bfi => bfi.FoodItemId == fi.Id).BatchId,
+                    IsSold = fi.IsSold
                 })
                 .ToList();
 
-            return new PaginatedList<AllFoodItemVM>(paginatedResult, totalCount, pageIndex, pageSize);
+            var result = new PaginatedFoodItems
+            {
+                Items = paginatedResult,
+                TotalCount = totalCount,
+                PageIndex = filter.Pagination.PageIndex,
+                PageSize = filter.Pagination.PageSize
+            };
+
+            return result;
         }
 
 
