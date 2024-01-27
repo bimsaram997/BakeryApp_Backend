@@ -148,6 +148,20 @@ namespace BakeryApp.Controllers
 
         }
 
+        [HttpPost("updateItemsByBatchId/{batchId}")]
+        public IActionResult UpdateItemsByBatchId(long batchId, [FromBody] UpdateFoodItem updateItem)
+        {
+            try
+            {
+                int updatedFoodItemId =  _iFoodItemRepository.UpdateItemsByBatchId(batchId, updateItem);
+                return Ok(updatedFoodItemId);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         private long GenerateBatchId()
         {
             var timestamp = DateTime.UtcNow;
@@ -224,5 +238,30 @@ namespace BakeryApp.Controllers
              var _foodItems = _foodItemService.GetFoodItemById(foodItemId);
              return Ok(_foodItems);
          }*/
+
+
+        [HttpGet("getFoodItemId/{id}")]
+        public IActionResult GetFoodTypeById(int id)
+        {
+            try
+            {
+                // Call the repository to get the recipe by ID
+                FoodItemVM _foodItem = _foodRepository.GetById(id);
+
+                if (_foodItem != null)
+                {
+                    return Created(nameof(GetFoodTypeById), _foodItem);
+                }
+                else
+                {
+                    // Handle the case where the recipe is not found
+                    return NotFound($"Food item with ID {id} not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving Food item: {ex.Message}");
+            }
+        }
     }
 }

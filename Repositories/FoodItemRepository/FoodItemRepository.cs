@@ -5,11 +5,13 @@ using Models.Data.FoodItemData;
 using Models.Filters;
 using Models.Helpers;
 using Models.Pagination;
+using Models.Requests.Update_Requests;
 using Models.ViewModels;
 using Models.ViewModels.FoodItem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +22,7 @@ namespace Repositories.FoodItemRepository
         int UpdateByFoodCode(string foodCode);
         bool IsFoodTypeLinked(int foodTypeId);
         void AddBatchDetails(int foodId, long batchId );
+        int UpdateItemsByBatchId(long batchId, UpdateFoodItem updateModel);
         PaginatedFoodItems GetAll(ProductListAdvanceFilter filter);
     }
     public class FoodItemRepository : IRepositoryBase<FoodItemVM>, IFoodItemRepository
@@ -79,7 +82,25 @@ namespace Repositories.FoodItemRepository
 
         public FoodItemVM GetById(int id)
         {
-            throw new NotImplementedException();
+            FoodItemVM? foodItem = _context.FoodItems
+       .Where(fi => fi.Id == id && !fi.IsDeleted)
+       .Select(fi => new FoodItemVM
+       {
+           Id = fi.Id,
+           FoodCode = fi.FoodCode,
+           AddedDate = fi.AddedDate,
+           FoodDescription = fi.FoodDescription,
+           FoodPrice = fi.FoodPrice,
+           ImageURL = fi.ImageURL,
+           FoodTypeId = fi.FoodTypeId,
+           FoodTypeName = fi.foodType.FoodTypeName,
+           IsSold =  fi.IsSold,
+           BatchId = _context.BatchFoodItem.FirstOrDefault(bfi => bfi.FoodItemId == fi.Id).BatchId ,
+     
+       })
+       .FirstOrDefault();
+
+            return foodItem;
         }
 
         public int UpdateById(int id, FoodItemVM entity)
@@ -174,6 +195,31 @@ namespace Repositories.FoodItemRepository
             return result;
         }
 
+        public int UpdateItemsByBatchId(long batchId, UpdateFoodItem updateItem)
+        {
+            var foodItemIdsToUpdate = _context.BatchFoodItem
+            .Where(bfi => bfi.BatchId == batchId)
+            .Select(bfi => bfi.FoodItemId)
+            .ToList();
+
+            var foodItemsToUpdate = _context.FoodItems
+                .Where(fi => foodItemIdsToUpdate.Contains(fi.Id) && !fi.IsDeleted && !fi.IsSold)
+                .ToList();
+
+            foreach (FoodItem foodItem in foodItemsToUpdate)
+            {
+                foodItem.FoodPrice = updateItem.FoodPrice;
+                foodItem.FoodDescription = updateItem.FoodDescription;
+                foodItem.FoodPrice = updateItem.FoodPrice;
+                foodItem.IsSold = (bool)updateItem.IsSold;
+                foodItem.AddedDate = updateItem.AddedDate;
+                foodItem.ImageURL = updateItem.ImageURL;
+            }
+
+            _context.SaveChanges();
+            return updateItem.Id;
+          
+        }
 
 
 
