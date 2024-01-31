@@ -61,6 +61,7 @@ namespace Repositories.FoodItemRepository
                 AddedDate = DateTime.Now,
                 ImageURL = foodItem.ImageURL,
                 FoodTypeId = foodItem.FoodTypeId,
+                BatchId = foodItem.BatchId,
             };
 
             _context.FoodItems.Add(_foodItem);
@@ -95,7 +96,7 @@ namespace Repositories.FoodItemRepository
            FoodTypeId = fi.FoodTypeId,
            FoodTypeName = fi.foodType.FoodTypeName,
            IsSold =  fi.IsSold,
-           BatchId = _context.BatchFoodItem.FirstOrDefault(bfi => bfi.FoodItemId == fi.Id).BatchId ,
+           BatchId = fi.BatchId,
      
        })
        .FirstOrDefault();
@@ -179,7 +180,7 @@ namespace Repositories.FoodItemRepository
                     ImageURL = fi.ImageURL,
                     FoodTypeId = fi.FoodTypeId,
                     FoodTypeName = fi.foodType.FoodTypeName,
-                    BatchId = _context.BatchFoodItem.FirstOrDefault(bfi => bfi.FoodItemId == fi.Id).BatchId,
+                   BatchId = fi.BatchId,
                     IsSold = fi.IsSold
                 })
                 .ToList();
@@ -197,14 +198,9 @@ namespace Repositories.FoodItemRepository
 
         public int UpdateItemsByBatchId(long batchId, UpdateFoodItem updateItem)
         {
-            var foodItemIdsToUpdate = _context.BatchFoodItem
-            .Where(bfi => bfi.BatchId == batchId)
-            .Select(bfi => bfi.FoodItemId)
-            .ToList();
-
             var foodItemsToUpdate = _context.FoodItems
-                .Where(fi => foodItemIdsToUpdate.Contains(fi.Id) && !fi.IsDeleted && !fi.IsSold)
-                .ToList();
+     .Where(fi => fi.BatchId == batchId && !fi.IsDeleted && !fi.IsSold)
+     .ToList();
 
             foreach (FoodItem foodItem in foodItemsToUpdate)
             {
@@ -218,7 +214,6 @@ namespace Repositories.FoodItemRepository
 
             _context.SaveChanges();
             return updateItem.Id;
-          
         }
 
 

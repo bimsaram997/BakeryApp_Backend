@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models.Data;
 
@@ -11,9 +12,11 @@ using Models.Data;
 namespace Models.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240128082614_addBatcIDToFoodItem")]
+    partial class addBatcIDToFoodItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,8 +40,6 @@ namespace Models.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FoodItemId");
 
                     b.ToTable("BatchFoodItem");
                 });
@@ -242,15 +243,6 @@ namespace Models.Migrations
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("Models.Data.FoodItemData.BatchFoodItem", b =>
-                {
-                    b.HasOne("Models.Data.FoodItemData.FoodItem", null)
-                        .WithMany("BatchFoodItem")
-                        .HasForeignKey("FoodItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Models.Data.FoodItemData.FoodItem", b =>
                 {
                     b.HasOne("Models.Data.FoodItemData.FoodType", "foodType")
@@ -279,11 +271,6 @@ namespace Models.Migrations
                     b.Navigation("RawMaterial");
 
                     b.Navigation("recipe");
-                });
-
-            modelBuilder.Entity("Models.Data.FoodItemData.FoodItem", b =>
-                {
-                    b.Navigation("BatchFoodItem");
                 });
 #pragma warning restore 612, 618
         }

@@ -62,7 +62,7 @@ namespace BakeryApp.Controllers
                 RecipeVM recipeVM= _iRecipeRepository.GetByFoodTypeId(foodItemRequest.FoodTypeId);
                 
                 if (foodType != null && foodItemCount > 0 && recipeVM != null) {
-
+                    long batchId = GenerateBatchId();
                     var foodItem = new FoodItemVM
                     {
                         FoodDescription = foodItemRequest.FoodDescription,
@@ -70,12 +70,13 @@ namespace BakeryApp.Controllers
                         ImageURL = foodItemRequest.ImageURL,
                         AddedDate = DateTime.Now,
                         FoodTypeId = foodItemRequest.FoodTypeId,
+                        BatchId = batchId,
                     };
 
                     int[] rawMaterialIds = recipeVM.rawMaterials.Select(rrm => rrm.rawMaterialId).ToArray();
                     
                     // Generate a batchId for the current batch
-                    long batchId = GenerateBatchId();
+                    
                     
                     // Initialize a dictionary to store the total quantity used for each raw material
                     Dictionary<int, double> rawMaterialQuantitiesUsed = new Dictionary<int, double>();

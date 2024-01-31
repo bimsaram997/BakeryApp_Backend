@@ -14,6 +14,8 @@
         public DateTime? ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsSold { get; set; }
+        public long BatchId { get; set; }
+        public ICollection<BatchFoodItem> BatchFoodItem { get; set; }
         public FoodItem() {
             IsDeleted = false;
             IsSold= false;
