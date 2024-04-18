@@ -10,9 +10,10 @@ namespace Models.Requests
     {
   
         public string FoodDescription { get; set; }
-        public double? FoodPrice { get; set; }
+        public double FoodPrice { get; set; }
         public string ImageURL { get; set; }
-        public DateTime? AddedDate { get; set; }
+        public DateTime AddedDate { get; set; }
         public int FoodTypeId { get; set; }
+        public int FoodItemCount { get; set; }
     }
 }

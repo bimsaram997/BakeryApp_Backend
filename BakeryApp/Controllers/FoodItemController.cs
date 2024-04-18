@@ -54,14 +54,14 @@ namespace BakeryApp.Controllers
 
         //Add food item
         [HttpPost("addFood")]
-        public IActionResult AddFoodItem([FromBody] AddFoodItemRequest foodItemRequest, int foodItemCount)
+        public IActionResult AddFoodItem([FromBody] AddFoodItemRequest foodItemRequest)
         {
             try
             {
                 FoodTypeVM foodType = _foodTypeRepository.GetById(foodItemRequest.FoodTypeId);
                 RecipeVM recipeVM= _iRecipeRepository.GetByFoodTypeId(foodItemRequest.FoodTypeId);
                 
-                if (foodType != null && foodItemCount > 0 && recipeVM != null) {
+                if (foodType != null && foodItemRequest.FoodItemCount > 0 && recipeVM != null) {
                     long batchId = GenerateBatchId();
                     var foodItem = new FoodItemVM
                     {
@@ -83,7 +83,7 @@ namespace BakeryApp.Controllers
                     
                     List<int> foodIds = new List<int>();
                    
-                    for (int i = 0; i < foodItemCount; ++i)
+                    for (int i = 0; i < foodItemRequest.FoodItemCount; ++i)
                     {
 
                         // calcualte raw merial count and update the reamaing qunatity
