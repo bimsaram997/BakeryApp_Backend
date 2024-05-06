@@ -186,13 +186,13 @@ namespace Repositories.RecipeRepository
                        .Any(rm => rm.RecipeId == recipe.Id && rm.RawMaterialId == rawMat.Id))
                    .Select(rawMat => new RawMaterialVM
                    {
-                       id = rawMat.Id,
-                       rawMaterialCode = rawMat.RawMaterialCode,
-                       name = rawMat.Name,
-                       quantity = rawMat.Quantity,
-                       addedDate = rawMat.AddedDate,
-                       imageURL = rawMat.ImageURL,
-                       rawMaterialQuantityType = rawMat.RawMaterialQuantityType
+                       Id = rawMat.Id,
+                       RawMaterialCode = rawMat.RawMaterialCode,
+                       Name = rawMat.Name,
+                      Quantity = rawMat.Quantity,
+                       AddedDate = rawMat.AddedDate,
+                       ImageURL = rawMat.ImageURL,
+                       RawMaterialQuantityType = rawMat.RawMaterialQuantityType
                    }).ToList()
             }).FirstOrDefault();
             return recipe;

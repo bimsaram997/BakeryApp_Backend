@@ -1,6 +1,10 @@
 ﻿using Models.Data;
 using Models.Data.FoodItemData;
 using Models.Data.RawMaterialData;
+using Models.Filters;
+using Models.Helpers;
+using Models.Migrations;
+using Models.ViewModels;
 using Models.ViewModels.FoodItem;
 using Models.ViewModels.FoodType;
 using Models.ViewModels.RawMaterial;
@@ -13,6 +17,7 @@ namespace Repositories.RawMarerialRepository
          RawMatRecipeVM GetRawMaterialRecipeByRawMatIdAndRecipeId(int recipeId, int rawMaterialId);
          int UpdateRawMaterialCountbyRawMatId(int rawMatId, double newStockQuantity);
         void StoreRawMaterialQuantitiesUsed(int foodId, Dictionary<int, double> rawMaterialQuantitiesUsed);
+        PaginatedRawMaterials GetAll(RawMaterialListAdvanceFilter filter);
 
     }
     public class RawMaterialRepository : IRepositoryBase<RawMaterialVM>, IRawMaterialRepository
@@ -23,6 +28,77 @@ namespace Repositories.RawMarerialRepository
             _context = context;
         }
 
+        public PaginatedRawMaterials GetAll(RawMaterialListAdvanceFilter filter)
+        {
+            IQueryable<RawMaterial> query = _context.RawMaterials
+                .Where(fi => !fi.IsDeleted);
+
+            query = SortHelper.ApplySorting(query.AsQueryable(), filter.SortBy, filter.IsAscending);
+
+            if (filter != null)
+            {
+                if (!string.IsNullOrEmpty(filter.SearchString))
+                {
+                    query = query.Where(fi =>
+                        fi.Name.Contains(filter.SearchString)  || fi.RawMaterialCode.Contains(filter.SearchString)
+                    );
+                }
+
+
+                if (filter.RawMaterialQuantityType.HasValue)
+                {
+                    query = query.Where(fi => fi.RawMaterialQuantityType == filter.RawMaterialQuantityType);
+                }
+
+                if (filter.Quantity.HasValue)
+                {
+                    query = query.Where(fi => fi.Quantity == filter.Quantity);
+                }
+
+
+                if (!string.IsNullOrEmpty(filter.AddedDate))
+                {
+                    if (DateTime.TryParse(filter.AddedDate, out DateTime filterDate))
+                    {
+                        query = query.Where(fi => fi.AddedDate >= filterDate && fi.AddedDate < filterDate.AddDays(1));
+                    }
+
+                }
+
+            }
+
+            int totalCount = query.Count();
+
+            query = query.Skip((filter.Pagination.PageIndex - 1) * filter.Pagination.PageSize).Take(filter.Pagination.PageSize);
+
+            var paginatedResult = query
+                .Select(fi => new AllRawMaterialVM
+                {
+                    Id = fi.Id,
+                    Name = fi.Name,
+                    AddedDate = fi.AddedDate,
+                    Quantity = fi.Quantity,
+                    RawMaterialQuantityType = fi.RawMaterialQuantityType,
+                    ImageURL = fi.ImageURL,
+                    ModifiedDate = fi.ModifiedDate,
+                    RawMaterialCode = fi.RawMaterialCode
+
+                })
+                .ToList();
+
+            var result = new PaginatedRawMaterials
+            {
+                Items = paginatedResult,
+                TotalCount = totalCount,
+                PageIndex = filter.Pagination.PageIndex,
+                PageSize = filter.Pagination.PageSize
+            };
+
+            return result;
+        }
+
+     
+
         public int Add(RawMaterialVM rawMaterial)
         {
 
@@ -32,7 +108,7 @@ namespace Repositories.RawMarerialRepository
             if (lastRawMaterial != null)
             {
                 // Extract the number part of the FoodCode and increment it
-                if (int.TryParse(lastRawMaterial.RawMaterialCode.Substring(1), out int lastCodeNumber))
+                if (int.TryParse(lastRawMaterial.RawMaterialCode.Substring(2), out int lastCodeNumber))
                 {
                     newRowMaterialNumber = lastCodeNumber + 1;
                 }
@@ -41,11 +117,11 @@ namespace Repositories.RawMarerialRepository
             RawMaterial _rawMaterial = new RawMaterial()
             {
                 RawMaterialCode = newRawMaterialCode,
-                Name = rawMaterial.name,
-                AddedDate = rawMaterial.addedDate,
-                Quantity= rawMaterial.quantity,
-                ImageURL = rawMaterial.imageURL,
-                RawMaterialQuantityType = rawMaterial.rawMaterialQuantityType
+                Name = rawMaterial.Name,
+                AddedDate = rawMaterial.AddedDate,
+                Quantity= rawMaterial.Quantity,
+                ImageURL = rawMaterial.ImageURL,
+                RawMaterialQuantityType = rawMaterial.RawMaterialQuantityType
             };
             _context.RawMaterials.Add(_rawMaterial);
             object value = _context.SaveChanges();
@@ -73,15 +149,15 @@ namespace Repositories.RawMarerialRepository
         {
             RawMaterialVM? rawMaterial = _context.RawMaterials.Where(n => n.Id == Id && !n.IsDeleted).Select(rawMaterial => new RawMaterialVM()
             {
-                id = rawMaterial.Id,
-                rawMaterialCode = rawMaterial.RawMaterialCode,
-                name = rawMaterial.Name,
-                imageURL = rawMaterial.ImageURL,
-                quantity = rawMaterial.Quantity,
-                addedDate = rawMaterial.AddedDate,
-                rawMaterialQuantityType = rawMaterial.RawMaterialQuantityType,
-                isDeleted =  rawMaterial.IsDeleted,
-                modifiedDate = rawMaterial.ModifiedDate
+                Id = rawMaterial.Id,
+                RawMaterialCode = rawMaterial.RawMaterialCode,
+                Name = rawMaterial.Name,
+                ImageURL = rawMaterial.ImageURL,
+                Quantity = rawMaterial.Quantity,
+                AddedDate = rawMaterial.AddedDate,
+                RawMaterialQuantityType = rawMaterial.RawMaterialQuantityType,
+                IsDeleted =  rawMaterial.IsDeleted,
+                ModifiedDate = rawMaterial.ModifiedDate
                 
             }).FirstOrDefault();
             return rawMaterial;
@@ -95,10 +171,10 @@ namespace Repositories.RawMarerialRepository
                 // Handle the case where the  raw Material with the given ID is not found
                 return -1; // You might want to return an error code or throw an exception
             }
-            previousRawMaterial.Name = rawMaterial.name;
-            previousRawMaterial.ImageURL = rawMaterial.imageURL;
-            previousRawMaterial.Quantity = rawMaterial.quantity;
-            previousRawMaterial.RawMaterialQuantityType = rawMaterial.rawMaterialQuantityType;
+            previousRawMaterial.Name = rawMaterial.Name;
+            previousRawMaterial.ImageURL = rawMaterial.ImageURL;
+            previousRawMaterial.Quantity = rawMaterial.Quantity;
+            previousRawMaterial.RawMaterialQuantityType = rawMaterial.RawMaterialQuantityType;
             previousRawMaterial.ModifiedDate = DateTime.Now;
             
             _context.SaveChanges();
@@ -152,5 +228,7 @@ namespace Repositories.RawMarerialRepository
 
             _context.SaveChanges();
         }
+
+      
     }
 }

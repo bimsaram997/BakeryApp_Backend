@@ -90,19 +90,19 @@ namespace BakeryApp.Controllers
                         foreach (int id in rawMaterialIds)
                         {
                             RawMaterialVM rawMaterialVM = _rawMaterialRepository.GetById(id);
-                            RawMatRecipeVM rawMatRecipeVM = _iRawMaterialRepository.GetRawMaterialRecipeByRawMatIdAndRecipeId(rawMaterialVM.id, recipeVM.id);
+                            RawMatRecipeVM rawMatRecipeVM = _iRawMaterialRepository.GetRawMaterialRecipeByRawMatIdAndRecipeId(rawMaterialVM.Id, recipeVM.id);
                             double quantityUsed = 0;
 
-                            switch (rawMaterialVM.rawMaterialQuantityType)
+                            switch (rawMaterialVM.RawMaterialQuantityType)
                             {
                                 // Reduce raw material count from current stock
                                 case RawMaterialQuantityType.Kg:
                                     quantityUsed = rawMatRecipeVM.rawMaterialQuantity;
-                                    UpdateQuantity(rawMaterialVM.id, rawMaterialVM.quantity, rawMatRecipeVM.rawMaterialQuantity);
+                                    UpdateQuantity(rawMaterialVM.Id, rawMaterialVM.Quantity, rawMatRecipeVM.rawMaterialQuantity);
                                     break;
                                 case RawMaterialQuantityType.L:
                                     quantityUsed = rawMatRecipeVM.rawMaterialQuantity;
-                                    UpdateQuantity(rawMaterialVM.id, rawMaterialVM.quantity, rawMatRecipeVM.rawMaterialQuantity);
+                                    UpdateQuantity(rawMaterialVM.Id, rawMaterialVM.Quantity, rawMatRecipeVM.rawMaterialQuantity);
                                     break;
                             }
 
