@@ -9,9 +9,9 @@ namespace Models.Requests.Update_Requests
 {
     public class UpdateRawMaterial
     {
-        public string name { get; set; }
-        public int quantity { get; set; }
-        public string imageURL { get; set; }
-        public RawMaterialQuantityType rawMaterialQuantityType { get; set; }
+        public string Name { get; set; }
+        public int Quantity { get; set; }
+        public string ImageURL { get; set; }
+        public RawMaterialQuantityType RawMaterialQuantityType { get; set; }
     }
 }

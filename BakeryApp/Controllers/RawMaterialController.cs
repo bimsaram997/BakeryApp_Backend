@@ -1,9 +1,11 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Models.Filters;
 using Models.Requests;
 using Models.Requests.Update_Requests;
 using Models.ViewModels.RawMaterial;
 using Repositories;
+using Repositories.RawMarerialRepository;
 using Repositories.RecipeRepository;
 
 namespace BakeryApp.Controllers
@@ -16,13 +18,14 @@ namespace BakeryApp.Controllers
         private IRecipeRepository iRecipeRepository;
         public IRepositoryBase<RawMaterialVM> _rawMaterialRepository { get => rawMaterialRepository; set => rawMaterialRepository = value; }
         public IRecipeRepository IRecipeRepository { get => iRecipeRepository; set => iRecipeRepository = value; }
-
+        public IRawMaterialRepository _iIRawMaterialRepository;
         public RawMaterialController(IRepositoryBase<RawMaterialVM> rawMaterialRepository,
-            IRecipeRepository iRecipeRepository)
+            IRecipeRepository iRecipeRepository, IRawMaterialRepository iRawMaterialRepository)
         {
 
             _rawMaterialRepository = rawMaterialRepository;
             IRecipeRepository = iRecipeRepository;
+            _iIRawMaterialRepository = iRawMaterialRepository;
         }
 
         [HttpPost("addRawMaterial")]
@@ -32,11 +35,11 @@ namespace BakeryApp.Controllers
             {
                 var rawMaterial = new RawMaterialVM
                 {
-                    name = rawMaterialRequest.Name,
-                    quantity = rawMaterialRequest.Quantity,
-                    imageURL = rawMaterialRequest.ImageURL,
-                    addedDate = DateTime.Now,
-                    rawMaterialQuantityType = rawMaterialRequest.RawMaterialQuantityType
+                    Name = rawMaterialRequest.Name,
+                    Quantity = rawMaterialRequest.Quantity,
+                    ImageURL = rawMaterialRequest.ImageURL,
+                    AddedDate = DateTime.Now,
+                    RawMaterialQuantityType = rawMaterialRequest.RawMaterialQuantityType
                 };
 
                 int rawMaterialId = _rawMaterialRepository.Add(rawMaterial);
@@ -75,10 +78,10 @@ namespace BakeryApp.Controllers
             {
                  RawMaterialVM  rawMaterialVM = new RawMaterialVM
                 {
-                    name = updateRawMaterial.name,
-                    imageURL =  updateRawMaterial.imageURL,
-                    quantity = updateRawMaterial.quantity,
-                    rawMaterialQuantityType = updateRawMaterial.rawMaterialQuantityType
+                    Name = updateRawMaterial.Name,
+                    ImageURL =  updateRawMaterial.ImageURL,
+                    Quantity = updateRawMaterial.Quantity,
+                    RawMaterialQuantityType = updateRawMaterial.RawMaterialQuantityType
                  };
                 int updatedRawMaterialId = _rawMaterialRepository.UpdateById(rawMaterialId, rawMaterialVM);
                 if (updatedRawMaterialId != -1)
@@ -96,6 +99,21 @@ namespace BakeryApp.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"Error updating Raw material: {ex.Message}");
+            }
+
+        }
+
+        [HttpPost("listAdvance")]
+        public IActionResult GetAlRawMaterials([FromBody] RawMaterialListAdvanceFilter rawMaterialListAdvanceFilter)
+        {
+            try
+            {
+                var _rawMaterials= _iIRawMaterialRepository.GetAll(rawMaterialListAdvanceFilter);
+                return Created(nameof(GetAlRawMaterials), _rawMaterials);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error loading raw materials: {ex.Message}");
             }
 
         }

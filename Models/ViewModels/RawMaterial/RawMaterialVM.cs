@@ -9,15 +9,15 @@ namespace Models.ViewModels.RawMaterial
 {
     public class RawMaterialVM
     {
-        public int id { get; set; }
-        public string rawMaterialCode { get; set; }
-        public string name { get; set; }
-        public double quantity { get; set; }
-        public DateTime? addedDate { get; set; }
-        public string imageURL { get; set; }
-        public RawMaterialQuantityType rawMaterialQuantityType { get; set; }
-        public bool isDeleted { get; set; }
-        public DateTime? modifiedDate { get; set; }
+        public int Id { get; set; }
+        public string RawMaterialCode { get; set; }
+        public string Name { get; set; }
+        public double Quantity { get; set; }
+        public DateTime? AddedDate { get; set; }
+        public string ImageURL { get; set; }
+        public RawMaterialQuantityType RawMaterialQuantityType { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
     }
 }
