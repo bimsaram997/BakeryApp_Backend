@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Models.Data;
 using Models.ViewModels;
-using Models.ViewModels.FoodItem;
+using Models.ViewModels.Product;
 using Models.ViewModels.FoodType;
 using Models.ViewModels.RawMaterial;
 using Models.ViewModels.Recipe;
 using Repositories;
-using Repositories.FoodItemRepository;
+using Repositories.ProductRepository;
 using Repositories.FoodTypeRepository;
 using Repositories.RawMarerialRepository;
 using Repositories.RecipeRepository;
@@ -20,11 +20,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
 builder.Configuration.GetConnectionString("DefaultConnectionString")
 ));
-builder.Services.AddTransient<IFoodItemRepository, FoodItemRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IFoodTypeRepository, FoodTypeRepository>();
-builder.Services.AddTransient<IRepositoryBase<FoodItemVM>, FoodItemRepository>();
+builder.Services.AddTransient<IRepositoryBase<ProductVM>, ProductRepository>();
 builder.Services.AddTransient<IRepositoryBase<FoodTypeVM>, FoodTypeRepository>();
-builder.Services.AddTransient<IRepositoryAllBase<AllFoodItemVM>, AllFoodItemRepository>();
 builder.Services.AddTransient<IRepositoryBase<RawMaterialVM>, RawMaterialRepository>();
 builder.Services.AddTransient<IRepositoryBase<RecipeVM>, RecipeRepository>();
 builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();

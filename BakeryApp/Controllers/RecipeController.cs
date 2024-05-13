@@ -1,13 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models.Filters;
 using Models.Requests;
 using Models.Requests.Update_Requests;
 using Models.ViewModels.RawMaterial;
 using Models.ViewModels.Recipe;
 using Repositories;
+using Repositories.RawMarerialRepository;
 using Repositories.RecipeRepository;
 
 namespace BakeryApp.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class RecipeController : ControllerBase
     {
         public IRepositoryBase<RecipeVM> _recipeRepository;
@@ -30,28 +34,27 @@ namespace BakeryApp.Controllers
             try
             {
                 //check food type has a corresponding recipe
-                RecipeVM recipeVM = _iRecipeRepository.GetByFoodTypeId(recipeRequest.foodTypeId);
+                /*   RecipeVM recipeVM = _iRecipeRepository.GetByFoodTypeId(recipeRequest.foodTypeId);*/
+                /*RecipeVM recipeVM = null;
                 if (recipeVM != null)
                 {
                     throw new Exception("Recipe has been added to correspondig food type");
-                }
+                }*/
 
-                if (IsmissingRawMaterials(recipeRequest.rawMaterials))
-                {
-                    // Throw an exception if any raw material is not found
-                    throw new Exception("One or more raw materials are not available in the database.");
-                }
+                
 
                 // add new recipe
                 var recipe = new RecipeVM
                 {
-                    foodTypeId = recipeRequest.foodTypeId,
-                    rawMaterials = recipeRequest.rawMaterials,
-                    addedDate = DateTime.Now,
+                    RawMaterials = recipeRequest.rawMaterials,
+                    AddedDate = DateTime.Now,
+                    Description = recipeRequest.Description,
+                    Instructions = recipeRequest.Instructions,
+                    RecipeName = recipeRequest.RecipeName
 
                 };
-                int foodId = _recipeRepository.Add(recipe);
-                return Created(nameof(AddRecipe), foodId);
+                int productId = _recipeRepository.Add(recipe);
+                return Created(nameof(AddRecipe), productId);
 
             }
             catch (Exception ex)
@@ -93,13 +96,13 @@ namespace BakeryApp.Controllers
             try
             {
                
-                if (IsmissingRawMaterials(updatedRecipe.rawMaterials))
-                {
-                    throw new Exception("One or more raw materials are not available in the database.");
-                }
+              
                 RecipeVM recipe = new RecipeVM
                 {
-                    rawMaterials = updatedRecipe.rawMaterials,
+                    RecipeName = updatedRecipe.RecipeName,
+                    Description =  updatedRecipe.Description,
+                    Instructions = updatedRecipe.Instructions,
+                    RawMaterials = updatedRecipe.RawMaterials,
                 };
                 int updatedRecipeId = _recipeRepository.UpdateById(recipeId, recipe);
                 if (updatedRecipeId != -1)
@@ -148,20 +151,36 @@ namespace BakeryApp.Controllers
             }
         }
 
-        public bool IsmissingRawMaterials(List<RecipeRawMaterial> rawMaterials)
-        {
-            //check recipes has raw materials
-            var missingRawMaterials = rawMaterials
-                .Where(rawMaterial => _rawMaterialRepository.GetById(rawMaterial.rawMaterialId) == null)
-                .ToList();
 
-            if (missingRawMaterials.Any())
+        [HttpPost("listAdvance")]
+        public IActionResult GetAlRecipes([FromBody] RecipeListAdvanceFilter recipeListAdvanceFilter)
+        {
+            try
             {
-                return true;
-            } else
-            {
-                return false;
+                var _recipes = _iRecipeRepository.GetAll(recipeListAdvanceFilter);
+                return Created(nameof(GetAlRecipes), _recipes);
             }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error loading raw materials: {ex.Message}");
+            }
+
         }
+
+        /*  public bool IsmissingRawMaterials(List<RecipeRawMaterial> rawMaterials)
+          {
+              //check recipes has raw materials
+              var missingRawMaterials = rawMaterials
+                  .Where(rawMaterial => _rawMaterialRepository.GetById(rawMaterial.rawMaterialId) == null)
+                  .ToList();
+
+              if (missingRawMaterials.Any())
+              {
+                  return true;
+              } else
+              {
+                  return false;
+              }
+          }*/
     }
 }

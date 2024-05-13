@@ -11,8 +11,10 @@ namespace Models.Requests
     {
         public string Name { get; set; }
         public int Quantity { get; set; }
+        public double Price { get; set; }
+        public int LocationId { get; set; }
         public DateTime? AddedDate { get; set; }
         public string ImageURL { get; set; }
-        public RawMaterialQuantityType RawMaterialQuantityType { get; set; }
+        public MeasureUnit MeasureUnit { get; set; }
     }
 }

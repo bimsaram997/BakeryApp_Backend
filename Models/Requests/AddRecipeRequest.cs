@@ -10,7 +10,10 @@ namespace Models.Requests
     public class AddRecipeRequest
     {
         public DateTime? AddedDate { get; set; }
-        public int foodTypeId { get; set; }
+        public string RecipeName { get; set; }
+
+        public string Description { get; set; }
+        public string Instructions { get; set; }
         public List<RecipeRawMaterial> rawMaterials { get; set; }
     }
 }

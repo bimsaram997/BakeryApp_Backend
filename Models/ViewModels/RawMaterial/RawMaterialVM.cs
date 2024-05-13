@@ -12,12 +12,25 @@ namespace Models.ViewModels.RawMaterial
         public int Id { get; set; }
         public string RawMaterialCode { get; set; }
         public string Name { get; set; }
+        public double Price { get; set; }
+        public int LocationId { get; set; }
         public double Quantity { get; set; }
         public DateTime? AddedDate { get; set; }
         public string ImageURL { get; set; }
-        public RawMaterialQuantityType RawMaterialQuantityType { get; set; }
+        public MeasureUnit MeasureUnit { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? ModifiedDate { get; set; }
+
+    }
+
+    public class RawMaterialListSimpleVM
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double Quantity { get; set; }
+        public MeasureUnit MeasureUnit { get; set; }
+ 
+
 
     }
 }

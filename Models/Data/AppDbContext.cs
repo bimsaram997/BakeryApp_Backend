@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Models.Data.FoodItemData;
+using Models.Data.ProductData;
 using Models.Data.RawMaterialData;
 using Models.Data.RecipeData;
-using Models.Migrations;
 
 namespace Models.Data
 {
@@ -20,12 +19,12 @@ namespace Models.Data
         {
            
         }
-        public DbSet<FoodItem> FoodItems { get; set; }
+        public DbSet<Product> Product { get; set; }
         public DbSet<FoodType> FoodTypes { get; set; }
         public DbSet<RawMaterial> RawMaterials { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RawMaterialRecipe> RawMaterialRecipe { get; set; }
-        public DbSet<BatchFoodItem> BatchFoodItem { get; set; }
+        public DbSet<BatchProduct> BatchProduct { get; set; }
         public DbSet<RawMaterialUsage> rawMaterialUsage { get; set; }
 
     }

@@ -22,7 +22,7 @@ namespace Models.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Models.Data.FoodItemData.BatchFoodItem", b =>
+            modelBuilder.Entity("Models.Data.ProductData.BatchProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,65 +33,17 @@ namespace Models.Migrations
                     b.Property<long>("BatchId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("FoodItemId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FoodItemId");
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("BatchFoodItem");
+                    b.ToTable("BatchProduct");
                 });
 
-            modelBuilder.Entity("Models.Data.FoodItemData.FoodItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("AddedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("BatchId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("FoodCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FoodDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("FoodPrice")
-                        .HasColumnType("float");
-
-                    b.Property<int>("FoodTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSold")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FoodTypeId");
-
-                    b.ToTable("FoodItems");
-                });
-
-            modelBuilder.Entity("Models.Data.FoodItemData.FoodType", b =>
+            modelBuilder.Entity("Models.Data.ProductData.FoodType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,6 +77,54 @@ namespace Models.Migrations
                     b.ToTable("FoodTypes");
                 });
 
+            modelBuilder.Entity("Models.Data.ProductData.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("BatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("FoodTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSold")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProductCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("ProductPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodTypeId");
+
+                    b.ToTable("Product");
+                });
+
             modelBuilder.Entity("Models.Data.RawMaterialData.RawMaterial", b =>
                 {
                     b.Property<int>("Id")
@@ -143,6 +143,12 @@ namespace Models.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MeasureUnit")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
@@ -150,15 +156,15 @@ namespace Models.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
                     b.Property<string>("RawMaterialCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RawMaterialQuantityType")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -199,7 +205,7 @@ namespace Models.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FoodItemId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<double>("QuantityUsed")
@@ -224,8 +230,13 @@ namespace Models.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FoodTypeId")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instructions")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -237,23 +248,27 @@ namespace Models.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RecipeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("Models.Data.FoodItemData.BatchFoodItem", b =>
+            modelBuilder.Entity("Models.Data.ProductData.BatchProduct", b =>
                 {
-                    b.HasOne("Models.Data.FoodItemData.FoodItem", null)
-                        .WithMany("BatchFoodItem")
-                        .HasForeignKey("FoodItemId")
+                    b.HasOne("Models.Data.ProductData.Product", null)
+                        .WithMany("BatchProduct")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Models.Data.FoodItemData.FoodItem", b =>
+            modelBuilder.Entity("Models.Data.ProductData.Product", b =>
                 {
-                    b.HasOne("Models.Data.FoodItemData.FoodType", "foodType")
+                    b.HasOne("Models.Data.ProductData.FoodType", "foodType")
                         .WithMany()
                         .HasForeignKey("FoodTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -281,9 +296,9 @@ namespace Models.Migrations
                     b.Navigation("recipe");
                 });
 
-            modelBuilder.Entity("Models.Data.FoodItemData.FoodItem", b =>
+            modelBuilder.Entity("Models.Data.ProductData.Product", b =>
                 {
-                    b.Navigation("BatchFoodItem");
+                    b.Navigation("BatchProduct");
                 });
 #pragma warning restore 612, 618
         }
