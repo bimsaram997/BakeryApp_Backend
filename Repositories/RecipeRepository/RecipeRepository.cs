@@ -225,6 +225,7 @@ namespace Repositories.RecipeRepository
             existingRecipe.ModifiedDate = DateTime.Now;
             existingRecipe.Description = recipe.Description;
             existingRecipe.Instructions = recipe.Instructions;
+            existingRecipe.RecipeName = recipe.RecipeName;
 
 
             // Update RawMaterialRecipe details

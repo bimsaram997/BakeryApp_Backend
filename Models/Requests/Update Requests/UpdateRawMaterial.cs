@@ -13,5 +13,8 @@ namespace Models.Requests.Update_Requests
         public int Quantity { get; set; }
         public string ImageURL { get; set; }
         public MeasureUnit MeasureUnit { get; set; }
+        public double Price { get; set; }
+        public int LocationId { get; set; }
+
     }
 }

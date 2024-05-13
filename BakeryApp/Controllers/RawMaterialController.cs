@@ -83,6 +83,8 @@ namespace BakeryApp.Controllers
                  RawMaterialVM  rawMaterialVM = new RawMaterialVM
                 {
                     Name = updateRawMaterial.Name,
+                    Price =  updateRawMaterial.Price,
+                    LocationId =  updateRawMaterial.LocationId,
                     ImageURL =  updateRawMaterial.ImageURL,
                     Quantity = updateRawMaterial.Quantity,
                     MeasureUnit = updateRawMaterial.MeasureUnit

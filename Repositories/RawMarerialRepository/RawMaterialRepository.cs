@@ -168,6 +168,7 @@ namespace Repositories.RawMarerialRepository
             }
             previousRawMaterial.Name = rawMaterial.Name;
             previousRawMaterial.Price = rawMaterial.Price;
+            previousRawMaterial.LocationId = rawMaterial.LocationId;
             previousRawMaterial.ImageURL = rawMaterial.ImageURL;
             previousRawMaterial.Quantity = rawMaterial.Quantity;
             previousRawMaterial.MeasureUnit = rawMaterial.MeasureUnit;
