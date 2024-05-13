@@ -9,28 +9,18 @@ namespace Models.ViewModels.Recipe
 {
     public class RecipeVM
     {
-        public int id { get; set; }
-        public string recipeCode { get; set; }
-        public int foodTypeId { get; set; }
-        public DateTime addedDate { get; set; }
-        public DateTime? modifiedDate { get; set; }
-        public bool isDeleted { get; set; }
-        public List<RecipeRawMaterial> rawMaterials { get; set; }
+        public int Id { get; set; }
+        public string RecipeCode { get; set; }
+        public string RecipeName { get; set; }
+        public DateTime AddedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public bool IsDeleted { get; set; }
+        public List<RecipeRawMaterial> RawMaterials { get; set; }
+        public string Description { get; set; }
+        public string Instructions { get; set; }
     }
 
-    public class AllRecipeVM
-    {
-        public double? rawMaterialQuantity;
-
-        public int id { get; set; }
-        public string recipeCode { get; set; }
-        public int foodTypeId { get; set; }
-        public DateTime? addedDate { get; set; }
-        public bool isDeleted { get; set; }
-        public List<RecipeRawMaterial> rawMaterials { get; set; }
-        public List<RawMaterialVM> rawMaterialDetails { get; set; }
-    }
-
+   
     public class RecipeRawMaterial
     {
         public int rawMaterialId { get; set; }

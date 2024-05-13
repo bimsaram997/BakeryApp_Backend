@@ -9,8 +9,11 @@ namespace Models.Requests.Update_Requests
 {
     public class UpdateRecipe
     {
+        public string RecipeName { get; set; }
 
-        public int foodTypeId { get; set; }
-        public List<RecipeRawMaterial> rawMaterials { get; set; }
+        public string Description { get; set; }
+        public string Instructions { get; set; }
+
+        public List<RecipeRawMaterial> RawMaterials { get; set; }
     }
 }

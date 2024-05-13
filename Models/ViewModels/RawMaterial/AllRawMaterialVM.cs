@@ -14,9 +14,11 @@ namespace Models.ViewModels.RawMaterial
         public string Name { get; set; }
         public string RawMaterialCode { get; set; }
         public DateTime? AddedDate { get; set; }
-        public RawMaterialQuantityType RawMaterialQuantityType { get; set; }
+        public MeasureUnit MeasureUnit { get; set; }
         public double? Quantity { get; set; }
+        public double Price { get; set; }
         public string ImageURL { get; set; }
+        public int LocationId { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
 

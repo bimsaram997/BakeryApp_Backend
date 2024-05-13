@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Models.Filters;
 using Models.Requests;
 using Models.Requests.Update_Requests;
+using Models.ViewModels.FoodType;
 using Models.ViewModels.RawMaterial;
 using Repositories;
+using Repositories.FoodTypeRepository;
 using Repositories.RawMarerialRepository;
 using Repositories.RecipeRepository;
 
@@ -36,10 +38,12 @@ namespace BakeryApp.Controllers
                 var rawMaterial = new RawMaterialVM
                 {
                     Name = rawMaterialRequest.Name,
+                    Price = rawMaterialRequest.Price,
                     Quantity = rawMaterialRequest.Quantity,
+                    LocationId = rawMaterialRequest.LocationId,
                     ImageURL = rawMaterialRequest.ImageURL,
                     AddedDate = DateTime.Now,
-                    RawMaterialQuantityType = rawMaterialRequest.RawMaterialQuantityType
+                    MeasureUnit = rawMaterialRequest.MeasureUnit
                 };
 
                 int rawMaterialId = _rawMaterialRepository.Add(rawMaterial);
@@ -81,7 +85,7 @@ namespace BakeryApp.Controllers
                     Name = updateRawMaterial.Name,
                     ImageURL =  updateRawMaterial.ImageURL,
                     Quantity = updateRawMaterial.Quantity,
-                    RawMaterialQuantityType = updateRawMaterial.RawMaterialQuantityType
+                    MeasureUnit = updateRawMaterial.MeasureUnit
                  };
                 int updatedRawMaterialId = _rawMaterialRepository.UpdateById(rawMaterialId, rawMaterialVM);
                 if (updatedRawMaterialId != -1)
@@ -146,6 +150,23 @@ namespace BakeryApp.Controllers
                 return BadRequest($"Error deleting raw material: {ex.Message}");
             }
           
+        }
+
+        [HttpGet("listSimpleRawmaterials")]
+        public IActionResult ListSimpleRawMaterials()
+        {
+            try
+            {
+                // Call the repository to get the list of simple FoodTypes
+                RawMaterialListSimpleVM[] rawMaterials = _iIRawMaterialRepository.ListSimpeRawMaterials();
+
+                return Ok(rawMaterials);
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions if needed
+                return BadRequest($"Error getting list of simple rawMaterials: {ex.Message}");
+            }
         }
     }
 }

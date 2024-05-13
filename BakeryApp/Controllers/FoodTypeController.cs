@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.Requests;
-using Models.ViewModels.FoodItem;
+using Models.ViewModels.Product;
 using Models.ViewModels;
-using Repositories.FoodItemRepository;
+using Repositories.ProductRepository;
 using Repositories;
 using Models.ViewModels.FoodType;
 using Repositories.RecipeRepository;
@@ -19,19 +19,19 @@ namespace BakeryApp.Controllers
     {
 
         public IRepositoryBase<FoodTypeVM> _foodTypeRepository;
-        public IFoodItemRepository _ifoodItemRepository;
-        public IRepositoryAllBase<AllFoodItemVM> _foodItemAllBase;
+        public IProductRepository _ifoodItemRepository;
+        public IRepositoryAllBase<AllProductVM> _productAllBase;
         public IRecipeRepository _iRecipeRepository;
         public IFoodTypeRepository _iFoodTypeRepository;
         public FoodTypeController(IRepositoryBase<FoodTypeVM> foodTypeRepository,
-            IRepositoryAllBase<AllFoodItemVM> foodItemAllBase,
-            IFoodItemRepository ifoodTypeRepository,
+            IRepositoryAllBase<AllProductVM> productAllBase,
+            IProductRepository ifoodTypeRepository,
             IRecipeRepository iRecipeRepository,
             IFoodTypeRepository iFoodTypeRepository)
         {
 
             _foodTypeRepository = foodTypeRepository;
-            _foodItemAllBase = foodItemAllBase;
+            _productAllBase = productAllBase;
             _ifoodItemRepository = ifoodTypeRepository;
             _iRecipeRepository = iRecipeRepository;
             _iFoodTypeRepository = iFoodTypeRepository;
@@ -45,7 +45,7 @@ namespace BakeryApp.Controllers
         public IActionResult AddFoodType([FromBody] AddFoodTypeRequest foodTypeRequest)
         {
 
-            var foodItem = new FoodTypeVM
+            var product = new FoodTypeVM
             {
                 FoodTypeName = foodTypeRequest.FoodTypeName,
                 ImageURL = foodTypeRequest.ImageURL,
@@ -53,7 +53,7 @@ namespace BakeryApp.Controllers
 
             };
 
-            int foodId = _foodTypeRepository.Add(foodItem);
+            int productId = _foodTypeRepository.Add(product);
           
             return Ok();
         }
@@ -150,10 +150,10 @@ namespace BakeryApp.Controllers
 
         }
         [HttpGet("listAdvance")]
-        public IActionResult GetAllFoodItems()
+        public IActionResult GetAllProducts()
         {
-            var _foodItems = _foodItemAllBase.GetAll();
-            return Ok(_foodItems);
+            var _products = _productAllBase.GetAll();
+            return Ok(_products);
         }
 
         [HttpGet("listSimpleFoodTypes")]

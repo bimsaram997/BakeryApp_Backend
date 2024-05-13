@@ -8,9 +8,11 @@ namespace Models.Data.RawMaterialData
         public string RawMaterialCode { get; set; }
         public string Name { get; set; }
         public double Quantity { get; set; }
+        public double Price { get; set; }
         public DateTime? AddedDate { get; set; }
         public string ImageURL { get; set; }
-        public RawMaterialQuantityType RawMaterialQuantityType { get; set; }
+        public MeasureUnit MeasureUnit { get; set; }
+        public int LocationId { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public RawMaterial() {
@@ -18,7 +20,7 @@ namespace Models.Data.RawMaterialData
         }
     }
 
-    public enum RawMaterialQuantityType
+    public enum MeasureUnit
     {
         Kg=0,
         L=1,

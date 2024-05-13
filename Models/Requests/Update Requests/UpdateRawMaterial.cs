@@ -12,6 +12,6 @@ namespace Models.Requests.Update_Requests
         public string Name { get; set; }
         public int Quantity { get; set; }
         public string ImageURL { get; set; }
-        public RawMaterialQuantityType RawMaterialQuantityType { get; set; }
+        public MeasureUnit MeasureUnit { get; set; }
     }
 }
