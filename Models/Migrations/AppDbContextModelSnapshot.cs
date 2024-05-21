@@ -22,61 +22,6 @@ namespace Models.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Models.Data.ProductData.BatchProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<long>("BatchId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("BatchProduct");
-                });
-
-            modelBuilder.Entity("Models.Data.ProductData.FoodType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("AddedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FoodTypeCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FoodTypeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FoodTypes");
-                });
-
             modelBuilder.Entity("Models.Data.ProductData.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -85,14 +30,14 @@ namespace Models.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("AddedDate")
+                    b.Property<DateTime>("AddedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("BatchId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("FoodTypeId")
+                    b.Property<int>("CostCode")
                         .HasColumnType("int");
+
+                    b.Property<double>("CostPrice")
+                        .HasColumnType("float");
 
                     b.Property<string>("ImageURL")
                         .IsRequired()
@@ -107,6 +52,10 @@ namespace Models.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ProductCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -115,12 +64,16 @@ namespace Models.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("ProductPrice")
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("SellingPrice")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Unit")
+                        .HasColumnType("int");
 
-                    b.HasIndex("FoodTypeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Product");
                 });
@@ -257,26 +210,6 @@ namespace Models.Migrations
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("Models.Data.ProductData.BatchProduct", b =>
-                {
-                    b.HasOne("Models.Data.ProductData.Product", null)
-                        .WithMany("BatchProduct")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Models.Data.ProductData.Product", b =>
-                {
-                    b.HasOne("Models.Data.ProductData.FoodType", "foodType")
-                        .WithMany()
-                        .HasForeignKey("FoodTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("foodType");
-                });
-
             modelBuilder.Entity("Models.Data.RawMaterialData.RawMaterialRecipe", b =>
                 {
                     b.HasOne("Models.Data.RawMaterialData.RawMaterial", "RawMaterial")
@@ -294,11 +227,6 @@ namespace Models.Migrations
                     b.Navigation("RawMaterial");
 
                     b.Navigation("recipe");
-                });
-
-            modelBuilder.Entity("Models.Data.ProductData.Product", b =>
-                {
-                    b.Navigation("BatchProduct");
                 });
 #pragma warning restore 612, 618
         }

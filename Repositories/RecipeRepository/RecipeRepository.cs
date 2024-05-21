@@ -23,6 +23,7 @@ namespace Repositories.RecipeRepository
         bool IsFoodTypeLinked(int foodTypeId);
         public RecipeVM GetByFoodTypeId(int foodTypeId);
         PaginatedRecipes GetAll(RecipeListAdvanceFilter filter);
+        RecipeListSimpleVM[] ListSimpeRecipes();
     }
     public class RecipeRepository : IRepositoryBase<RecipeVM>, IRecipeRepository
     {
@@ -253,6 +254,22 @@ namespace Repositories.RecipeRepository
             _context.SaveChanges();
             return existingRecipe.Id;
         }
+
+        public RecipeListSimpleVM[] ListSimpeRecipes()
+        {
+            var simpleRecipes = _context.Recipes
+                 .Where(ft => !ft.IsDeleted)
+                 .Select(recipe => new RecipeListSimpleVM()
+                 {
+                     Id = recipe.Id,
+                     RecipeName = recipe.RecipeName,
+
+                 })
+                 .ToArray();
+
+            return simpleRecipes;
+        }
+
 
         public AllRecipeVM AllGetByFoodTypeId(int foodTypeId)
         {

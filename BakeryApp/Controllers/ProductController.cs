@@ -22,9 +22,6 @@ namespace BakeryApp.Controllers
     {
       
         public IRepositoryBase<ProductVM> _productRepository;
-        public IRepositoryBase<FoodTypeVM> _foodTypeRepository;
-        public IFoodTypeRepository _iFoodTypeRepository;
-        public IRepositoryAllBase<AllProductVM> _productAllBase;
         public IRepositoryBase<RawMaterialVM> _rawMaterialRepository;
         public IRecipeRepository _iRecipeRepository;
         public IRawMaterialRepository _iRawMaterialRepository;
@@ -32,23 +29,18 @@ namespace BakeryApp.Controllers
 
         public ProductController( 
             IRepositoryBase<ProductVM> productRepository,
-            IRepositoryAllBase<AllProductVM> productAllBase,
-            IFoodTypeRepository ifoodTypeRepository,
-            IRepositoryBase<FoodTypeVM> foodTypeRepository,
             IRepositoryBase<RawMaterialVM> rawMaterialRepository,
             IRecipeRepository iRecipeRepository,
             IRawMaterialRepository iRawMaterialRepository,
-            IProductRepository iFoodItemRepository)
+            IProductRepository iFoodItemRepository
+            )
         {
   
            _productRepository = productRepository;
-           _productAllBase= productAllBase;
-           _iFoodTypeRepository = ifoodTypeRepository;
-           _foodTypeRepository= foodTypeRepository;
            _rawMaterialRepository= rawMaterialRepository;
            _iRecipeRepository = iRecipeRepository;
            _iRawMaterialRepository= iRawMaterialRepository;
-            _iProductRepository = iFoodItemRepository;
+          _iProductRepository = iFoodItemRepository;
         }
 
         //Add food item
@@ -57,74 +49,23 @@ namespace BakeryApp.Controllers
         {
             try
             {
-                FoodTypeVM foodType = _foodTypeRepository.GetById(productRequest.FoodTypeId);
-                RecipeVM recipeVM= _iRecipeRepository.GetByFoodTypeId(productRequest.FoodTypeId);
-                
-                if (foodType != null && productRequest.ProductCount > 0 && recipeVM != null) {
-                    long batchId = GenerateBatchId();
                     var product = new ProductVM
                     {
+                        Name =  productRequest.Name,
+                        Unit =  productRequest.Unit,
+                        CostCode =  productRequest.CostCode,
+                        CostPrice =  productRequest.CostPrice,
+                        SellingPrice= productRequest.SellingPrice,
+                        RecipeId =  productRequest.RecipeId,
                         ProductDescription = productRequest.ProductDescription,
-                        ProductPrice = productRequest.ProductPrice,
                         ImageURL = productRequest.ImageURL,
-                        AddedDate = DateTime.Now,
-                        FoodTypeId = productRequest.FoodTypeId,
-                        BatchId = batchId,
+                        AddedDate = productRequest.AddedDate,
+                        
                     };
 
-                    int[] rawMaterialIds = recipeVM.RawMaterials.Select(rrm => rrm.rawMaterialId).ToArray();
-                    
-                    // Generate a batchId for the current batch
-                    
-                    
-                    // Initialize a dictionary to store the total quantity used for each raw material
-                    Dictionary<int, double> rawMaterialQuantitiesUsed = new Dictionary<int, double>();
-                    
-                    List<int> foodIds = new List<int>();
-                   
-                    for (int i = 0; i < productRequest.ProductCount; ++i)
-                    {
-
-                        // calcualte raw merial count and update the reamaing qunatity
-                        foreach (int id in rawMaterialIds)
-                        {
-                            RawMaterialVM rawMaterialVM = _rawMaterialRepository.GetById(id);
-                            RawMatRecipeVM rawMatRecipeVM = _iRawMaterialRepository.GetRawMaterialRecipeByRawMatIdAndRecipeId(rawMaterialVM.Id, recipeVM.Id);
-                            double quantityUsed = 0;
-
-                            switch (rawMaterialVM.MeasureUnit)
-                            {
-                                // Reduce raw material count from current stock
-                                case MeasureUnit.Kg:
-                                    quantityUsed = rawMatRecipeVM.rawMaterialQuantity;
-                                    UpdateQuantity(rawMaterialVM.Id, rawMaterialVM.Quantity, rawMatRecipeVM.rawMaterialQuantity);
-                                    break;
-                                case MeasureUnit.L:
-                                    quantityUsed = rawMatRecipeVM.rawMaterialQuantity;
-                                    UpdateQuantity(rawMaterialVM.Id, rawMaterialVM.Quantity, rawMatRecipeVM.rawMaterialQuantity);
-                                    break;
-                            }
-
-                            // Add the quantity used to the dictionary
-                            rawMaterialQuantitiesUsed[id] = quantityUsed;
-                        }
-
-                       
-                        // add food item
-                        int productId = _productRepository.Add(product);
-                        foodIds.Add(productId);
-
-                        // Associate the current productId with the generated batchId
-                        AssociateFoodWithBatch(productId, batchId);
-                        StoreRawMaterialQuantitiesUsed(productId, rawMaterialQuantitiesUsed);
-                        
-
-                    }
-                    return Created(nameof(AddProduct), foodIds);
-                } else
-                {
-                    throw new Exception("Food type or Recipe is not available");
-                }
+                   int productId = _productRepository.Add(product);
+                    return Created(nameof(AddProduct), productId);
+                
             }
             catch (Exception ex)
             {
@@ -134,7 +75,7 @@ namespace BakeryApp.Controllers
 
 
         [HttpPost("listAdvance")]
-        public IActionResult GetAllProducts( [FromBody] ProductListAdvanceFilter productListAdvanceFilter)
+        public IActionResult GetAllProducts([FromBody] ProductListAdvanceFilter productListAdvanceFilter)
         {
             try
             {
@@ -148,12 +89,24 @@ namespace BakeryApp.Controllers
 
         }
 
-        [HttpPost("updateProductsByBatchId/{batchId}")]
-        public IActionResult UpdateProductsByBatchId(long batchId, [FromBody] UpdateProduct updateItem)
+        [HttpPost("updateProductsById/{productId}")]
+        public IActionResult UpdateProductsById(int productId, [FromBody] UpdateProduct updateItem)
         {
             try
             {
-                int updatedFoodItemId =  _iProductRepository.UpdateProductsByBatchId(batchId, updateItem);
+                ProductVM product = new ProductVM
+                {
+                    Name = updateItem.Name,
+                    Unit = updateItem.Unit,
+                    CostCode = updateItem.CostCode,
+                    CostPrice = updateItem.CostPrice,
+                    SellingPrice = updateItem.SellingPrice,
+                    RecipeId= updateItem.RecipeId,
+                    ProductDescription = updateItem.ProductDescription,
+                    ImageURL = updateItem.ImageURL
+
+                };
+                int updatedFoodItemId = _productRepository.UpdateById(productId, product);
                 return Ok(updatedFoodItemId);
             }
             catch (Exception ex)
@@ -181,13 +134,13 @@ namespace BakeryApp.Controllers
         }
 
 
-        private void AssociateFoodWithBatch(int productId, long batchId)
+      /*  private void AssociateFoodWithBatch(int productId, long batchId)
         {
             if (productId > 0 && batchId > 0)
             {
                 _iProductRepository.AddBatchDetails(productId, batchId);
             }
-        }
+        }*/
 
         private void UpdateQuantity(int rawMatId, double currentQuantity, double quantityRecipe)
         {

@@ -9,7 +9,6 @@ using Models.ViewModels.RawMaterial;
 using Models.ViewModels.Recipe;
 using Repositories;
 using Repositories.ProductRepository;
-using Repositories.FoodTypeRepository;
 using Repositories.RawMarerialRepository;
 using Repositories.RecipeRepository;
 
@@ -18,16 +17,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-builder.Configuration.GetConnectionString("DefaultConnectionString")
-));
-builder.Services.AddTransient<IProductRepository, ProductRepository>();
-builder.Services.AddTransient<IFoodTypeRepository, FoodTypeRepository>();
+builder.Configuration.GetConnectionString("DefaultConnectionString")));
 builder.Services.AddTransient<IRepositoryBase<ProductVM>, ProductRepository>();
-builder.Services.AddTransient<IRepositoryBase<FoodTypeVM>, FoodTypeRepository>();
 builder.Services.AddTransient<IRepositoryBase<RawMaterialVM>, RawMaterialRepository>();
 builder.Services.AddTransient<IRepositoryBase<RecipeVM>, RecipeRepository>();
 builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
 builder.Services.AddTransient<IRawMaterialRepository, RawMaterialRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

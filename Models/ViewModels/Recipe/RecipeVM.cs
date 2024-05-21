@@ -1,4 +1,5 @@
-﻿using Models.ViewModels.RawMaterial;
+﻿using Models.Data.RawMaterialData;
+using Models.ViewModels.RawMaterial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,12 @@ namespace Models.ViewModels.Recipe
         public int rawMaterialId { get; set; }
         public double rawMaterialQuantity { get; set; }
         
+    }
+
+    public class RecipeListSimpleVM
+    {
+        public int Id { get; set; }
+        public string RecipeName { get; set; }
+
     }
 }
