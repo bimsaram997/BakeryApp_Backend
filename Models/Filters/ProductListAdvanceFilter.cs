@@ -11,14 +11,15 @@ namespace Models.Filters
     {
         public string SortBy { get; set; }
         public bool IsAscending { get; set; }
-        public int? FoodTypeId { get; set; }
-        public double? ProductPrice { get; set; }
-        public Pagination Pagination { get; set; }
 
+        public double? SellingPrice { get; set; }
+        public double? CostPrice { get; set; }
+        public Pagination Pagination { get; set; }
         public string? SearchString { get; set; }  
         public string? AddedDate { get; set; }
-        public long? BatchId { get; set; }
-        public bool? Available { get; set; }
+        public int? Unit { get; set; }
+        public int? CostCode { get; set; }
+        public int? RecipeId { get; set; }
 
     }
 

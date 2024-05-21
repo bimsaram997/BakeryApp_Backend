@@ -167,6 +167,23 @@ namespace BakeryApp.Controllers
 
         }
 
+        [HttpGet("listSimpleRecipes")]
+        public IActionResult ListSimpleRecipes()
+        {
+            try
+            {
+                // Call the repository to get the list of simple FoodTypes
+                RecipeListSimpleVM[] recipes = _iRecipeRepository.ListSimpeRecipes();
+
+                return Ok(recipes);
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions if needed
+                return BadRequest($"Error getting list of simple recipes: {ex.Message}");
+            }
+        }
+
         /*  public bool IsmissingRawMaterials(List<RecipeRawMaterial> rawMaterials)
           {
               //check recipes has raw materials
