@@ -185,6 +185,8 @@ E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\B
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\BakeryApp.pdb
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\Azure.Core.dll
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\Azure.Identity.dll
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\DevOne.Security.Cryptography.BCrypt.dll
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\BCrypt.Net-Next.dll
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\Humanizer.dll
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
