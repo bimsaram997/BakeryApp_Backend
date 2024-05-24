@@ -269,3 +269,4 @@ E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\r
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.pdb
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.genruntimeconfig.cache
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\ref\BakeryApp.dll
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

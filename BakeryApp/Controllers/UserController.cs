@@ -7,16 +7,23 @@ using Repositories.UserRepository;
 using Models.Requests;
 using Models.ViewModels.User;
 using Models.Data.User;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Security.Claims;
 
 namespace BakeryApp.Controllers
 {
     public class UserController : ControllerBase
     {
         public IUserRepository _iUserRepository;
-        public UserController(IUserRepository _userRepository)
+        private IConfiguration _config;
+        public UserController(IUserRepository _userRepository,
+            IConfiguration config)
         {
             _iUserRepository = _userRepository;
-            
+            _config = config;
+
         }
 
         [HttpPost("register")]
@@ -53,7 +60,7 @@ namespace BakeryApp.Controllers
 
         }
 
-        [HttpGet("login")]
+        [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
             try
@@ -63,9 +70,28 @@ namespace BakeryApp.Controllers
 
                 if (user != null)
                 {
-                    return Created(nameof(Login), user);
+                    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+                    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+                    var claims = new[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(ClaimTypes.Role, user.Role)
+                    };
+
+                    var token = new JwtSecurityToken(
+                        issuer: _config["Jwt:Issuer"],
+                        audience: _config["Jwt:Issuer"],
+                        claims: claims,
+                        expires: DateTime.Now.AddMinutes(120),
+                        signingCredentials: credentials
+                    );
+
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+                    return Ok(tokenString);
                 }
-                else
                 {
                     // Handle the case where the recipe is not found
                     return NotFound($"Recipe with ID {request.Email} not found.");
