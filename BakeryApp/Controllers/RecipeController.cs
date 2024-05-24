@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models.Filters;
 using Models.Requests;
 using Models.Requests.Update_Requests;
@@ -10,6 +12,7 @@ using Repositories.RecipeRepository;
 
 namespace BakeryApp.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin, user")]
     [Route("api/[controller]")]
     [ApiController]
     public class RecipeController : ControllerBase

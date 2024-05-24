@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2TAbxoIIcuJkNj2YNxaHWb4EaiPLXDDVSu+gX+0I7qHZS1u01D8nX8VdJf+tNaTYr5nDrrH7+MbyVWvZLpvJtg==",
+  "dgSpecHash": "N0rY81Z2k2xUj6CEn2bja0Z4Vix0woR3cTV3mcwNB1GxhzLylkl83YqynzxgjBfHBIpMbYmnmWxwn7bMhsY1Ow==",
   "success": true,
   "projectFilePath": "E:\\My Projects\\Bakery App\\Web API\\BakeryApp_Backend\\Models\\Models.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\Asus\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\bcrypt\\1.0.0\\bcrypt.1.0.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
