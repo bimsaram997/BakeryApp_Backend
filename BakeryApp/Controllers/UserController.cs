@@ -110,7 +110,7 @@ namespace BakeryApp.Controllers
                         issuer: _config["Jwt:Issuer"],
                         audience: _config["Jwt:Issuer"],
                         claims: claims,
-                        expires: DateTime.Now.AddDays(1),
+                        expires: DateTime.Now.AddDays(2),
                         signingCredentials: credentials
                     );
 
