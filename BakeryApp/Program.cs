@@ -15,6 +15,10 @@ using Repositories.UserRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Repositories.AddressRepository;
+using Models.ViewModels.Address;
+using Models.Helpers;
+using Models.ViewModels.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +52,7 @@ builder.Services.AddTransient<IRawMaterialRepository, RawMaterialRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<UserRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IRepositoryBase<AddressVM>, AddressRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -61,6 +66,8 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
+
+
 
 var app = builder.Build();
 
