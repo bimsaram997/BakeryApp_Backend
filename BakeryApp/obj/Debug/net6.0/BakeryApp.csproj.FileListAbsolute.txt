@@ -176,12 +176,6 @@ E:\My Projects\Bakery App\Web API\BakeryApp\obj\Debug\net6.0\BakeryApp.genruntim
 E:\My Projects\Bakery App\Web API\BakeryApp\obj\Debug\net6.0\ref\BakeryApp.dll
 E:\My Projects\Bakery App\Web API\BakeryApp\bin\Debug\net6.0\Repositories.dll
 E:\My Projects\Bakery App\Web API\BakeryApp\bin\Debug\net6.0\Repositories.pdb
-E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.AssemblyReference.cache
-E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.GeneratedMSBuildEditorConfig.editorconfig
-E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfoInputs.cache
-E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfo.cs
-E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.CoreCompileInputs.cache
-E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.MvcApplicationPartsAssemblyInfo.cache
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\appsettings.Development.json
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\appsettings.json
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\BakeryApp.exe
@@ -255,6 +249,13 @@ E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\M
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\Repositories.dll
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\Models.pdb
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\bin\Debug\net6.0\Repositories.pdb
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.AssemblyReference.cache
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.GeneratedMSBuildEditorConfig.editorconfig
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfoInputs.cache
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfo.cs
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.CoreCompileInputs.cache
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.MvcApplicationPartsAssemblyInfo.cs
+E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.MvcApplicationPartsAssemblyInfo.cache
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.BakeryApp.Microsoft.AspNetCore.StaticWebAssets.props
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.build.BakeryApp.props
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.BakeryApp.props

@@ -65,6 +65,36 @@ namespace Models.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("Models.Data.EnumType.EnumTypeTranslationMap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EnumTypeDisplayValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EnumTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnumTypeTranslationMap");
+                });
+
             modelBuilder.Entity("Models.Data.ProductData.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -251,6 +281,45 @@ namespace Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("Models.Data.ReferenceData.MasterData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EnumTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MasterColorCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MasterDataCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MasterDataName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MasterDataSymbol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MasterData");
                 });
 
             modelBuilder.Entity("Models.Data.User.Users", b =>

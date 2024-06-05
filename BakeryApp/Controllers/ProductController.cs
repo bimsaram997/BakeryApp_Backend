@@ -84,7 +84,7 @@ namespace BakeryApp.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error adding Food item: {ex.Message}");
+                return BadRequest($"Error loading products: {ex.Message}");
             }
 
         }
