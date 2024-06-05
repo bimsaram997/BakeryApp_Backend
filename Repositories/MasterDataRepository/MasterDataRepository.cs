@@ -18,7 +18,7 @@ namespace Repositories.MasterDataRepository
     public interface IMasterDataRepository
     {
 
-
+        AllMasterData GetByEnumType(int enumTypeId);
         PaginatedMasterData GetAll(MasterDataListAdvanceFilter filter);
     }
     public class MasterDataRepository : IRepositoryBase<MasterDataVM>, IMasterDataRepository
@@ -62,6 +62,30 @@ namespace Repositories.MasterDataRepository
             updateMasterData.IsDeleted = true;
             _context.SaveChanges();
             return updateMasterData.Id;
+        }
+
+        public AllMasterData GetByEnumType(int enumTypeId)
+        {
+            var masterDataVM = _context.MasterData.Where(fi => fi.EnumTypeId == enumTypeId && !fi.IsDeleted)
+                .Select(fi => new MasterDataVM
+                {
+                    Id = fi.Id,
+                    MasterDataCode = fi.MasterDataCode,
+                    MasterDataSymbol = fi.MasterDataSymbol,
+                    MasterDataName = fi.MasterDataName,
+                    MasterColorCode = fi.MasterColorCode,
+                    EnumTypeId = fi.EnumTypeId,
+                    AddedDate = fi.AddedDate,
+                    ModifiedDate = fi.ModifiedDate,
+                    IsDeleted = fi.IsDeleted
+                }).ToList();
+
+            var result = new AllMasterData
+            {
+                Items = masterDataVM
+            };
+
+            return result;
         }
 
         public MasterDataVM GetById(int id)

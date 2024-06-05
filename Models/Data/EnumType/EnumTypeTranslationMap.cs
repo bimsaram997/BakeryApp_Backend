@@ -25,6 +25,8 @@ namespace Models.Data.EnumType
     {
         Currency = 1,
         MeasuringUnit = 2,
-         ItemUnit = 8
+         ItemUnit = 8,
+        Gender = 9,
+        Roles=11
     }
 }

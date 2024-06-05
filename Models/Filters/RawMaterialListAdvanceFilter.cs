@@ -13,7 +13,7 @@ namespace Models.Filters
         public double? Quantity { get; set; }
         public string? SearchString { get; set; }
         public string? AddedDate { get; set; }
-        public MeasureUnit? MeasureUnit { get; set; }
+        public int? MeasureUnit { get; set; }
         public Pagination Pagination { get; set; }
         public string SortBy { get; set; }
         public bool IsAscending { get; set; }

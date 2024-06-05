@@ -17,7 +17,7 @@ namespace Models.ViewModels.RawMaterial
         public double Quantity { get; set; }
         public DateTime? AddedDate { get; set; }
         public string ImageURL { get; set; }
-        public MeasureUnit MeasureUnit { get; set; }
+        public int MeasureUnit { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
@@ -28,7 +28,7 @@ namespace Models.ViewModels.RawMaterial
         public int Id { get; set; }
         public string Name { get; set; }
         public double Quantity { get; set; }
-        public MeasureUnit MeasureUnit { get; set; }
+        public int MeasureUnit { get; set; }
  
 
 

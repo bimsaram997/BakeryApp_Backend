@@ -203,7 +203,11 @@ namespace Repositories.RecipeRepository
                    .Select(rm => new RecipeRawMaterial
                    {
                        rawMaterialId = rm.RawMaterialId,
-                       rawMaterialQuantity = rm.RawMaterialQuantity
+                       rawMaterialQuantity = rm.RawMaterialQuantity,
+                       measureUnit = _context.RawMaterials
+                        .Where(rawMaterial => rawMaterial.Id == rm.RawMaterialId)
+                        .Select(rawMaterial => rawMaterial.MeasureUnit)
+                        .FirstOrDefault(),
                    }).ToList()
 
             }).FirstOrDefault();

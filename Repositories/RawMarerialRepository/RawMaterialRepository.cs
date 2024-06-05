@@ -83,7 +83,10 @@ namespace Repositories.RawMarerialRepository
                     ModifiedDate = fi.ModifiedDate,
                     LocationId =  fi.LocationId,
                     RawMaterialCode = fi.RawMaterialCode,
-
+                    MeasureUnitName = _context.MasterData
+                        .Where(masterData => masterData.Id == fi.MeasureUnit)
+                        .Select(masterData => masterData.MasterDataName)
+                        .FirstOrDefault(),
                 })
                 .ToList();
 

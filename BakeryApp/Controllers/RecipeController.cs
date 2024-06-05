@@ -12,7 +12,7 @@ using Repositories.RecipeRepository;
 
 namespace BakeryApp.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class RecipeController : ControllerBase

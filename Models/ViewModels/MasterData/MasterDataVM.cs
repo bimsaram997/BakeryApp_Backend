@@ -18,4 +18,9 @@ namespace Models.ViewModels.MasterData
         public DateTime? ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }
     }
+
+    public class AllMasterData
+    {
+        public List<MasterDataVM> Items { get; set; }
+    }
 }

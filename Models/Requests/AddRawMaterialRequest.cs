@@ -15,6 +15,6 @@ namespace Models.Requests
         public int LocationId { get; set; }
         public DateTime? AddedDate { get; set; }
         public string ImageURL { get; set; }
-        public MeasureUnit MeasureUnit { get; set; }
+        public int MeasureUnit { get; set; }
     }
 }

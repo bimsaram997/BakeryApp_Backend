@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models.Data.EnumType;
 using Models.Filters;
 using Models.Requests;
@@ -10,6 +12,7 @@ using Repositories.MasterDataRepository;
 
 namespace BakeryApp.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class MasterDataController : ControllerBase
@@ -73,6 +76,30 @@ namespace BakeryApp.Controllers
                 if (_masterData != null)
                 {
                     return Created(nameof(GetMasterDataById), _masterData);
+                }
+                else
+                {
+                    // Handle the case where the recipe is not found
+                    return NotFound($"Master data with ID {id} not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving Master data: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getMasterDataByEnumTypeId/{id}")]
+        public IActionResult GetMasterDataByEnumTypeId(int id)
+        {
+            try
+            {
+                // Call the repository to get the recipe by ID
+                var _masterData = _iMasterDataRepository.GetByEnumType(id);
+
+                if (_masterData != null)
+                {
+                    return Created(nameof(GetMasterDataByEnumTypeId), _masterData);
                 }
                 else
                 {

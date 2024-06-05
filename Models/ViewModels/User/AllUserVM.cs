@@ -24,6 +24,8 @@ namespace Models.ViewModels.User
         public bool IsDeleted { get; set; }
         public int AddressId { get; set; }
         public Addresses Addresses { get; set; }
+        public string RoleName { get; set; }
+        public string GenderName { get; set; }
     }
 
     public class PaginatedUsers

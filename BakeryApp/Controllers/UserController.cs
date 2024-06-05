@@ -90,7 +90,7 @@ namespace BakeryApp.Controllers
                 if (user != null)
                 {
                     var role = "";
-                    if (user.Role == 0)
+                    if (user.Role == 12)
                     {
                         role = "Admin";
                     }
