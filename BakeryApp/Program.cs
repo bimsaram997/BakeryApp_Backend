@@ -22,6 +22,7 @@ using Models.ViewModels.User;
 using Repositories.EnumTypeRepository;
 using Models.ViewModels.MasterData;
 using Repositories.MasterDataRepository;
+using Repositories.RolesRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +61,7 @@ builder.Services.AddTransient<EnumTypeRepository>();
 builder.Services.AddTransient<IEnumTypeRepository, EnumTypeRepository>();
 builder.Services.AddTransient<IRepositoryBase<MasterDataVM>, MasterDataRepository>();
 builder.Services.AddTransient<IMasterDataRepository, MasterDataRepository>();
+builder.Services.AddTransient<IRolesRepository, RolesRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
