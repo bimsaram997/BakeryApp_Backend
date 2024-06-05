@@ -120,9 +120,9 @@ namespace Repositories.UserRepository
                         .Where(address => address.Id == fi.AddressId)
                         .Select(address => address)
                         .FirstOrDefault(),
-              RoleName  = _context.MasterData
-                        .Where(masterData => masterData.Id == fi.Role)
-                        .Select(masterData => masterData.MasterDataName)
+              RoleName  = _context.Role
+                        .Where(role => role.Id == fi.Role)
+                        .Select(role => role.RoleName)
                         .FirstOrDefault(),
               GenderName  = _context.MasterData
                         .Where(masterData => masterData.Id == fi.Gender)

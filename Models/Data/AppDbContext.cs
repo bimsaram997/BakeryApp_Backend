@@ -5,6 +5,7 @@ using Models.Data.ProductData;
 using Models.Data.RawMaterialData;
 using Models.Data.RecipeData;
 using Models.Data.ReferenceData;
+using Models.Data.Role;
 using Models.Data.User;
 
 
@@ -33,5 +34,6 @@ namespace Models.Data
         public DbSet<Addresses> Address { get; set; }
         public DbSet<EnumTypeTranslationMap> EnumTypeTranslationMap { get; set; }
         public DbSet<MasterData> MasterData { get; set; }
+        public DbSet<Roles> Role { get; set; }
     }
 }
