@@ -194,7 +194,11 @@ namespace Repositories.ProductRepository
                     RecipeName = _context.Recipes
                         .Where(recipe => recipe.Id == fi.RecipeId)
                         .Select(recipe => recipe.RecipeName)
-                        .FirstOrDefault()
+                        .FirstOrDefault(),
+                    UnitName = _context.MasterData
+                        .Where(masterData => masterData.Id == fi.Unit)
+                        .Select(masterData => masterData.MasterDataName)
+                        .FirstOrDefault(),
 
 
                 })

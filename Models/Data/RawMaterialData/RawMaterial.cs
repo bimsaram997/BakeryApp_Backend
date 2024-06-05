@@ -11,7 +11,7 @@ namespace Models.Data.RawMaterialData
         public double Price { get; set; }
         public DateTime? AddedDate { get; set; }
         public string ImageURL { get; set; }
-        public MeasureUnit MeasureUnit { get; set; }
+        public int MeasureUnit { get; set; }
         public int LocationId { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? ModifiedDate { get; set; }

@@ -19,6 +19,7 @@ namespace Models.ViewModels
         public string ImageURL { get; set; }
 
         public int? Unit { get; set; }
+        public string UnitName { get; set; }
         public int? CostCode { get; set; }
         public int? RecipeId { get; set; }
         public string RecipeName { get; set; }

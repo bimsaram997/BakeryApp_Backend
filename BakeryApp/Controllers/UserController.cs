@@ -15,6 +15,8 @@ using Models.ViewModels.Address;
 using System.Data;
 using Models.Filters;
 using Models.Requests.Update_Requests;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BakeryApp.Controllers
 {
@@ -88,7 +90,7 @@ namespace BakeryApp.Controllers
                 if (user != null)
                 {
                     var role = "";
-                    if (user.Role == 0)
+                    if (user.Role == 12)
                     {
                         role = "Admin";
                     }
@@ -110,7 +112,7 @@ namespace BakeryApp.Controllers
                         issuer: _config["Jwt:Issuer"],
                         audience: _config["Jwt:Issuer"],
                         claims: claims,
-                        expires: DateTime.Now.AddDays(2),
+                        expires: DateTime.Now.AddDays(1),
                         signingCredentials: credentials
                     );
 
@@ -131,6 +133,7 @@ namespace BakeryApp.Controllers
             }
         }
         [HttpPost("listAdvance")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public IActionResult GetAllUsers([FromBody] UserAdvanceListFilter userAdvanceListFilter)
         {
             try
@@ -140,7 +143,7 @@ namespace BakeryApp.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error adding Food item: {ex.Message}");
+                return BadRequest($"Error laoding Users: {ex.Message}");
             }
 
         }

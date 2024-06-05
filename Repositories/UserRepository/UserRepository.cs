@@ -119,6 +119,14 @@ namespace Repositories.UserRepository
               Addresses = _context.Address
                         .Where(address => address.Id == fi.AddressId)
                         .Select(address => address)
+                        .FirstOrDefault(),
+              RoleName  = _context.MasterData
+                        .Where(masterData => masterData.Id == fi.Role)
+                        .Select(masterData => masterData.MasterDataName)
+                        .FirstOrDefault(),
+              GenderName  = _context.MasterData
+                        .Where(masterData => masterData.Id == fi.Gender)
+                        .Select(masterData => masterData.MasterDataName)
                         .FirstOrDefault()
           })
           .ToList();

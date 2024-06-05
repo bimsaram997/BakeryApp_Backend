@@ -19,6 +19,9 @@ using Repositories.AddressRepository;
 using Models.ViewModels.Address;
 using Models.Helpers;
 using Models.ViewModels.User;
+using Repositories.EnumTypeRepository;
+using Models.ViewModels.MasterData;
+using Repositories.MasterDataRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +56,10 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<UserRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IRepositoryBase<AddressVM>, AddressRepository>();
+builder.Services.AddTransient<EnumTypeRepository>();
+builder.Services.AddTransient<IEnumTypeRepository, EnumTypeRepository>();
+builder.Services.AddTransient<IRepositoryBase<MasterDataVM>, MasterDataRepository>();
+builder.Services.AddTransient<IMasterDataRepository, MasterDataRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
