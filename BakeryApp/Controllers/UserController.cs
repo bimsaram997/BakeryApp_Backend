@@ -17,6 +17,8 @@ using Models.Filters;
 using Models.Requests.Update_Requests;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Models.Data;
+using Models.ViewModels.MasterData;
 
 namespace BakeryApp.Controllers
 {
@@ -27,12 +29,14 @@ namespace BakeryApp.Controllers
         public IUserRepository _iUserRepository;
         private IConfiguration _config;
         public IRepositoryBase<AddressVM> _iAddressRepository;
+        public IRepositoryBase<MasterDataVM> _masterDataRepository;
         public UserController(IUserRepository _userRepository, IRepositoryBase<AddressVM> addressRepository,
-            IConfiguration config)
+            IConfiguration config, IRepositoryBase<MasterDataVM> masterDataRepository)
         {
             _iUserRepository = _userRepository;
             _config = config;
             _iAddressRepository = addressRepository;
+            _masterDataRepository = masterDataRepository;
 
         }
 
@@ -42,33 +46,42 @@ namespace BakeryApp.Controllers
 
             try
             {
-                var address = new AddressVM
+                MasterDataVM _masterData = _masterDataRepository.GetById(userRequest.Address.Country);
+                if (_masterData != null)
                 {
-                    FullAddress = userRequest.Address.Street1 + " " + userRequest.Address.Street2 + " " + userRequest.Address.PostalCode + " " + 
-                    userRequest.Address.City + " " + userRequest.Address.Country,
-                    AddedDate = userRequest.AddedDate,
-                    City = userRequest.Address.City,
-                    Country = userRequest.Address.Country,
-                    PostalCode= userRequest.Address.PostalCode,
-                    Street1 = userRequest.Address.Street1,
-                    Street2 = userRequest.Address?.Street2,
-                };
-                int addressId = _iAddressRepository.Add(address);
-                // add new recipe
-                var user = new UserVM
+                    var address = new AddressVM
+                    {
+                        FullAddress = userRequest.Address.Street1 + " " + userRequest.Address.Street2 + " " + userRequest.Address.PostalCode + " " +
+                    userRequest.Address.City + " " + _masterData.MasterDataName,
+                        AddedDate = userRequest.AddedDate,
+                        City = userRequest.Address.City,
+                        Country = userRequest.Address.Country,
+                        PostalCode = userRequest.Address.PostalCode,
+                        Street1 = userRequest.Address.Street1,
+                        Street2 = userRequest.Address?.Street2,
+                    };
+                    int addressId = _iAddressRepository.Add(address);
+                    // add new recipe
+                    var user = new UserVM
+                    {
+                        FirstName = userRequest.FirstName,
+                        LastName = userRequest.LastName,
+                        Email = userRequest.Email,
+                        Password = userRequest.Password,
+                        AddedDate = userRequest.AddedDate,
+                        PhoneNumber = userRequest.PhoneNumber,
+                        Role = userRequest.Role,
+                        ImageUrl = userRequest.ImageUrl,
+                        AddressId = addressId
+                    };
+                    int userId = _iUserRepository.Register(user);
+                    return Created(nameof(Register), userId);
+                } else
                 {
-                    FirstName = userRequest.FirstName,
-                    LastName = userRequest.LastName,
-                    Email = userRequest.Email,
-                    Password = userRequest.Password,
-                    AddedDate = userRequest.AddedDate,
-                    PhoneNumber = userRequest.PhoneNumber,
-                    Role = userRequest.Role,
-                    ImageUrl = userRequest.ImageUrl,
-                    AddressId = addressId
-                };
-                int userId = _iUserRepository.Register(user);
-                return Created(nameof(Register), userId);
+                    return BadRequest($"Error adding user:");
+                }
+
+                
 
             }
             catch (Exception ex)
@@ -90,7 +103,7 @@ namespace BakeryApp.Controllers
                 if (user != null)
                 {
                     var role = "";
-                    if (user.Role == 12)
+                    if (user.Role == (int)RoleEnum.Admin)
                     {
                         role = "Admin";
                     }
@@ -175,14 +188,15 @@ namespace BakeryApp.Controllers
 
             try
             {
+                MasterDataVM _masterData = _masterDataRepository.GetById(updateUser.Address.Country);
                 int addressId;
                 AddressVM cuurentAddress = _iAddressRepository.GetById(updateUser.AddressId);
-                if (cuurentAddress != null)
+                if (cuurentAddress != null && _masterData != null)
                 {
                     AddressVM address = new AddressVM
                     {
                         FullAddress = updateUser.Address.Street1 + " " + updateUser.Address.Street2 + " " + updateUser.Address.PostalCode + " " +
-                    updateUser.Address.City + " " + updateUser.Address.Country,
+                    updateUser.Address.City + " " + _masterData.MasterDataName,
                         Street1 = updateUser.Address.Street1,
                         Street2 = updateUser.Address.Street2,
                         City = updateUser.Address.City,
