@@ -9,5 +9,6 @@ namespace Models.Data.User
     public class LoginResult
     {
         public string Token { get; set; }
+        public Exception? Exception { get; set; }
     }
 }

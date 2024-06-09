@@ -1,11 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Models.ActionResults;
+using Models.Data.User;
 using Models.Filters;
+using Models.Migrations;
 using Models.Requests;
 using Models.Requests.Update_Requests;
+using Models.ViewModels;
+using Models.ViewModels.Custom_action_result;
 using Models.ViewModels.RawMaterial;
 using Models.ViewModels.Recipe;
+using Models.ViewModels.User;
 using Repositories;
 using Repositories.RawMarerialRepository;
 using Repositories.RecipeRepository;
@@ -31,7 +37,7 @@ namespace BakeryApp.Controllers
         }
         //Add recipe
         [HttpPost("addRecipe")]
-        public IActionResult AddRecipe([FromBody] AddRecipeRequest recipeRequest)
+        public CustomActionResult<AddResultVM> AddRecipe([FromBody] AddRecipeRequest recipeRequest)
         {
 
             try
@@ -57,19 +63,40 @@ namespace BakeryApp.Controllers
 
                 };
                 int productId = _recipeRepository.Add(recipe);
-                return Created(nameof(AddRecipe), productId);
+                if (productId > 0)
+                {
+                    var result = new AddResultVM
+                    {
+                        Id = productId
+                    };
+                    var responseObj = new CustomActionResultVM<AddResultVM>
+                    {
+                        Data = result
+                    };
+                    return new CustomActionResult<AddResultVM>(responseObj);
+                } else
+                {
+                    return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                    {
+                        Exception = new Exception("Recipe can't add!")
+                    });
+                }
+               
 
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error adding recipe: {ex.Message}");
+                return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                {
+                    Exception = ex
+                });
             }
 
 
         }
 
         [HttpGet("getRecipeById/{recipeId}")]
-        public IActionResult GetRecipeById(int recipeId)
+        public CustomActionResult<ResultView<RecipeVM>> GetRecipeById(int recipeId)
         {
             try
             {
@@ -78,112 +105,188 @@ namespace BakeryApp.Controllers
 
                 if (recipe != null)
                 {
-                    return Created(nameof(GetRecipeById), recipe);
+                    var result = new ResultView<RecipeVM>
+                    {
+                        Item = recipe
+
+                    };
+
+                    var responseObj = new CustomActionResultVM<ResultView<RecipeVM>>
+                    {
+                        Data = result
+
+                    };
+                    return new CustomActionResult<ResultView<RecipeVM>>(responseObj);
                 }
                 else
                 {
-                    // Handle the case where the recipe is not found
-                    return NotFound($"Recipe with ID {recipeId} not found.");
+                    var result = new ResultView<RecipeVM>
+                    {
+                        Exception = new Exception($"Recipe with Id {recipeId} not found")
+                    };
+
+                    var responseObj = new CustomActionResultVM<ResultView<RecipeVM>>
+                    {
+                        Exception = result.Exception
+                    };
+
+                    return new CustomActionResult<ResultView<RecipeVM>>(responseObj);
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error retrieving recipe: {ex.Message}");
+                var responseObj = new CustomActionResultVM<ResultView<RecipeVM>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<RecipeVM>>(responseObj);
             }
         }
 
         [HttpPut("updateRecipe/{recipeId}")]
-        public IActionResult UpdateRecipe(int recipeId, [FromBody] UpdateRecipe updatedRecipe)
+        public CustomActionResult<AddResultVM> UpdateRecipe(int recipeId, [FromBody] UpdateRecipe updatedRecipe)
         {
 
             try
             {
-               
-              
-                RecipeVM recipe = new RecipeVM
+                RecipeVM recipeVM = _recipeRepository.GetById(recipeId);
+                if(recipeVM != null)
                 {
-                    RecipeName = updatedRecipe.RecipeName,
-                    Description =  updatedRecipe.Description,
-                    Instructions = updatedRecipe.Instructions,
-                    RawMaterials = updatedRecipe.RawMaterials,
-                };
-                int updatedRecipeId = _recipeRepository.UpdateById(recipeId, recipe);
-                if (updatedRecipeId != -1)
-                {
-                    // Return a successful response
-                    return Created(nameof(UpdateRecipe), updatedRecipeId);
+                    RecipeVM recipe = new RecipeVM
+                    {
+                        RecipeName = updatedRecipe.RecipeName,
+                        Description = updatedRecipe.Description,
+                        Instructions = updatedRecipe.Instructions,
+                        RawMaterials = updatedRecipe.RawMaterials,
+                    };
+                    int updatedRecipeId = _recipeRepository.UpdateById(recipeId, recipe);
+                    var result = new AddResultVM
+                    {
+                        Id = updatedRecipeId
+                    };
+                    var responseObj = new CustomActionResultVM<AddResultVM>
+                    {
+                        Data = result
+                    };
+                    return new CustomActionResult<AddResultVM>(responseObj);
+
                 }
                 else
                 {
-                    // Handle the case where the recipe is not found
-                    return NotFound($"Recipe with ID {recipeId} not found.");
+                    return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                    {
+                        Exception = new Exception($"Recipe with Id {recipeId} not found.")
+                    });
                 }
-              
+
             } catch(Exception ex)
             {
-                return BadRequest($"Error updating recipe: {ex.Message}");
+                return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                {
+                    Exception = ex
+                });
             }  
             
         }
 
         [HttpDelete("deleteRecipe/{recipeId}")]
-        public IActionResult DeleteRecipe(int recipeId)
+        public CustomActionResult<AddResultVM> DeleteRecipe(int recipeId)
         {
             try
             {
-                // Call the repository to delete the recipe by ID
-                int deletedRecipeId = _recipeRepository.DeleteById(recipeId);
-
-                if (deletedRecipeId != -1)
+                RecipeVM recipeVM = _recipeRepository.GetById(recipeId);
+                if(recipeVM != null)
                 {
-                    // Return a successful response
-                    return 
-                        
-                        Created(nameof(DeleteRecipe), deletedRecipeId);
+                    int deletedRecipeId = _recipeRepository.DeleteById(recipeId);
+                    var result = new AddResultVM
+                    {
+                        Id = deletedRecipeId
+                    };
+                    var responseObj = new CustomActionResultVM<AddResultVM>
+                    {
+                        Data = result
+                    };
+                    return new CustomActionResult<AddResultVM>(responseObj);
                 }
                 else
                 {
-                    // Handle the case where the recipe is not found
-                    return NotFound($"Recipe with ID {recipeId} not found.");
+                    return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                    {
+                        Exception = new Exception($"Recipe with Id {recipeId} not found.")
+                    });
                 }
             }
             catch (Exception ex)
             {
-                // Handle other exceptions if needed
-                return BadRequest($"Error deleting recipe: {ex.Message}");
+                return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                {
+                    Exception = ex
+                });
             }
         }
 
 
         [HttpPost("listAdvance")]
-        public IActionResult GetAlRecipes([FromBody] RecipeListAdvanceFilter recipeListAdvanceFilter)
+        public CustomActionResult<ResultView<PaginatedRecipes>> GetAlRecipes([FromBody] RecipeListAdvanceFilter recipeListAdvanceFilter)
         {
             try
             {
                 var _recipes = _iRecipeRepository.GetAll(recipeListAdvanceFilter);
-                return Created(nameof(GetAlRecipes), _recipes);
+                var result = new ResultView<PaginatedRecipes>
+                {
+                    Item = _recipes
+
+                };
+
+                var responseObj = new CustomActionResultVM<ResultView<PaginatedRecipes>>
+                {
+                    Data = result
+
+                };
+                return new CustomActionResult<ResultView<PaginatedRecipes>>(responseObj);
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error loading raw materials: {ex.Message}");
+                var responseObj = new CustomActionResultVM<ResultView<PaginatedRecipes>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<PaginatedRecipes>>(responseObj);
             }
 
         }
 
         [HttpGet("listSimpleRecipes")]
-        public IActionResult ListSimpleRecipes()
+        public CustomActionResult<ResultView<RecipeListSimpleVM[]>> ListSimpleRecipes()
         {
             try
             {
                 // Call the repository to get the list of simple FoodTypes
                 RecipeListSimpleVM[] recipes = _iRecipeRepository.ListSimpeRecipes();
 
-                return Ok(recipes);
+                var result = new ResultView<RecipeListSimpleVM[]>
+                {
+                    Item = recipes
+
+                };
+
+                var responseObj = new CustomActionResultVM<ResultView<RecipeListSimpleVM[]>>
+                {
+                    Data = result
+
+                };
+                return new CustomActionResult<ResultView<RecipeListSimpleVM[]>>(responseObj);
             }
             catch (Exception ex)
             {
-                // Handle other exceptions if needed
-                return BadRequest($"Error getting list of simple recipes: {ex.Message}");
+                var responseObj = new CustomActionResultVM<ResultView<RecipeListSimpleVM[]>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<RecipeListSimpleVM[]>>(responseObj);
             }
         }
 
