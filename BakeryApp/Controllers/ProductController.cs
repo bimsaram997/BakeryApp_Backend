@@ -13,6 +13,9 @@ using Repositories.ProductRepository;
 using Repositories.RawMarerialRepository;
 using Repositories.RecipeRepository;
 using System.Collections;
+using Models.ActionResults;
+using Models.Data.RecipeData;
+using Models.ViewModels.Custom_action_result;
 
 namespace BakeryApp.Controllers
 {
@@ -45,7 +48,7 @@ namespace BakeryApp.Controllers
 
         //Add food item
         [HttpPost("addProduct")]
-        public IActionResult AddProduct([FromBody] AddProductRequest productRequest)
+        public CustomActionResult<AddResultVM> AddProduct([FromBody] AddProductRequest productRequest)
         {
             try
             {
@@ -60,58 +63,116 @@ namespace BakeryApp.Controllers
                         ProductDescription = productRequest.ProductDescription,
                         ImageURL = productRequest.ImageURL,
                         AddedDate = productRequest.AddedDate,
-                        
                     };
 
                    int productId = _productRepository.Add(product);
-                    return Created(nameof(AddProduct), productId);
-                
+                if (productId > 0)
+                {
+                    var result = new AddResultVM
+                    {
+                        Id = productId
+                    };
+                    var responseObj = new CustomActionResultVM<AddResultVM>
+                    {
+                        Data = result
+                    };
+                    return new CustomActionResult<AddResultVM>(responseObj);
+                }
+                else
+                {
+                    return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                    {
+                        Exception = new Exception("Product can't add!")
+                    });
+                }
+
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error adding Food item: {ex.Message}");
+                return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                {
+                    Exception = ex
+                });
             }
         }
 
 
         [HttpPost("listAdvance")]
-        public IActionResult GetAllProducts([FromBody] ProductListAdvanceFilter productListAdvanceFilter)
+        public CustomActionResult<ResultView<PaginatedProducts>> GetAllProducts([FromBody] ProductListAdvanceFilter productListAdvanceFilter)
         {
             try
             {
                 var _products = _iProductRepository.GetAll(productListAdvanceFilter);
-                return Created(nameof(GetAllProducts), _products);
+                var result = new ResultView<PaginatedProducts>
+                {
+                    Item = _products
+
+                };
+                var responseObj = new CustomActionResultVM<ResultView<PaginatedProducts>>
+                {
+                    Data = result
+
+                };
+                return new CustomActionResult<ResultView<PaginatedProducts>>(responseObj);
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error loading products: {ex.Message}");
+                var responseObj = new CustomActionResultVM<ResultView<PaginatedProducts>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<PaginatedProducts>>(responseObj);
             }
 
         }
 
         [HttpPost("updateProductsById/{productId}")]
-        public IActionResult UpdateProductsById(int productId, [FromBody] UpdateProduct updateItem)
+        public CustomActionResult<AddResultVM> UpdateProductsById(int productId, [FromBody] UpdateProduct updateItem)
         {
             try
             {
-                ProductVM product = new ProductVM
+                ProductVM productVM = _productRepository.GetById(productId);
+                if(productVM != null)
                 {
-                    Name = updateItem.Name,
-                    Unit = updateItem.Unit,
-                    CostCode = updateItem.CostCode,
-                    CostPrice = updateItem.CostPrice,
-                    SellingPrice = updateItem.SellingPrice,
-                    RecipeId= updateItem.RecipeId,
-                    ProductDescription = updateItem.ProductDescription,
-                    ImageURL = updateItem.ImageURL
+                    ProductVM product = new ProductVM
+                    {
+                        Name = updateItem.Name,
+                        Unit = updateItem.Unit,
+                        CostCode = updateItem.CostCode,
+                        CostPrice = updateItem.CostPrice,
+                        SellingPrice = updateItem.SellingPrice,
+                        RecipeId = updateItem.RecipeId,
+                        ProductDescription = updateItem.ProductDescription,
+                        ImageURL = updateItem.ImageURL
 
-                };
-                int updatedFoodItemId = _productRepository.UpdateById(productId, product);
-                return Ok(updatedFoodItemId);
+                    };
+                    int updatedFoodItemId = _productRepository.UpdateById(productId, product);
+                    var result = new AddResultVM
+                    {
+                        Id = updatedFoodItemId
+                    };
+                    var responseObj = new CustomActionResultVM<AddResultVM>
+                    {
+                        Data = result
+                    };
+                    return new CustomActionResult<AddResultVM>(responseObj);
+                } else
+                {
+                    return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                    {
+                        Exception = new Exception($"Product with Id {productId} not found.")
+                    });
+                }
+              
+               
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                {
+                    Exception = ex
+                });
             }
         }
 
@@ -203,17 +264,42 @@ namespace BakeryApp.Controllers
 
                 if (_product != null)
                 {
-                    return Created(nameof(GetFoodTypeById), _product);
+                    var result = new ResultView<ProductVM>
+                    {
+                        Item = _product
+
+                    };
+
+                    var responseObj = new CustomActionResultVM<ResultView<ProductVM>>
+                    {
+                        Data = result
+
+                    };
+                    return new CustomActionResult<ResultView<ProductVM>>(responseObj);
                 }
                 else
                 {
-                    // Handle the case where the recipe is not found
-                    return NotFound($"Food item with ID {id} not found.");
+                    var result = new ResultView<ProductVM>
+                    {
+                        Exception = new Exception($"Product with Id {id} not found")
+                    };
+
+                    var responseObj = new CustomActionResultVM<ResultView<ProductVM>>
+                    {
+                        Exception = result.Exception
+                    };
+
+                    return new CustomActionResult<ResultView<ProductVM>>(responseObj);
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error retrieving Food item: {ex.Message}");
+                var responseObj = new CustomActionResultVM<ResultView<ProductVM>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<ProductVM>>(responseObj); 
             }
         }
     }
