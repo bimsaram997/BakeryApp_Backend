@@ -62,12 +62,12 @@ namespace BakeryApp.Controllers
                     RecipeName = recipeRequest.RecipeName
 
                 };
-                int productId = _recipeRepository.Add(recipe);
-                if (productId > 0)
+                int recipeId = _recipeRepository.Add(recipe);
+                if (recipeId > 0)
                 {
                     var result = new AddResultVM
                     {
-                        Id = productId
+                        Id = recipeId
                     };
                     var responseObj = new CustomActionResultVM<AddResultVM>
                     {
