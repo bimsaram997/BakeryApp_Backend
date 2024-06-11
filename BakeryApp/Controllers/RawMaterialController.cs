@@ -1,13 +1,18 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Models.ActionResults;
 using Models.Filters;
 using Models.Requests;
 using Models.Requests.Update_Requests;
+using Models.ViewModels.Custom_action_result;
+using Models.ViewModels;
 using Models.ViewModels.FoodType;
 using Models.ViewModels.RawMaterial;
 using Repositories;
 using Repositories.RawMarerialRepository;
 using Repositories.RecipeRepository;
+using Models.ViewModels.Recipe;
+using Models.Data.RecipeData;
 
 namespace BakeryApp.Controllers
 {
@@ -30,7 +35,7 @@ namespace BakeryApp.Controllers
         }
 
         [HttpPost("addRawMaterial")]
-        public IActionResult AddRawMaterial([FromBody] AddRawMaterialRequest rawMaterialRequest)
+        public CustomActionResult<AddResultVM> AddRawMaterial([FromBody] AddRawMaterialRequest rawMaterialRequest)
         {
             try
             {
@@ -46,79 +51,156 @@ namespace BakeryApp.Controllers
                 };
 
                 int rawMaterialId = _rawMaterialRepository.Add(rawMaterial);
-                return Created(nameof(AddRawMaterial), rawMaterialId);
+                if (rawMaterialId > 0)
+                {
+                    var result = new AddResultVM
+                    {
+                        Id = rawMaterialId
+                    };
+                    var responseObj = new CustomActionResultVM<AddResultVM>
+                    {
+                        Data = result
+                    };
+                    return new CustomActionResult<AddResultVM>(responseObj);
+                }
+                else
+                {
+                    return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                    {
+                        Exception = new Exception("Raw material can't add!")
+                    });
+                }
             } catch (Exception ex)
             {
-                return BadRequest($"Error adding raw material: {ex.Message}");
+                return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                {
+                    Exception = ex
+                });
             }
             
         }
 
         [HttpGet("getRawMaterialById/{rawMaterialId}")]
-        public IActionResult GetRawMaterialById(int rawMaterialId)
+        public CustomActionResult<ResultView<RawMaterialVM>> GetRawMaterialById(int rawMaterialId)
         {
             try
             {
                 RawMaterialVM rawMaterial = _rawMaterialRepository.GetById(rawMaterialId);
-                if(rawMaterial != null)
+                if (rawMaterial != null)
                 {
-                    return Created(nameof(GetRawMaterialById), rawMaterial);
-                }else
+                    var result = new ResultView<RawMaterialVM>
+                    {
+                        Item = rawMaterial
+
+                    };
+
+                    var responseObj = new CustomActionResultVM<ResultView<RawMaterialVM>>
+                    {
+                        Data = result
+
+                    };
+                    return new CustomActionResult<ResultView<RawMaterialVM>>(responseObj);
+                }
+                else
                 {
-                    return NotFound($"Raw material with ID {rawMaterialId} not found.");
+                    var result = new ResultView<RawMaterialVM>
+                    {
+                        Exception = new Exception($"Raw Material with Id {rawMaterialId} not found")
+                    };
+
+                    var responseObj = new CustomActionResultVM<ResultView<RawMaterialVM>>
+                    {
+                        Exception = result.Exception
+                    };
+
+                    return new CustomActionResult<ResultView<RawMaterialVM>>(responseObj);
                 }
             } catch(Exception ex)
             {
-                return BadRequest($"Error retrieving Raw material: {ex.Message}");
+                var responseObj = new CustomActionResultVM<ResultView<RawMaterialVM>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<RawMaterialVM>>(responseObj);
             }            
         }
 
         [HttpPut("updateRawMaterial/{rawMaterialId}")]
-        public IActionResult UpdateRecipe(int rawMaterialId, [FromBody] UpdateRawMaterial updateRawMaterial)
+        public CustomActionResult<AddResultVM> UpdateRecipe(int rawMaterialId, [FromBody] UpdateRawMaterial updateRawMaterial)
         {
 
             try
             {
-                 RawMaterialVM  rawMaterialVM = new RawMaterialVM
+                RawMaterialVM rawMaterial = _rawMaterialRepository.GetById(rawMaterialId);
+                if (rawMaterial != null)
                 {
-                    Name = updateRawMaterial.Name,
-                    Price =  updateRawMaterial.Price,
-                    LocationId =  updateRawMaterial.LocationId,
-                    ImageURL =  updateRawMaterial.ImageURL,
-                    Quantity = updateRawMaterial.Quantity,
-                    MeasureUnit = updateRawMaterial.MeasureUnit
-                 };
-                int updatedRawMaterialId = _rawMaterialRepository.UpdateById(rawMaterialId, rawMaterialVM);
-                if (updatedRawMaterialId != -1)
-                {
-                    // Return a successful response
-                    return Created(nameof(UpdateRecipe), updatedRawMaterialId);
+                    RawMaterialVM rawMaterialVM = new RawMaterialVM
+                    {
+                        Name = updateRawMaterial.Name,
+                        Price = updateRawMaterial.Price,
+                        LocationId = updateRawMaterial.LocationId,
+                        ImageURL = updateRawMaterial.ImageURL,
+                        Quantity = updateRawMaterial.Quantity,
+                        MeasureUnit = updateRawMaterial.MeasureUnit
+                    };
+                    int updatedRawMaterialId = _rawMaterialRepository.UpdateById(rawMaterialId, rawMaterialVM);
+                    var result = new AddResultVM
+                    {
+                        Id = updatedRawMaterialId
+                    };
+                    var responseObj = new CustomActionResultVM<AddResultVM>
+                    {
+                        Data = result
+                    };
+                    return new CustomActionResult<AddResultVM>(responseObj);
                 }
                 else
                 {
-                    // Handle the case where the recipe is not found
-                    return NotFound($"Raw material with ID {rawMaterialId} not found.");
+                    return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                    {
+                        Exception = new Exception($"Raw material with Id {rawMaterialId} not found.")
+                    });
                 }
-               
+
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error updating Raw material: {ex.Message}");
+                return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                {
+                    Exception = ex
+                });
             }
 
         }
 
         [HttpPost("listAdvance")]
-        public IActionResult GetAlRawMaterials([FromBody] RawMaterialListAdvanceFilter rawMaterialListAdvanceFilter)
+        public CustomActionResult<ResultView<PaginatedRawMaterials>> GetAlRawMaterials([FromBody] RawMaterialListAdvanceFilter rawMaterialListAdvanceFilter)
         {
             try
             {
                 var _rawMaterials= _iIRawMaterialRepository.GetAll(rawMaterialListAdvanceFilter);
-                return Created(nameof(GetAlRawMaterials), _rawMaterials);
+                var result = new ResultView<PaginatedRawMaterials>
+                {
+                    Item = _rawMaterials
+
+                };
+
+                var responseObj = new CustomActionResultVM<ResultView<PaginatedRawMaterials>>
+                {
+                    Data = result
+
+                };
+                return new CustomActionResult<ResultView<PaginatedRawMaterials>>(responseObj);
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error loading raw materials: {ex.Message}");
+                var responseObj = new CustomActionResultVM<ResultView<PaginatedRawMaterials>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<PaginatedRawMaterials>>(responseObj);
             }
 
         }
@@ -154,19 +236,34 @@ namespace BakeryApp.Controllers
         }
 
         [HttpGet("listSimpleRawmaterials")]
-        public IActionResult ListSimpleRawMaterials()
+        public CustomActionResult<ResultView<RawMaterialListSimpleVM[]>> ListSimpleRawMaterials()
         {
             try
             {
                 // Call the repository to get the list of simple FoodTypes
                 RawMaterialListSimpleVM[] rawMaterials = _iIRawMaterialRepository.ListSimpeRawMaterials();
 
-                return Ok(rawMaterials);
+                var result = new ResultView<RawMaterialListSimpleVM[]>
+                {
+                    Item = rawMaterials
+
+                };
+
+                var responseObj = new CustomActionResultVM<ResultView<RawMaterialListSimpleVM[]>>
+                {
+                    Data = result
+
+                };
+                return new CustomActionResult<ResultView<RawMaterialListSimpleVM[]>>(responseObj);
             }
             catch (Exception ex)
             {
-                // Handle other exceptions if needed
-                return BadRequest($"Error getting list of simple rawMaterials: {ex.Message}");
+                var responseObj = new CustomActionResultVM<ResultView<RawMaterialListSimpleVM[]>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<RawMaterialListSimpleVM[]>>(responseObj); ;
             }
         }
     }
