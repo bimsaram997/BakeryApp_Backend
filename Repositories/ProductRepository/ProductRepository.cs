@@ -8,6 +8,7 @@ using Models.Pagination;
 using Models.Requests.Update_Requests;
 using Models.ViewModels;
 using Models.ViewModels.Product;
+using Models.ViewModels.RawMaterial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace Repositories.ProductRepository
 
      
         PaginatedProducts GetAll(ProductListAdvanceFilter filter);
+
+        ProductListSimpleVM[] ListSimpeProducts();
     }
     public class ProductRepository : IRepositoryBase<ProductVM>, IProductRepository
     {
@@ -215,13 +218,26 @@ namespace Repositories.ProductRepository
             return result;
         }
 
-      
+
+        public ProductListSimpleVM[] ListSimpeProducts()
+        {
+            var simpleProducts = _context.Product
+                 .Where(ft => !ft.IsDeleted)
+                 .Select(product => new ProductListSimpleVM()
+                 {
+                     Id = product.Id,
+                     Name = product.Name,
+
+                 })
+                 .ToArray();
+
+            return simpleProducts;
+        }
 
 
 
-      
-        
 
-       
+
+
     }
 }
