@@ -302,5 +302,37 @@ namespace BakeryApp.Controllers
                 return new CustomActionResult<ResultView<ProductVM>>(responseObj); 
             }
         }
+
+        [HttpGet("listSimpleProducts")]
+        public CustomActionResult<ResultView<ProductListSimpleVM[]>> ListSimpleRawMaterials()
+        {
+            try
+            {
+                // Call the repository to get the list of simple FoodTypes
+                ProductListSimpleVM[] products = _iProductRepository.ListSimpeProducts();
+
+                var result = new ResultView<ProductListSimpleVM[]>
+                {
+                    Item = products
+
+                };
+
+                var responseObj = new CustomActionResultVM<ResultView<ProductListSimpleVM[]>>
+                {
+                    Data = result
+
+                };
+                return new CustomActionResult<ResultView<ProductListSimpleVM[]>>(responseObj);
+            }
+            catch (Exception ex)
+            {
+                var responseObj = new CustomActionResultVM<ResultView<ProductListSimpleVM[]>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<ProductListSimpleVM[]>>(responseObj); ;
+            }
+        }
     }
 }

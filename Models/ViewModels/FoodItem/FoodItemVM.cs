@@ -24,4 +24,11 @@ namespace Models.ViewModels.Product
         public bool IsDeleted { get; set; }
 
     }
+
+    public class ProductListSimpleVM
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }    
+
+    }
 }
