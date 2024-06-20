@@ -65,6 +65,7 @@ builder.Services.AddTransient<IRepositoryBase<MasterDataVM>, MasterDataRepositor
 builder.Services.AddTransient<IMasterDataRepository, MasterDataRepository>();
 builder.Services.AddTransient<IRolesRepository, RolesRepository>();
 builder.Services.AddTransient<IRepositoryBase<SupplierVM>, SupplierRepository>();
+builder.Services.AddTransient<ISupplierRepository, SupplierRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
