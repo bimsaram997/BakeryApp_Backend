@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Models.ViewModels.Supplier
 {
-    public class SupplierVM
+    public class SuppplierDetailVM
     {
         public int Id { get; set; }
         public string SupplierCode { get; set; }
@@ -23,6 +23,6 @@ namespace Models.ViewModels.Supplier
         public int AddressId { get; set; }
         public List<int?> ProductIds { get; set; }
         public List<int?> RawMaterialIds { get; set; }
-        public AddressVM? Address { get; set; }
+        public AddressVM Address { get; set; }
     }
 }
