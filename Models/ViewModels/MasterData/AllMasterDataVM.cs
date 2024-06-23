@@ -16,6 +16,7 @@ namespace Models.ViewModels.MasterData
         public int EnumTypeId { get; set; }
         public string? MasterDataSymbol { get; set; }
         public string? MasterColorCode { get; set; }
+        public string? MasterValueCode { get; set; }
         public DateTime AddedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }

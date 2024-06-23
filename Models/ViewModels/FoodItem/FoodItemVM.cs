@@ -29,6 +29,11 @@ namespace Models.ViewModels.Product
     {
         public int Id { get; set; }
         public string Name { get; set; }    
+        public int CostCode { get; set; }
+        public int RecipeId { get; set; }
+        public int Unit { get; set; }
+        public double CostPrice { get; set; }
+        public double SellingPrice { get; set; }
 
     }
 }

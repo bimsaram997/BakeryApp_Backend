@@ -38,7 +38,8 @@ namespace Repositories.MasterDataRepository
                 MasterColorCode = entity.MasterColorCode,
                 MasterDataSymbol = entity.MasterDataSymbol,
                 AddedDate = entity.AddedDate,
-                EnumTypeId = entity.EnumTypeId
+                EnumTypeId = entity.EnumTypeId,
+                MasterValueCode = entity.MasterValueCode
 
             };
             _context.MasterData.Add(_masterData);
@@ -77,6 +78,7 @@ namespace Repositories.MasterDataRepository
                     EnumTypeId = fi.EnumTypeId,
                     AddedDate = fi.AddedDate,
                     ModifiedDate = fi.ModifiedDate,
+                    MasterValueCode = fi.MasterValueCode,
                     IsDeleted = fi.IsDeleted
                 }).ToList();
 
@@ -100,6 +102,7 @@ namespace Repositories.MasterDataRepository
                     MasterColorCode = fi.MasterColorCode,
                     EnumTypeId =  fi.EnumTypeId,
                     AddedDate = fi.AddedDate,
+                    MasterValueCode = fi.MasterValueCode,
                     ModifiedDate =  fi.ModifiedDate,
                     IsDeleted = fi.IsDeleted
                 }).FirstOrDefault();
@@ -119,6 +122,7 @@ namespace Repositories.MasterDataRepository
             updateMasterData.MasterDataSymbol = entity.MasterDataSymbol;
             updateMasterData.MasterColorCode = entity.MasterColorCode;
             updateMasterData.EnumTypeId = entity.EnumTypeId;
+            updateMasterData.MasterValueCode = entity.MasterValueCode;
 
             _context.SaveChanges();
             return updateMasterData.Id;
@@ -176,6 +180,7 @@ namespace Repositories.MasterDataRepository
                     MasterColorCode = fi.MasterColorCode,
                     ModifiedDate = fi.ModifiedDate,
                    MasterDataCode =  fi.MasterDataCode,
+                    MasterValueCode = fi.MasterValueCode,
                     EnumType = _context.EnumTypeTranslationMap
                         .Where(enumType => enumType.Id == fi.EnumTypeId)
                         .Select(enumType => enumType.EnumTypeDisplayValue)
