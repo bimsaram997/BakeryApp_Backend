@@ -27,6 +27,7 @@ namespace Models.ViewModels.Recipe
         public int rawMaterialId { get; set; }
         public double rawMaterialQuantity { get; set; }
         public int measureUnit { get; set; }
+        public string rawMaterialName { get; set; }
 
     }
 

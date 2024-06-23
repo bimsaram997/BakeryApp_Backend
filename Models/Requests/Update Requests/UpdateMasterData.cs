@@ -12,6 +12,6 @@ namespace Models.Requests.Update_Requests
         public int EnumTypeId { get; set; }
         public string? MasterDataSymbol { get; set; }
         public string? MasterColorCode { get; set; }
-    
+        public string? MasterValueCode { get; set; }
     }
 }

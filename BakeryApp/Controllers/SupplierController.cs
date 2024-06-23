@@ -270,5 +270,38 @@ namespace BakeryApp.Controllers
             }
 
         }
+
+        [HttpPost("listSimpleSuppliers")]
+        public CustomActionResult<ResultView<SupplierListSimpleVM[]>> GetSupplierListSimple([FromBody] SupplerListSimpleFilter supplerListSimpleFilter)
+        {
+            try
+            {
+                SupplierListSimpleVM[] _suppliers = _iSupplierRepository.GetSupplierListSimple(supplerListSimpleFilter);
+
+
+                var result = new ResultView<SupplierListSimpleVM[]>
+                {
+                    Item = _suppliers
+
+                };
+
+                var responseObj = new CustomActionResultVM<ResultView<SupplierListSimpleVM[]>>
+                {
+                    Data = result
+
+                };
+                return new CustomActionResult<ResultView<SupplierListSimpleVM[]>>(responseObj);
+            }
+            catch (Exception ex)
+            {
+                var responseObj = new CustomActionResultVM<ResultView<SupplierListSimpleVM[]>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<SupplierListSimpleVM[]>>(responseObj);
+            }
+
+        }
     }
 }

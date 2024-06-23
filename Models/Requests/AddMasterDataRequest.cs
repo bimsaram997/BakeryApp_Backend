@@ -13,5 +13,6 @@ namespace Models.Requests
         public string? MasterDataSymbol { get; set; }
         public string? MasterColorCode { get; set; }
         public DateTime AddedDate { get; set; }
+        public string? MasterValueCode { get; set; }
     }
 }

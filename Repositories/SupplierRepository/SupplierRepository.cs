@@ -18,6 +18,7 @@ namespace Repositories.SupplierRepository
     public interface ISupplierRepository
     {
         PaginatedSuppliers GetAll(SupplierListAdvanceFilter filter);
+        SupplierListSimpleVM[] GetSupplierListSimple(SupplerListSimpleFilter filter);
     }
         public class SupplierRepository : IRepositoryBase<SupplierVM>, ISupplierRepository
     {
@@ -334,6 +335,45 @@ namespace Repositories.SupplierRepository
             _context.SaveChanges();
             return existingSupplier.Id;
 
+        }
+        public SupplierListSimpleVM[] GetSupplierListSimple(SupplerListSimpleFilter filter)
+        {
+            IQueryable<Suppliers> query = _context.Supplier
+      .Where(fi => !fi.IsDeleted);
+
+            if (filter.IsProduct.HasValue && filter.IsProduct == true)
+            {
+                query = query.Where(fi => fi.IsProduct == filter.IsProduct);
+            }
+
+            if (filter.IsRawMaterial.HasValue && filter.IsRawMaterial == true)
+            {
+                query = query.Where(fi => fi.IsRawMaterial == filter.IsRawMaterial);
+            }
+            if (filter.ProductIds != null && filter.ProductIds.Any())
+            {
+                query = query.Where(fi => _context.SupplierProduct
+                    .Any(rm => rm.SupplierId == fi.Id && filter.ProductIds.Contains(rm.ProductId)));
+            }
+            var paginatedResult = query
+       .Select(fi => new SupplierListSimpleVM
+       {
+            Id = fi.Id,
+                AddedDate = fi.AddedDate,
+                SupplierFirstName = fi.SupplierFirstName,
+                SupplierLastName = fi.SupplierLastName,
+                SupplierCode = fi.SupplierCode,
+                Email = fi.Email,
+                PhoneNumber = fi.PhoneNumber,
+                IsProduct = fi.IsProduct,
+                IsRawMaterial = fi.IsRawMaterial,
+                //  foodTypeId = supplier.FoodTypeId,
+                ModifiedDate = fi.ModifiedDate,
+            
+       })
+       .ToArray();
+
+            return paginatedResult;
         }
     }
 }

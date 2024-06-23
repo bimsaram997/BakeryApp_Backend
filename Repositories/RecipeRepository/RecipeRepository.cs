@@ -208,6 +208,10 @@ namespace Repositories.RecipeRepository
                         .Where(rawMaterial => rawMaterial.Id == rm.RawMaterialId)
                         .Select(rawMaterial => rawMaterial.MeasureUnit)
                         .FirstOrDefault(),
+                       rawMaterialName= _context.RawMaterials
+                        .Where(rawMaterial => rawMaterial.Id == rm.RawMaterialId)
+                        .Select(rawMaterial => rawMaterial.Name)
+                        .FirstOrDefault(),
                    }).ToList()
 
             }).FirstOrDefault();

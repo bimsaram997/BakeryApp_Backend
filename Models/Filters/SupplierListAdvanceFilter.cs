@@ -20,4 +20,11 @@ namespace Models.Filters
         public List<int>? RawMaterialIds { get; set; }
         public List<int>? ProductIds { get; set; }
     }
+
+    public class SupplerListSimpleFilter
+    {
+        public bool? IsRawMaterial { get; set; }
+        public bool? IsProduct { get; set; }
+        public List<int>? ProductIds { get; set; }
+    }
 }

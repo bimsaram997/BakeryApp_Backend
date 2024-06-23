@@ -227,6 +227,11 @@ namespace Repositories.ProductRepository
                  {
                      Id = product.Id,
                      Name = product.Name,
+                     CostCode = product.CostCode,
+                     RecipeId = product.RecipeId,
+                     Unit = product.Unit,
+                     CostPrice = product.CostPrice,
+                     SellingPrice = product.SellingPrice
 
                  })
                  .ToArray();

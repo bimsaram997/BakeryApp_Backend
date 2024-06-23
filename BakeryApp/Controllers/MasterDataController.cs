@@ -42,6 +42,7 @@ namespace BakeryApp.Controllers
                     MasterColorCode = masterDataRequest.MasterColorCode,
                     MasterDataSymbol = masterDataRequest.MasterDataSymbol,
                     EnumTypeId = masterDataRequest.EnumTypeId,
+                    MasterValueCode = masterDataRequest.MasterValueCode
 
                 };
 
@@ -222,7 +223,7 @@ namespace BakeryApp.Controllers
                         MasterColorCode = updateItem.MasterColorCode,
                         MasterDataSymbol = updateItem.MasterDataSymbol,
                         EnumTypeId = updateItem.EnumTypeId,
-
+                        MasterValueCode = updateItem.MasterValueCode,
 
                     };
                     int updatedMasterData = _masterDataRepository.UpdateById(masterDataId, masterData);

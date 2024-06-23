@@ -17,6 +17,7 @@ namespace Models.ViewModels.MasterData
         public DateTime AddedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }
+        public string? MasterValueCode { get; set; }
     }
 
     public class AllMasterData
