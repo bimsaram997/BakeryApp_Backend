@@ -37,4 +37,10 @@ namespace Models.ViewModels.Recipe
         public string RecipeName { get; set; }
 
     }
+
+    public class RawMaterialQuantity
+    {
+        public int RawMaterialId { get; set; }
+        public double TotalQuantityNeeded { get; set; }
+    }
 }

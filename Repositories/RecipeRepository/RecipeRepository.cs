@@ -22,8 +22,9 @@ namespace Repositories.RecipeRepository
         public bool CheckRawMaterialsAssociatedWithRecipe(int rawMateialId);
         bool IsFoodTypeLinked(int foodTypeId);
         public RecipeVM GetByFoodTypeId(int foodTypeId);
-        PaginatedRecipes GetAll(RecipeListAdvanceFilter filter);
-        RecipeListSimpleVM[] ListSimpeRecipes();
+        public PaginatedRecipes GetAll(RecipeListAdvanceFilter filter);
+        public RecipeListSimpleVM[] ListSimpeRecipes();
+        public RecipeRawMaterial[] GetRawMaterialsByRecipeId(int recipeId);
     }
     public class RecipeRepository : IRepositoryBase<RecipeVM>, IRecipeRepository
     {
@@ -111,18 +112,6 @@ namespace Repositories.RecipeRepository
 
         public int Add(RecipeVM recipe)
         {
-            //Add Food Recipe to the database
-            Recipe? lastRecipe = _context.Recipes.OrderByDescending(fi => fi.RecipeCode).FirstOrDefault();
-            int newRecipeNumber = 1; // Default if no existing records
-
-            if (lastRecipe != null)
-            {
-                // Extract the number part of the ProductCode and increment it
-                if (int.TryParse(lastRecipe.RecipeCode.Substring(1), out int lastCodeNumber))
-                {
-                    newRecipeNumber = lastCodeNumber + 1;
-                }
-            }
 
             string newRecipeCode  = Guid.NewGuid().ToString();
             Recipe _recipe = new Recipe()
@@ -276,6 +265,27 @@ namespace Repositories.RecipeRepository
                  .ToArray();
 
             return simpleRecipes;
+        }
+
+        public RecipeRawMaterial[] GetRawMaterialsByRecipeId(int recipeId)
+        {
+            var rawMaterials = _context.RawMaterialRecipe
+            .Where(rm => rm.RecipeId == recipeId)
+            .Select(rm => new RecipeRawMaterial
+            {
+                rawMaterialId = rm.RawMaterialId,
+                rawMaterialQuantity = rm.RawMaterialQuantity,
+                measureUnit = _context.RawMaterials
+                    .Where(rawMaterial => rawMaterial.Id == rm.RawMaterialId)
+                    .Select(rawMaterial => rawMaterial.MeasureUnit)
+                    .FirstOrDefault(),
+                rawMaterialName = _context.RawMaterials
+                    .Where(rawMaterial => rawMaterial.Id == rm.RawMaterialId)
+                    .Select(rawMaterial => rawMaterial.Name)
+                    .FirstOrDefault(),
+            }).ToArray();
+
+            return rawMaterials;
         }
 
 
