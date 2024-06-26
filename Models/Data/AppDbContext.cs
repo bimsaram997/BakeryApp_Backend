@@ -6,9 +6,9 @@ using Models.Data.RawMaterialData;
 using Models.Data.RecipeData;
 using Models.Data.ReferenceData;
 using Models.Data.Role;
+using Models.Data.Stock;
 using Models.Data.Supplier;
 using Models.Data.User;
-
 
 namespace Models.Data
 {
@@ -39,5 +39,8 @@ namespace Models.Data
         public DbSet<Suppliers> Supplier { get; set; }
         public DbSet<SupplierProduct> SupplierProduct { get; set; }
         public DbSet<SupplierRawMaterial> SupplierRawMaterial { get; set; }
+        public DbSet<Stocks> Stock { get; set; }
+        public DbSet<StockRawMaterialHistory> StockRawMaterialHistory { get; set; }
+        public DbSet<StockItem> StockItem { get; set; }
     }
 }
