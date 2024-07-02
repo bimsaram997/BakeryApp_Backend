@@ -29,6 +29,7 @@ namespace BakeryApp.Controllers
         public IRecipeRepository _iRecipeRepository;
         public IRawMaterialRepository _iIRawMaterialRepository;
         public IStockItemRepository _iStockItemRepository;
+        public IStockRepository _iStockRepository;
 
         public StockController(IRepositoryBase<StockVM> stockRepository,
             IRepositoryBase<RawMaterialVM> rawMaterialRepository,
@@ -36,7 +37,8 @@ namespace BakeryApp.Controllers
           IRepositoryBase<RecipeVM> recipeRepository,
           IRawMaterialRepository iRawMaterialRepository,
            IRecipeRepository iRecipeRepository,
-           IStockItemRepository iStockItemRepository)
+           IStockItemRepository iStockItemRepository,
+           IStockRepository iStockRepository)
         {
 
             _stockRepository = stockRepository;
@@ -46,8 +48,10 @@ namespace BakeryApp.Controllers
             _iRecipeRepository = iRecipeRepository;
             _iIRawMaterialRepository = iRawMaterialRepository;
             _iStockItemRepository = iStockItemRepository;
+            _iStockRepository = iStockRepository;
         }
-        public CustomActionResult<AddResultVM> AddRecipe([FromBody] AddStockRequest stockRequest)
+        [HttpPost("addStock")]
+        public CustomActionResult<AddResultVM> AddStock([FromBody] AddStockRequest stockRequest)
         {
             try
             {
@@ -68,7 +72,7 @@ namespace BakeryApp.Controllers
                         CostPrice = stockRequest.CostPrice,
                         RecipeId = stockRequest.RecipeId,
                         SupplyTypeId = stockRequest.SupplyTypeId,
-                        SupplierId = stockRequest.SupplierId,
+                       SupplierId = stockRequest.SupplierId,
                         ManufacturedDate = stockRequest.ManufacturedDate,
                         ExpiredDate = stockRequest.ExpiredDate,
                         ItemQuantity = stockRequest.ItemQuantity,
@@ -78,7 +82,7 @@ namespace BakeryApp.Controllers
                     };
                     if (stockRequest.SupplierId != null)
                     {
-                         stockId = _stockRepository.Add(stock);
+                        stockId = _stockRepository.Add(stock);
                         AddStockItems(stock, stockId);
                         if (stockId > 0)
                         {
@@ -91,14 +95,16 @@ namespace BakeryApp.Controllers
                                 Data = result
                             };
                             return new CustomActionResult<AddResultVM>(responseObj);
-                        } else
+                        }
+                        else
                         {
                             return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
                             {
                                 Exception = new Exception("Stock can't add!")
                             });
                         }
-                    }else
+                    }
+                    else
                     {
                         if (CheckAvailability(rawMaterialQuantities))
                         {
@@ -110,7 +116,7 @@ namespace BakeryApp.Controllers
                                 // Update the quantity of raw material
                                 UpdateQuantity(rawMaterialQuantity.RawMaterialId, currentQuantity, rawMaterialQuantity.TotalQuantityNeeded);
                             }
-                             stockId = _stockRepository.Add(stock);
+                            stockId = _stockRepository.Add(stock);
                             AddStockItems(stock, stockId);
                             if (stockId > 0)
                             {
@@ -132,21 +138,20 @@ namespace BakeryApp.Controllers
                                 });
                             }
                         }
-                         else
-                         {
+                        else
+                        {
                             return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
                             {
-                                Exception = new Exception("Raw materials stock is not enoug to make operation")
+                                Exception = new Exception("Raw materials stock is not enough to make operation")
                             });
                         }
                     }
-
-                   
-                }else
+                }
+                else
                 {
                     return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
                     {
-                        Exception = new Exception(recipe == null ? "No recipe found": product == null ? "No Product found" : "Item count is zero")
+                        Exception = new Exception(recipe == null ? "No recipe found" : product == null ? "No Product found" : "Item count is zero")
                     });
                 }
             }
@@ -159,12 +164,55 @@ namespace BakeryApp.Controllers
             }
         }
 
-        public void AddStockItems(StockVM stockVM, int stockId)
+        [HttpGet("getProductId/{prodId}")]
+        public CustomActionResult<AddResultVM> GetProductId(int prodId)
+        {
+
+            try
+            {
+               
+                int? productId = _iStockRepository.CheckProductAssociatedWithStock(prodId);
+                if (productId == 0)
+                {
+                    var result = new AddResultVM
+                    {
+                        Id = 0
+                    };
+                    var responseObj = new CustomActionResultVM<AddResultVM>
+                    {
+                        Data = result
+                    };
+                    return new CustomActionResult<AddResultVM>(responseObj);
+                }
+                else
+                {
+                    return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                    {
+                        Exception = new Exception("Product is associated with stock. Please select new product.")
+                    });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return new CustomActionResult<AddResultVM>(new CustomActionResultVM<AddResultVM>
+                {
+                    Exception = ex
+                });
+            }
+
+
+        }
+
+
+        private void AddStockItems(StockVM stockVM, int stockId)
         {
             var stockItem = new StockItemVM()
             {
                 StockId = stockId,
                 SellingPrice = stockVM.SellingPrice,
+                ProductId = stockVM.ProductId,
                 CostPrice = stockVM.CostPrice,
                 BatchId = stockVM.BatchId,
                 ManufacturedDate = stockVM.ManufacturedDate,
@@ -178,7 +226,7 @@ namespace BakeryApp.Controllers
             }
         } 
 
-        public RawMaterialQuantity[] CalculateRawMaterialQuantities(int recipeId, int itemCount)
+        private RawMaterialQuantity[] CalculateRawMaterialQuantities(int recipeId, int itemCount)
         {
             RecipeRawMaterial[] recipeRawMaterials = _iRecipeRepository.GetRawMaterialsByRecipeId(recipeId);
 
@@ -199,7 +247,7 @@ namespace BakeryApp.Controllers
             return rawMaterialQuantities.ToArray();
         }
 
-        public bool CheckAvailability(RawMaterialQuantity[] rawMaterialQuantities)
+        private bool CheckAvailability(RawMaterialQuantity[] rawMaterialQuantities)
         {
             RawMaterialListSimpleVM[] rawMaterialListSimples = _iIRawMaterialRepository.ListSimpeRawMaterials();
 
@@ -208,7 +256,7 @@ namespace BakeryApp.Controllers
 
             foreach (var rawMaterialQuantity in rawMaterialQuantities)
             {
-                if (!availableQuantities.ContainsKey(rawMaterialQuantity.RawMaterialId) ||
+                if (availableQuantities.ContainsKey(rawMaterialQuantity.RawMaterialId) &&
                     availableQuantities[rawMaterialQuantity.RawMaterialId] < rawMaterialQuantity.TotalQuantityNeeded)
                 {
                     // Insufficient quantity for this raw material

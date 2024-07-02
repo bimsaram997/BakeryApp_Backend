@@ -25,6 +25,8 @@ using Repositories.MasterDataRepository;
 using Repositories.RolesRepository;
 using Models.ViewModels.Supplier;
 using Repositories.SupplierRepository;
+using Repositories.StockRepository;
+using Models.ViewModels.Stock;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +68,12 @@ builder.Services.AddTransient<IMasterDataRepository, MasterDataRepository>();
 builder.Services.AddTransient<IRolesRepository, RolesRepository>();
 builder.Services.AddTransient<IRepositoryBase<SupplierVM>, SupplierRepository>();
 builder.Services.AddTransient<ISupplierRepository, SupplierRepository>();
+
+builder.Services.AddTransient<IRepositoryBase<StockVM>, StockRepository>();
+builder.Services.AddTransient<IStockRepository, StockRepository>();
+builder.Services.AddTransient<StockItemRepository>();
+builder.Services.AddTransient<IStockItemRepository, StockItemRepository>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

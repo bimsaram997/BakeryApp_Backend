@@ -10,6 +10,7 @@ namespace Models.Data.Stock
     {
         public int Id { get; set; }
         public string StockCode { get; set; }   
+        public int Unit { get; set; }
         public int ProductId { get; set; }
         public int CostCode { get; set; }
         public double SellingPrice { get; set; }

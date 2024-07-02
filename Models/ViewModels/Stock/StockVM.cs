@@ -10,6 +10,7 @@ namespace Models.ViewModels.Stock
     public class StockVM
     {
         public int Id { get; set; }
+        public int Unit { get; set; }
         public int ProductId { get; set; }
         public int CostCode { get; set; }
         public double SellingPrice { get; set; }
