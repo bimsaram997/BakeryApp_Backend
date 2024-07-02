@@ -10,7 +10,11 @@ using System.Threading.Tasks;
 
 namespace Repositories.StockRepository
 {
-    public class StockRepository: IRepositoryBase<StockVM>
+    public interface IStockRepository
+    {
+        public int CheckProductAssociatedWithStock(int stockId);
+    }
+    public class StockRepository: IRepositoryBase<StockVM>, IStockRepository
     {
         private AppDbContext _context;
         public StockRepository(AppDbContext context)
@@ -70,6 +74,16 @@ namespace Repositories.StockRepository
         public int UpdateById(int id, StockVM entity)
         {
             throw new NotImplementedException();
+        }
+
+        public int CheckProductAssociatedWithStock(int productd)
+        {
+            var productId = _context.Stock
+           .Where(stock => stock.ProductId == productd && !stock.IsDeleted)
+           .Select(stock => stock.ProductId)
+           .FirstOrDefault();
+
+            return productId;
         }
     }
 }
