@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.ActionResults;
 using Models.Data.RecipeData;
+using Models.Filters;
 using Models.Requests;
 using Models.ViewModels;
 using Models.ViewModels.Custom_action_result;
@@ -79,6 +80,7 @@ namespace BakeryApp.Controllers
                         ReorderLevel = stockRequest.ReorderLevel,
                         AddedDate = stockRequest.AddedDate,
                         RawMaterialQuantities = rawMaterialQuantities,
+                        Unit  = stockRequest.Unit
                     };
                     if (stockRequest.SupplierId != null)
                     {
@@ -202,6 +204,37 @@ namespace BakeryApp.Controllers
                 });
             }
 
+
+        }
+
+        [HttpPost("listAdvance")]
+        public CustomActionResult<ResultView<PaginatedStocks>> GetAlRecipes([FromBody] StockListAdvanceFilter stockListAdvanceFilter)
+        {
+            try
+            {
+                var _stocks = _iStockRepository.GetAll(stockListAdvanceFilter);
+                var result = new ResultView<PaginatedStocks>
+                {
+                    Item = _stocks
+
+                };
+
+                var responseObj = new CustomActionResultVM<ResultView<PaginatedStocks>>
+                {
+                    Data = result
+
+                };
+                return new CustomActionResult<ResultView<PaginatedStocks>>(responseObj);
+            }
+            catch (Exception ex)
+            {
+                var responseObj = new CustomActionResultVM<ResultView<PaginatedStocks>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<PaginatedStocks>>(responseObj);
+            }
 
         }
 
