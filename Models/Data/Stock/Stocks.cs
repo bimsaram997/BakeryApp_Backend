@@ -17,7 +17,7 @@ namespace Models.Data.Stock
         public double CostPrice { get; set; }
         public int RecipeId { get; set; }
         public int SupplyTypeId { get; set; }
-        public int? SupplierId { get; set; }
+        public string? SupplierName { get; set; }
         public DateTime ManufacturedDate { get; set; }
         public DateTime ExpiredDate { get; set; }
         public int ItemQuantity { get; set; }

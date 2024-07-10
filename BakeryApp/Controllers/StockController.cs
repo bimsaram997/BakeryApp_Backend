@@ -207,6 +207,56 @@ namespace BakeryApp.Controllers
 
         }
 
+        [HttpGet("getStockById/{stockId}")]
+        public CustomActionResult<ResultView<StockVM>> GetRecipeById(int stockId)
+        {
+            try
+            {
+    
+                StockVM stock = _stockRepository.GetById(stockId);
+
+                if (stock != null)
+                {
+                    var result = new ResultView<StockVM>
+                    {
+                        Item = stock
+
+                    };
+
+                    var responseObj = new CustomActionResultVM<ResultView<StockVM>>
+                    {
+                        Data = result
+
+                    };
+                    return new CustomActionResult<ResultView<StockVM>>(responseObj);
+                }
+                else
+                {
+                    var result = new ResultView<StockVM>
+                    {
+                        Exception = new Exception($"Recipe with Id {stockId} not found")
+                    };
+
+                    var responseObj = new CustomActionResultVM<ResultView<StockVM>>
+                    {
+                        Exception = result.Exception
+                    };
+
+                    return new CustomActionResult<ResultView<StockVM>>(responseObj);
+                }
+            }
+            catch (Exception ex)
+            {
+                var responseObj = new CustomActionResultVM<ResultView<StockVM>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<StockVM>>(responseObj);
+            }
+        }
+
+
         [HttpPost("listAdvance")]
         public CustomActionResult<ResultView<PaginatedStocks>> GetAlRecipes([FromBody] StockListAdvanceFilter stockListAdvanceFilter)
         {

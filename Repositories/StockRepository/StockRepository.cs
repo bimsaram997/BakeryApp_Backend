@@ -4,6 +4,7 @@ using Models.Data.RawMaterialData;
 using Models.Data.Stock;
 using Models.Filters;
 using Models.Helpers;
+using Models.ViewModels.Product;
 using Models.ViewModels.RawMaterial;
 using Models.ViewModels.Recipe;
 using Models.ViewModels.Stock;
@@ -200,7 +201,33 @@ namespace Repositories.StockRepository
 
         public StockVM GetById(int id)
         {
-            throw new NotImplementedException();
+            StockVM? stock = _context.Stock
+        .Where(fi => fi.Id == id && !fi.IsDeleted)
+        .Select(fi => new StockVM
+        {
+            Id = fi.Id,
+            Unit = fi.Unit,
+            AddedDate = fi.AddedDate,
+            ProductId = fi.ProductId,
+            CostCode = fi.CostCode,
+            SellingPrice = fi.SellingPrice,
+            CostPrice = fi.CostPrice,
+            RecipeId = fi.RecipeId,
+            SupplyTypeId = fi.SupplyTypeId,
+            SupplierId = fi.SupplierId,
+            IsDeleted = fi.IsDeleted,
+            ModifiedDate = fi.ModifiedDate,
+            ManufacturedDate = fi.ManufacturedDate,
+            ExpiredDate = fi.ExpiredDate,
+            ItemQuantity = fi.ItemQuantity,
+            ReorderLevel = fi.ReorderLevel,
+            BatchId = fi.BatchId
+
+
+        })
+        .FirstOrDefault();
+
+            return stock;
         }
 
         public int UpdateById(int id, StockVM entity)
