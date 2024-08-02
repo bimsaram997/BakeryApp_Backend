@@ -48,7 +48,7 @@ namespace Repositories.StockRepository
                 ReorderLevel = entity.ReorderLevel,
                 AddedDate = entity.AddedDate,
                 BatchId = entity.BatchId,
-                Unit = entity.Unit
+                //Unit = entity.Unit
             };
             _context.Stock.Add(_stock);
             object value = _context.SaveChanges();
@@ -85,7 +85,7 @@ namespace Repositories.StockRepository
             }
             if (filter.Unit.HasValue)
             {
-                query = query.Where(fi => fi.Unit == filter.Unit);
+              //  query = query.Where(fi => fi.Unit == filter.Unit);
             }
             if (filter.CostCode.HasValue)
             {
@@ -143,10 +143,10 @@ namespace Repositories.StockRepository
             {
                 Id = fi.Id,
                 StockCode= fi.StockCode,
-                MeasureUnitName = _context.MasterData
+              /*  MeasureUnitName = _context.MasterData
                     .Where(masterData => masterData.Id == fi.Unit)
                     .Select(masterData => masterData.MasterDataName)
-                    .FirstOrDefault(),
+                    .FirstOrDefault(),*/
                 ProductName = _context.Product
                     .Where(product => product.Id == fi.ProductId)
                     .Select(product => product.Name)
@@ -206,7 +206,7 @@ namespace Repositories.StockRepository
         .Select(fi => new StockVM
         {
             Id = fi.Id,
-            Unit = fi.Unit,
+          //  Unit = fi.Unit,
             AddedDate = fi.AddedDate,
             ProductId = fi.ProductId,
             CostCode = fi.CostCode,

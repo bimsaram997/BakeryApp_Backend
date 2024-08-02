@@ -50,7 +50,11 @@ namespace Repositories.ProductRepository
                 ProductDescription = product.ProductDescription,
                 AddedDate = DateTime.Now,
                 ImageURL = product.ImageURL,
-          
+                Weight = product.Weight,
+                Status = product.Status,
+                DaysToExpires = product.DaysToExpires,
+                ReOrderLevel = product.ReOrderLevel
+
             };
 
             _context.Product.Add(_product);
@@ -89,8 +93,12 @@ namespace Repositories.ProductRepository
            IsDeleted =  fi.IsDeleted,
            ModifiedDate =  fi.ModifiedDate,
            ImageURL = fi.ImageURL,
-         
-     
+           Weight = fi.Weight,
+           Status = fi.Status,
+           DaysToExpires = fi.DaysToExpires,
+           ReOrderLevel = fi.ReOrderLevel
+
+
        })
        .FirstOrDefault();
 
@@ -115,6 +123,10 @@ namespace Repositories.ProductRepository
             updateProduct.ProductDescription = entity.ProductDescription;
             updateProduct.ImageURL = entity.ImageURL;
             updateProduct.ModifiedDate = DateTime.Now;
+            updateProduct.Weight = entity.Weight;
+            updateProduct.Status = entity.Status;
+            updateProduct.ReOrderLevel= entity.ReOrderLevel;
+            updateProduct.DaysToExpires = entity.DaysToExpires;
 
             _context.SaveChanges();
             return updateProduct.Id;
@@ -174,6 +186,21 @@ namespace Repositories.ProductRepository
                     }
                    
                 }
+
+                if (filter.Weight.HasValue)
+                {
+                    query = query.Where(fi => fi.Weight == filter.Weight);
+                }
+
+                if (filter.ReOrderLevel.HasValue)
+                {
+                    query = query.Where(fi => fi.ReOrderLevel == filter.ReOrderLevel);
+                }
+
+                if (filter.DaysToExpires.HasValue)
+                {
+                    query = query.Where(fi => fi.DaysToExpires == filter.DaysToExpires);
+                }
             }
 
             int totalCount = query.Count();
@@ -202,6 +229,10 @@ namespace Repositories.ProductRepository
                         .Where(masterData => masterData.Id == fi.Unit)
                         .Select(masterData => masterData.MasterDataName)
                         .FirstOrDefault(),
+                    Weight = fi.Weight,
+                    Status = fi.Status,
+                    DaysToExpires = fi.DaysToExpires,
+                    ReOrderLevel = fi.ReOrderLevel
 
 
                 })

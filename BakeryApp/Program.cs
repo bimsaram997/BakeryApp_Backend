@@ -27,6 +27,9 @@ using Models.ViewModels.Supplier;
 using Repositories.SupplierRepository;
 using Repositories.StockRepository;
 using Models.ViewModels.Stock;
+using Models.ViewModels.Location;
+using Repositories.LocationRepository;
+using Models.ViewModels.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,19 +56,29 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
 builder.Configuration.GetConnectionString("DefaultConnectionString")));
 builder.Services.AddTransient<IRepositoryBase<ProductVM>, ProductRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+
 builder.Services.AddTransient<IRepositoryBase<RawMaterialVM>, RawMaterialRepository>();
+builder.Services.AddTransient<IRawMaterialRepository, RawMaterialRepository>();
+
 builder.Services.AddTransient<IRepositoryBase<RecipeVM>, RecipeRepository>();
 builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
-builder.Services.AddTransient<IRawMaterialRepository, RawMaterialRepository>();
-builder.Services.AddTransient<IProductRepository, ProductRepository>();
+
+
 builder.Services.AddTransient<UserRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+
 builder.Services.AddTransient<IRepositoryBase<AddressVM>, AddressRepository>();
+
 builder.Services.AddTransient<EnumTypeRepository>();
 builder.Services.AddTransient<IEnumTypeRepository, EnumTypeRepository>();
+
 builder.Services.AddTransient<IRepositoryBase<MasterDataVM>, MasterDataRepository>();
 builder.Services.AddTransient<IMasterDataRepository, MasterDataRepository>();
+
+builder.Services.AddTransient<IRepositoryBase<RolesVM>, RolesRepository>();
 builder.Services.AddTransient<IRolesRepository, RolesRepository>();
+
 builder.Services.AddTransient<IRepositoryBase<SupplierVM>, SupplierRepository>();
 builder.Services.AddTransient<ISupplierRepository, SupplierRepository>();
 
@@ -73,6 +86,9 @@ builder.Services.AddTransient<IRepositoryBase<StockVM>, StockRepository>();
 builder.Services.AddTransient<IStockRepository, StockRepository>();
 builder.Services.AddTransient<StockItemRepository>();
 builder.Services.AddTransient<IStockItemRepository, StockItemRepository>();
+
+builder.Services.AddTransient<IRepositoryBase<LocationVM>, LocationRepository>();
+builder.Services.AddTransient<ILocationRepository, LocationRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

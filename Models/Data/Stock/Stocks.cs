@@ -26,6 +26,9 @@ namespace Models.Data.Stock
         public DateTime? ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }
         public int BatchId { get; set; }
+        public int? SupplierId { get; set; }
+
+
         public Stocks()
         {
             IsDeleted = false;

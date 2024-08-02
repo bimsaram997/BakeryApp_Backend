@@ -14,10 +14,11 @@ using Repositories;
 using Repositories.MasterDataRepository;
 using Models.ViewModels.Recipe;
 using Models.Data.RecipeData;
+using Models.Data;
 
 namespace BakeryApp.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+   /* [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]*/
     [Route("api/[controller]")]
     [ApiController]
     public class MasterDataController : ControllerBase

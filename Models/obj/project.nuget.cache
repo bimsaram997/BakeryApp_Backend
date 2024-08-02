@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "N0rY81Z2k2xUj6CEn2bja0Z4Vix0woR3cTV3mcwNB1GxhzLylkl83YqynzxgjBfHBIpMbYmnmWxwn7bMhsY1Ow==",
+  "dgSpecHash": "rOjgmuOif3ddVgxhLGPtB+bsmUvU839TUUgFP4dKi6VazyAUxSgeOksvi/sCDePfcBwYK8y0Y8nDYooc/evtfQ==",
   "success": true,
-  "projectFilePath": "E:\\My Projects\\Bakery App\\Web API\\BakeryApp_Backend\\Models\\Models.csproj",
+  "projectFilePath": "C:\\Bakery App\\BackEnd\\Models\\Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

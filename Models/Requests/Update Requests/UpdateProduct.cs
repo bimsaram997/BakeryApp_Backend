@@ -16,5 +16,9 @@ namespace Models.Requests.Update_Requests
         public int RecipeId { get; set; }
         public string ProductDescription { get; set; }
         public string ImageURL { get; set; }
+        public double Weight { get; set; }
+        public int Status { get; set; }
+        public int DaysToExpires { get; set; }
+        public int ReOrderLevel { get; set; }
     }
 }

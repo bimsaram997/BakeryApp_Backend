@@ -270,3 +270,285 @@ E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\r
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.pdb
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\BakeryApp.genruntimeconfig.cache
 E:\My Projects\Bakery App\Web API\BakeryApp_Backend\BakeryApp\obj\Debug\net6.0\ref\BakeryApp.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.AssemblyReference.cache
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.GeneratedMSBuildEditorConfig.editorconfig
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfoInputs.cache
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfo.cs
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.CoreCompileInputs.cache
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.MvcApplicationPartsAssemblyInfo.cs
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.MvcApplicationPartsAssemblyInfo.cache
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\refint\BakeryApp.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.pdb
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\appsettings.Development.json
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\appsettings.json
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.exe
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.deps.json
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.runtimeconfig.json
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.pdb
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Azure.Core.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Azure.Identity.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\DevOne.Security.Cryptography.BCrypt.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BCrypt.Net-Next.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Humanizer.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.OpenApi.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Mono.TextTemplating.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.CodeDom.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Drawing.Common.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Memory.Data.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Runtime.Caching.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Security.Permissions.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Text.Json.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Windows.Extensions.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Models.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Repositories.dll
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Models.pdb
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Repositories.pdb
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.BakeryApp.Microsoft.AspNetCore.StaticWebAssets.props
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.build.BakeryApp.props
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.BakeryApp.props
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.BakeryApp.props
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.pack.json
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.build.json
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.development.json
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\scopedcss\bundle\BakeryApp.styles.css
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.CopyComplete
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.genruntimeconfig.cache
+E:\My Projects\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\ref\BakeryApp.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\appsettings.Development.json
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\appsettings.json
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.exe
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.deps.json
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.runtimeconfig.json
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.pdb
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Azure.Core.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Azure.Identity.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\DevOne.Security.Cryptography.BCrypt.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\BCrypt.Net-Next.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Humanizer.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.CodeDom.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Text.Json.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Models.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Repositories.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Models.pdb
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\bin\Debug\net6.0\Repositories.pdb
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.AssemblyReference.cache
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfoInputs.cache
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfo.cs
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.CoreCompileInputs.cache
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.MvcApplicationPartsAssemblyInfo.cs
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.BakeryApp.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.build.BakeryApp.props
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.BakeryApp.props
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.BakeryApp.props
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.build.json
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.development.json
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\scopedcss\bundle\BakeryApp.styles.css
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.CopyComplete
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\refint\BakeryApp.dll
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.pdb
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.genruntimeconfig.cache
+C:\Azure Project\BakeryApp\BackEnd\BakeryApp\obj\Debug\net6.0\ref\BakeryApp.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\appsettings.Development.json
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\appsettings.json
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.exe
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.deps.json
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.runtimeconfig.json
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\BakeryApp.pdb
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Azure.Core.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Azure.Identity.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\DevOne.Security.Cryptography.BCrypt.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\BCrypt.Net-Next.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Humanizer.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.CodeDom.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.Text.Json.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Models.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Repositories.dll
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Models.pdb
+C:\Bakery App\BackEnd\BakeryApp\bin\Debug\net6.0\Repositories.pdb
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.AssemblyReference.cache
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfoInputs.cache
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.AssemblyInfo.cs
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.CoreCompileInputs.cache
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.MvcApplicationPartsAssemblyInfo.cs
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.BakeryApp.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.build.BakeryApp.props
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.BakeryApp.props
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.BakeryApp.props
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.build.json
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.development.json
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\scopedcss\bundle\BakeryApp.styles.css
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.CopyComplete
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.dll
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\refint\BakeryApp.dll
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.pdb
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.genruntimeconfig.cache
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\ref\BakeryApp.dll

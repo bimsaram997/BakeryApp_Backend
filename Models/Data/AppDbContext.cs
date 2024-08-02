@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models.Data.Address;
 using Models.Data.EnumType;
+using Models.Data.Location;
 using Models.Data.ProductData;
 using Models.Data.RawMaterialData;
 using Models.Data.RecipeData;
@@ -42,5 +43,6 @@ namespace Models.Data
         public DbSet<Stocks> Stock { get; set; }
         public DbSet<StockRawMaterialHistory> StockRawMaterialHistory { get; set; }
         public DbSet<StockItem> StockItem { get; set; }
+        public DbSet<Locations> Location { get; set; }
     }
 }

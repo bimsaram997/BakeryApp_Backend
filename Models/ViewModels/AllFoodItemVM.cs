@@ -23,7 +23,10 @@ namespace Models.ViewModels
         public int? CostCode { get; set; }
         public int? RecipeId { get; set; }
         public string RecipeName { get; set; }
-
+        public double Weight { get; set; }
+        public int Status { get; set; }
+        public int DaysToExpires { get; set; }
+        public int ReOrderLevel { get; set; }
 
     }
 
