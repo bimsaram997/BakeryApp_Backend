@@ -22,6 +22,10 @@ namespace Models.ViewModels.Product
         public DateTime? ModifiedDate { get; set; }
 
         public bool IsDeleted { get; set; }
+        public double Weight { get; set; }
+        public int Status { get; set; }
+        public int DaysToExpires { get; set; }
+        public int ReOrderLevel { get; set; }
 
     }
 

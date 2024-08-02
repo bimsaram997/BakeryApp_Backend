@@ -20,6 +20,9 @@ namespace Models.Filters
         public int? Unit { get; set; }
         public int? CostCode { get; set; }
         public int? RecipeId { get; set; }
+        public double? Weight { get; set; }
+        public int? DaysToExpires { get; set; }
+        public int? ReOrderLevel { get; set; }
 
     }
 

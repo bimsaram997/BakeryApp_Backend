@@ -17,7 +17,7 @@ namespace Models.Data
     }
     public enum RoleEnum
     {
-        Admin = 1,
-        User = 2
+        Admin = 5,
+        User = 4
     }
 }

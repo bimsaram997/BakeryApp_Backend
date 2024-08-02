@@ -2813,11 +2813,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\My Projects\\Bakery App\\Web API\\BakeryApp_Backend\\Repositories\\Repositories.csproj",
+      "projectUniqueName": "C:\\Bakery App\\BackEnd\\Repositories\\Repositories.csproj",
       "projectName": "Repositories",
-      "projectPath": "E:\\My Projects\\Bakery App\\Web API\\BakeryApp_Backend\\Repositories\\Repositories.csproj",
+      "projectPath": "C:\\Bakery App\\BackEnd\\Repositories\\Repositories.csproj",
       "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-      "outputPath": "E:\\My Projects\\Bakery App\\Web API\\BakeryApp_Backend\\Repositories\\obj\\",
+      "outputPath": "C:\\Bakery App\\BackEnd\\Repositories\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2838,8 +2838,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\My Projects\\Bakery App\\Web API\\BakeryApp_Backend\\Models\\Models.csproj": {
-              "projectPath": "E:\\My Projects\\Bakery App\\Web API\\BakeryApp_Backend\\Models\\Models.csproj"
+            "C:\\Bakery App\\BackEnd\\Models\\Models.csproj": {
+              "projectPath": "C:\\Bakery App\\BackEnd\\Models\\Models.csproj"
             }
           }
         }

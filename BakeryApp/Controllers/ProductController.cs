@@ -63,6 +63,10 @@ namespace BakeryApp.Controllers
                         ProductDescription = productRequest.ProductDescription,
                         ImageURL = productRequest.ImageURL,
                         AddedDate = productRequest.AddedDate,
+                        Weight = productRequest.Weight,
+                        Status= productRequest.Status,
+                        DaysToExpires= productRequest.DaysToExpires,
+                        ReOrderLevel = productRequest.ReOrderLevel
                     };
 
                    int productId = _productRepository.Add(product);
@@ -144,7 +148,11 @@ namespace BakeryApp.Controllers
                         SellingPrice = updateItem.SellingPrice,
                         RecipeId = updateItem.RecipeId,
                         ProductDescription = updateItem.ProductDescription,
-                        ImageURL = updateItem.ImageURL
+                        ImageURL = updateItem.ImageURL,
+                        Weight = updateItem.Weight,
+                        Status = updateItem.Status,
+                        DaysToExpires = updateItem.DaysToExpires,
+                        ReOrderLevel = updateItem.ReOrderLevel
 
                     };
                     int updatedFoodItemId = _productRepository.UpdateById(productId, product);
