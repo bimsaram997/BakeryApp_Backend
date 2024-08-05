@@ -28,4 +28,12 @@ namespace Models.ViewModels.Roles
     {
         public List<RolesVM> Items { get; set; }
     }
+
+
+    public class RoleListSimpleVM
+    {
+        public int Id { get; set; }
+        public string RoleName { get; set; }
+
+    }
 }

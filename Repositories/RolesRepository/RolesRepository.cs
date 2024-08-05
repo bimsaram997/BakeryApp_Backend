@@ -6,6 +6,7 @@ using Models.Helpers;
 using Models.ViewModels.Address;
 using Models.ViewModels.EnumType;
 using Models.ViewModels.Location;
+using Models.ViewModels.Recipe;
 using Models.ViewModels.Roles;
 using Models.ViewModels.User;
 using System;
@@ -20,6 +21,7 @@ namespace Repositories.RolesRepository
     {
 
         public PaginatedRoles GetAll(RoleAdvanceFilter filter);
+        public RoleListSimpleVM[] ListSimpeRoles();
 
     }
     public class RolesRepository : IRepositoryBase<RolesVM>, IRolesRepository
@@ -39,6 +41,22 @@ namespace Repositories.RolesRepository
         public int DeleteById(int id)
         {
             throw new NotImplementedException();
+        }
+
+
+        public RoleListSimpleVM[] ListSimpeRoles()
+        {
+            var simpleRoles = _context.Role
+                 .Where(ft => !ft.IsDeleted)
+                 .Select(role => new RoleListSimpleVM()
+                 {
+                     Id = role.Id,
+                     RoleName = role.RoleName,
+
+                 })
+                 .ToArray();
+
+            return simpleRoles;
         }
 
         public PaginatedRoles GetAll(RoleAdvanceFilter filter)

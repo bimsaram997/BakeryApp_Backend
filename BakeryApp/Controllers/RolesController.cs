@@ -11,6 +11,9 @@ using Models.ViewModels.Custom_action_result;
 using Models.ViewModels;
 using Models.Requests.Update_Requests;
 using Models.ViewModels.Product;
+using Microsoft.AspNetCore.Authorization;
+using Models.ViewModels.Recipe;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace BakeryApp.Controllers
 {
@@ -29,6 +32,38 @@ namespace BakeryApp.Controllers
             _iRolesRepository = iRolesRepository;
             _roleRepository = roleRepository;
             
+        }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [HttpGet("listSimpleRole")]
+        public CustomActionResult<ResultView<RoleListSimpleVM[]>> ListSimpleRecipes()
+        {
+            try
+            {
+                // Call the repository to get the list of simple FoodTypes
+                RoleListSimpleVM[] roles = _iRolesRepository.ListSimpeRoles();
+
+                var result = new ResultView<RoleListSimpleVM[]>
+                {
+                    Item = roles
+
+                };
+
+                var responseObj = new CustomActionResultVM<ResultView<RoleListSimpleVM[]>>
+                {
+                    Data = result
+
+                };
+                return new CustomActionResult<ResultView<RoleListSimpleVM[]>>(responseObj);
+            }
+            catch (Exception ex)
+            {
+                var responseObj = new CustomActionResultVM<ResultView<RoleListSimpleVM[]>>
+                {
+                    Exception = ex
+                };
+
+                return new CustomActionResult<ResultView<RoleListSimpleVM[]>>(responseObj);
+            }
         }
 
 

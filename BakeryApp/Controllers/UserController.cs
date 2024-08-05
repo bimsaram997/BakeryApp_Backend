@@ -118,7 +118,6 @@ namespace BakeryApp.Controllers
         {
             try
             {
-                // Call the repository to get the user by ID
                 UserDetailVM user = _iUserRepository.Login(request);
 
                 if (user != null)
@@ -155,7 +154,6 @@ namespace BakeryApp.Controllers
                 }
                 else
                 {
-                    // Handle the case where the user is not found
                     return new CustomActionResult<LoginResult>(new CustomActionResultVM<LoginResult>
                     {
                         Exception = new Exception($"User with email {request.Email} not found.")
@@ -170,8 +168,11 @@ namespace BakeryApp.Controllers
                 });
             }
         }
+
+
+
+     
         [HttpPost("listAdvance")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public CustomActionResult<ResultView<PaginatedUsers>> GetAllUsers([FromBody] UserAdvanceListFilter userAdvanceListFilter)
         {
             try

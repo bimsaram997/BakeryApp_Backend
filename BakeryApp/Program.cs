@@ -1,35 +1,29 @@
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Models.Data;
-using Models.ViewModels;
+using Models.ViewModels.Address;
+using Models.ViewModels.Location;
+using Models.ViewModels.MasterData;
 using Models.ViewModels.Product;
-using Models.ViewModels.FoodType;
 using Models.ViewModels.RawMaterial;
 using Models.ViewModels.Recipe;
-using Repositories;
+using Models.ViewModels.Roles;
+using Models.ViewModels.Stock;
+using Models.ViewModels.Supplier;
+using Repositories.AddressRepository;
+using Repositories.EnumTypeRepository;
+using Repositories.LocationRepository;
+using Repositories.MasterDataRepository;
 using Repositories.ProductRepository;
 using Repositories.RawMarerialRepository;
 using Repositories.RecipeRepository;
-using Repositories.UserRepository;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Repositories.AddressRepository;
-using Models.ViewModels.Address;
-using Models.Helpers;
-using Models.ViewModels.User;
-using Repositories.EnumTypeRepository;
-using Models.ViewModels.MasterData;
-using Repositories.MasterDataRepository;
 using Repositories.RolesRepository;
-using Models.ViewModels.Supplier;
-using Repositories.SupplierRepository;
 using Repositories.StockRepository;
-using Models.ViewModels.Stock;
-using Models.ViewModels.Location;
-using Repositories.LocationRepository;
-using Models.ViewModels.Roles;
+using Repositories.SupplierRepository;
+using Repositories.UserRepository;
+using Repositories;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,10 +45,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
      };
  });
 
-// Add services to the container.
+// Define authorization policies
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
+});
 
+// Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-builder.Configuration.GetConnectionString("DefaultConnectionString")));
+    builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
 builder.Services.AddTransient<IRepositoryBase<ProductVM>, ProductRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
@@ -63,7 +64,6 @@ builder.Services.AddTransient<IRawMaterialRepository, RawMaterialRepository>();
 
 builder.Services.AddTransient<IRepositoryBase<RecipeVM>, RecipeRepository>();
 builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
-
 
 builder.Services.AddTransient<UserRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
@@ -91,7 +91,6 @@ builder.Services.AddTransient<IRepositoryBase<LocationVM>, LocationRepository>()
 builder.Services.AddTransient<ILocationRepository, LocationRepository>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers()
@@ -103,8 +102,6 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
-
-
 
 var app = builder.Build();
 
@@ -122,11 +119,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-//exception handling
-//app.ConfigureBuildInExceptionHandler();
-//app.ConfigurCustomExceptionHandler();
-
 app.MapControllers();
-//AppDbInitializer.Seed(app);
 
 app.Run();
