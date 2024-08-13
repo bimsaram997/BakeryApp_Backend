@@ -37,7 +37,7 @@ namespace BakeryApp.Controllers
         }
         //Add recipe
         [HttpPost("addRecipe")]
-        public CustomActionResult<AddResultVM> AddRecipe([FromBody] AddRecipeRequest     recipeRequest)
+        public CustomActionResult<AddResultVM> AddRecipe([FromBody] AddRecipeRequest recipeRequest)
         {
 
             try

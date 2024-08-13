@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rOjgmuOif3ddVgxhLGPtB+bsmUvU839TUUgFP4dKi6VazyAUxSgeOksvi/sCDePfcBwYK8y0Y8nDYooc/evtfQ==",
+  "dgSpecHash": "gZ2BafcGULE=",
   "success": true,
   "projectFilePath": "C:\\Bakery App\\BackEnd\\Models\\Models.csproj",
   "expectedPackageFiles": [
@@ -65,6 +65,16 @@
     "C:\\Users\\Asus\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.24.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
+      "libraryId": "System.IdentityModel.Tokens.Jwt",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

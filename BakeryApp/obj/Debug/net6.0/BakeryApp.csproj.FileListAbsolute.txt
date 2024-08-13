@@ -546,9 +546,10 @@ C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.pack.json
 C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.build.json
 C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\staticwebassets.development.json
 C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\scopedcss\bundle\BakeryApp.styles.css
-C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.CopyComplete
 C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.dll
 C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\refint\BakeryApp.dll
 C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.pdb
 C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.genruntimeconfig.cache
 C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\ref\BakeryApp.dll
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.sourcelink.json
+C:\Bakery App\BackEnd\BakeryApp\obj\Debug\net6.0\BakeryApp.csproj.Up2Date

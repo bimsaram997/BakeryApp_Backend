@@ -14,6 +14,6 @@ namespace Models.Requests
 
         public string Description { get; set; }
         public string Instructions { get; set; }
-        public List<RecipeRawMaterial> rawMaterials { get; set; }
+        public List<RecipeRawMaterialRequest> rawMaterials { get; set; }
     }
 }
