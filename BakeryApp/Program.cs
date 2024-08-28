@@ -24,6 +24,7 @@ using Repositories.SupplierRepository;
 using Repositories.UserRepository;
 using Repositories;
 using System.Text;
+using Repositories.GRNRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,6 +90,9 @@ builder.Services.AddTransient<IStockItemRepository, StockItemRepository>();
 
 builder.Services.AddTransient<IRepositoryBase<LocationVM>, LocationRepository>();
 builder.Services.AddTransient<ILocationRepository, LocationRepository>();
+
+builder.Services.AddTransient<IGRNRepository, GRNRepository>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

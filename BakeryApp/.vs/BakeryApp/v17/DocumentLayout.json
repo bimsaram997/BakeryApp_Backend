@@ -1,0 +1,194 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Bakery App\\BackEnd\\BakeryApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BEB58036-11CC-4209-853F-999E62249080}|..\\Repositories\\Repositories.csproj|c:\\bakery app\\backend\\repositories\\grnrepository\\grnrepository .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B788FA06-63DA-4480-9B57-D420820AC762}|BakeryApp.csproj|c:\\bakery app\\backend\\bakeryapp\\controllers\\grncontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B788FA06-63DA-4480-9B57-D420820AC762}|BakeryApp.csproj|solutionrelative:controllers\\grncontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6856893F-DB53-4D1B-9630-E59839593F43}|..\\Models\\Models.csproj|c:\\bakery app\\backend\\models\\models.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B788FA06-63DA-4480-9B57-D420820AC762}|BakeryApp.csproj|c:\\bakery app\\backend\\bakeryapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B788FA06-63DA-4480-9B57-D420820AC762}|BakeryApp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEB58036-11CC-4209-853F-999E62249080}|..\\Repositories\\Repositories.csproj|c:\\bakery app\\backend\\repositories\\stockrepository\\stockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6856893F-DB53-4D1B-9630-E59839593F43}|..\\Models\\Models.csproj|c:\\bakery app\\backend\\models\\viewmodels\\stock\\stockvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6856893F-DB53-4D1B-9630-E59839593F43}|..\\Models\\Models.csproj|c:\\bakery app\\backend\\models\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6856893F-DB53-4D1B-9630-E59839593F43}|..\\Models\\Models.csproj|c:\\bakery app\\backend\\models\\data\\stock\\grn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B788FA06-63DA-4480-9B57-D420820AC762}|BakeryApp.csproj|c:\\bakery app\\backend\\bakeryapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B788FA06-63DA-4480-9B57-D420820AC762}|BakeryApp.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B788FA06-63DA-4480-9B57-D420820AC762}|BakeryApp.csproj|c:\\bakery app\\backend\\bakeryapp\\controllers\\locationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B788FA06-63DA-4480-9B57-D420820AC762}|BakeryApp.csproj|solutionrelative:controllers\\locationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6856893F-DB53-4D1B-9630-E59839593F43}|..\\Models\\Models.csproj|c:\\bakery app\\backend\\models\\data\\stock\\stockitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 252,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Models.csproj",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\Models\\Models.csproj",
+              "RelativeDocumentMoniker": "..\\Models\\Models.csproj",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\Models\\Models.csproj",
+              "RelativeToolTip": "..\\Models\\Models.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-08-25T19:41:10.661Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\BakeryApp\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\BakeryApp\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-25T17:35:45.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LocationController.cs",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\BakeryApp\\Controllers\\LocationController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LocationController.cs",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\BakeryApp\\Controllers\\LocationController.cs",
+              "RelativeToolTip": "Controllers\\LocationController.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T17:22:13.811Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GRNController .cs",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\BakeryApp\\Controllers\\GRNController .cs",
+              "RelativeDocumentMoniker": "Controllers\\GRNController .cs",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\BakeryApp\\Controllers\\GRNController .cs",
+              "RelativeToolTip": "Controllers\\GRNController .cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAAwB8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T17:22:09.196Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\BakeryApp\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\BakeryApp\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAAAF0AAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T17:16:05.453Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GRNRepository .cs",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\Repositories\\GRNRepository\\GRNRepository .cs",
+              "RelativeDocumentMoniker": "..\\Repositories\\GRNRepository\\GRNRepository .cs",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\Repositories\\GRNRepository\\GRNRepository .cs",
+              "RelativeToolTip": "..\\Repositories\\GRNRepository\\GRNRepository .cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAAAwEMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T17:09:30.708Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\Models\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "..\\Models\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\Models\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "..\\Models\\Data\\AppDbContext.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAArwDIAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T17:02:39.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "StockItem.cs",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\Models\\Data\\Stock\\StockItem.cs",
+              "RelativeDocumentMoniker": "..\\Models\\Data\\Stock\\StockItem.cs",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\Models\\Data\\Stock\\StockItem.cs",
+              "RelativeToolTip": "..\\Models\\Data\\Stock\\StockItem.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAYwBgAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T17:00:34.124Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GRN.cs",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\Models\\Data\\Stock\\GRN.cs",
+              "RelativeDocumentMoniker": "..\\Models\\Data\\Stock\\GRN.cs",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\Models\\Data\\Stock\\GRN.cs",
+              "RelativeToolTip": "..\\Models\\Data\\Stock\\GRN.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T16:58:40.845Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "StockVM.cs",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\Models\\ViewModels\\Stock\\StockVM.cs",
+              "RelativeDocumentMoniker": "..\\Models\\ViewModels\\Stock\\StockVM.cs",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\Models\\ViewModels\\Stock\\StockVM.cs",
+              "RelativeToolTip": "..\\Models\\ViewModels\\Stock\\StockVM.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAgwAwAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T06:06:11.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StockRepository.cs",
+              "DocumentMoniker": "C:\\Bakery App\\BackEnd\\Repositories\\StockRepository\\StockRepository.cs",
+              "RelativeDocumentMoniker": "..\\Repositories\\StockRepository\\StockRepository.cs",
+              "ToolTip": "C:\\Bakery App\\BackEnd\\Repositories\\StockRepository\\StockRepository.cs",
+              "RelativeToolTip": "..\\Repositories\\StockRepository\\StockRepository.cs",
+              "ViewState": "AQIAALwAAAAAAAAAAAAswFgAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T06:05:24.504Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

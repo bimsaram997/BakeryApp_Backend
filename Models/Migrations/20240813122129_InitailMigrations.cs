@@ -11,26 +11,6 @@ namespace Models.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Address",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Street1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Street2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Country = table.Column<int>(type: "int", nullable: false),
-                    PostalCode = table.Column<int>(type: "int", nullable: false),
-                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Address", x => x.Id);
-                });
 
             migrationBuilder.CreateTable(
                 name: "EnumTypeTranslationMap",

@@ -12,6 +12,7 @@ namespace Models.ViewModels.Stock
         public int Id { get; set; }
         public int Unit { get; set; }
         public int ProductId { get; set; }
+        public string? ProductName { get; set; }
         public int CostCode { get; set; }
         public double SellingPrice { get; set; }
         public double CostPrice { get; set; }

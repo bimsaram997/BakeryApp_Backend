@@ -209,6 +209,10 @@ namespace Repositories.StockRepository
           //  Unit = fi.Unit,
             AddedDate = fi.AddedDate,
             ProductId = fi.ProductId,
+            ProductName = _context.Product
+                    .Where(product => product.Id == fi.ProductId)
+                    .Select(product => product.Name)
+                    .FirstOrDefault(),
             CostCode = fi.CostCode,
             SellingPrice = fi.SellingPrice,
             CostPrice = fi.CostPrice,
