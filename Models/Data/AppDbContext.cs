@@ -25,7 +25,11 @@ namespace Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+            modelBuilder.HasSequence<int>("GRNSequence", schema: "dbo")
+            .StartsAt(1)
+            .IncrementsBy(1);
+
+            base.OnModelCreating(modelBuilder);
         }
         public DbSet<Product> Product { get; set; }
         public DbSet<RawMaterial> RawMaterials { get; set; }
@@ -44,5 +48,6 @@ namespace Models.Data
         public DbSet<StockRawMaterialHistory> StockRawMaterialHistory { get; set; }
         public DbSet<StockItem> StockItem { get; set; }
         public DbSet<Locations> Location { get; set; }
+        public DbSet<GRN> GRNs { get; set; }
     }
 }

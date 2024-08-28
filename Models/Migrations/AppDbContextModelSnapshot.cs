@@ -22,6 +22,8 @@ namespace Models.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.HasSequence<int>("GRNSequence", "dbo");
+
             modelBuilder.Entity("Models.Data.Address.Addresses", b =>
                 {
                     b.Property<int>("Id")
@@ -406,6 +408,29 @@ namespace Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Role");
+                });
+
+            modelBuilder.Entity("Models.Data.Stock.GRN", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GRNNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GRNs");
                 });
 
             modelBuilder.Entity("Models.Data.Stock.StockItem", b =>

@@ -16,7 +16,7 @@ namespace Models.ViewModels.Recipe
         public DateTime AddedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }
-        public List<RecipeRawMaterial> RawMaterials { get; set; }
+        public List<RecipeRawMaterialRequest> RawMaterials { get; set; }
         public string Description { get; set; }
         public string Instructions { get; set; }
     }
@@ -28,6 +28,15 @@ namespace Models.ViewModels.Recipe
         public double rawMaterialQuantity { get; set; }
         public int measureUnit { get; set; }
         public string rawMaterialName { get; set; }
+
+    }
+
+    public class RecipeRawMaterialRequest
+    {
+        public int rawMaterialId { get; set; }
+        public double rawMaterialQuantity { get; set; }
+        public int measureUnit { get; set; }
+        public string? rawMaterialName { get; set; }
 
     }
 

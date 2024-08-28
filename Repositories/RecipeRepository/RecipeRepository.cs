@@ -189,7 +189,7 @@ namespace Repositories.RecipeRepository
                 ModifiedDate = recipe.ModifiedDate,
                 RawMaterials = _context.RawMaterialRecipe
                    .Where(rm => rm.RecipeId == recipe.Id)
-                   .Select(rm => new RecipeRawMaterial
+                   .Select(rm => new RecipeRawMaterialRequest
                    {
                        rawMaterialId = rm.RawMaterialId,
                        rawMaterialQuantity = rm.RawMaterialQuantity,
